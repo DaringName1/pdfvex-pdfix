@@ -1,0 +1,5 @@
+.pdf-view-history{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pdf-zoom-region-overlay{position:absolute;inset:0;z-index:8;cursor:crosshair;touch-action:none;user-select:none}
+.pdf-zoom-region-overlay[hidden],.pdf-zoom-region-box[hidden]{display:none}
+.pdf-zoom-region-overlay:focus-visible{outline:2px solid var(--accent,#008b79);outline-offset:-2px}
+.pdf-zoom-region-box{position:absolute;border:2px solid #008b79;background:#008b7924;pointer-events:none;box-sizing:border-box}

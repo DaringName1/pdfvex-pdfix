@@ -1,0 +1,28 @@
+import './file-fingerprint-workspace.css';
+const node=(tag,text)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;return el;};
+export class FileFingerprintWorkspace{
+ constructor({announce,onClosed}){Object.assign(this,{announce,onClosed});}
+ open(){
+  this.dialog=node('dialog');this.dialog.className='file-fingerprint-workspace';
+  this.dialog.innerHTML='<div class="dialog-header"><h2>Verify a file fingerprint</h2><button class="icon-button" data-close aria-label="Close fingerprint tool">×</button></div><p>Check that a file is exactly the one you were sent: PDFix works out its fingerprint (a SHA-256 code) and compares it with the code the sender gave you. It does not show who made or signed the file.</p><div class="fingerprint-actions"><button class="secondary" data-pick>Choose file and calculate</button><button class="secondary" data-cancel disabled>Cancel calculation</button></div><p role="status" data-status>No file selected.</p><progress hidden></progress><dl data-receipt></dl><label>Expected SHA-256 <input data-expected maxlength="128" spellcheck="false" autocomplete="off" placeholder="Paste the 64-character code you were given"></label><div class="fingerprint-actions"><button class="secondary" data-import>Import receipt</button><button class="secondary" data-compare disabled>Compare</button><button class="secondary" data-export disabled>Export verification receipt</button><button class="text-button" data-clear>Clear</button></div><p data-result role="status"></p>';
+  document.body.append(this.dialog);this.dialog.showModal();
+  for(const [selector,action]of [['pick',()=>this.pick()],['cancel',()=>window.pdfix.cancelFileFingerprint()],['import',()=>this.import()],['compare',()=>this.compare()],['export',()=>this.export()],['clear',()=>this.clear()],['close',()=>this.close()]])this.dialog.querySelector('[data-'+selector+']').onclick=()=>action().catch(error=>this.message(error.message,true));
+  this.dialog.oncancel=event=>{event.preventDefault();this.close().catch(error=>this.message(error.message,true));};
+ }
+ message(value,error=false){if(!this.closed)this.dialog.querySelector('[data-status]').textContent=value;if(error)this.announce(value,true);}
+ controls(){for(const name of ['pick','import','clear','close'])this.dialog.querySelector('[data-'+name+']').disabled=!!this.busy;for(const name of ['compare','export'])this.dialog.querySelector('[data-'+name+']').disabled=!!this.busy||!this.receipt;this.dialog.querySelector('[data-cancel]').disabled=!this.busy;this.dialog.querySelector('[data-expected]').disabled=!!this.busy;}
+ async pick(){
+  if(this.busy)return;this.busy=true;this.receipt=null;this.renderReceipt();this.controls();this.message('Choose a file. Fingerprints are calculated in small chunks without loading the entire file.');
+  const progress=this.dialog.querySelector('progress');progress.hidden=false;progress.removeAttribute('value');
+  this.timer=setInterval(async()=>{try{const state=await window.pdfix.fileFingerprintProgress();if(!this.closed&&state.running){progress.max=Math.max(1,state.total);progress.value=state.completed;this.message(`Checked ${Math.round(state.completed/1048576)} of ${Math.round(state.total/1048576)} MiB…`);}}catch{}},300);
+  try{const receipt=await window.pdfix.pickFileFingerprint();if(!receipt){this.message('Selection canceled.');return;}this.receipt=receipt;this.renderReceipt();this.message('Fingerprint calculated. Compare it with a trusted earlier receipt or expected value.');}
+  finally{clearInterval(this.timer);progress.hidden=true;this.busy=false;this.controls();}
+ }
+ renderReceipt(){const target=this.dialog.querySelector('[data-receipt]');target.replaceChildren();if(!this.receipt)return;for(const [label,value]of [['File',this.receipt.name],['Bytes',String(this.receipt.size)],['SHA-256',this.receipt.sha256],['Checked',this.receipt.checkedAt]])target.append(node('dt',label),node('dd',value));this.dialog.querySelector('[data-result]').textContent='';}
+ async import(){if(this.busy)return;const expected=await window.pdfix.importFileFingerprintReceipt();if(expected){this.dialog.querySelector('[data-expected]').value=expected.sha256;this.message(`Imported fingerprint for ${expected.name||'a selected receipt'}. File names do not establish a match.`);}}
+ async compare(){const result=await window.pdfix.compareFileFingerprint(this.dialog.querySelector('[data-expected]').value);const out=this.dialog.querySelector('[data-result]');out.textContent=result.match?'Match: this file is exactly the one the code describes.':'Mismatch: this file is not the one the code describes. It may have been changed or damaged; do not rely on it.';out.classList.toggle('fingerprint-match',!!result.match);out.classList.toggle('fingerprint-mismatch',!result.match);}
+ async export(){if(this.busy)return;this.busy=true;this.controls();try{const saved=await window.pdfix.saveFileFingerprintReceipt();if(saved)this.message('Verification receipt saved as a new file.');}finally{this.busy=false;this.controls();}}
+ async clear(){await window.pdfix.clearFileFingerprint();this.receipt=null;this.dialog.querySelector('[data-expected]').value='';this.dialog.querySelector('[data-result]').textContent='';this.renderReceipt();this.controls();this.message('Fingerprint and comparison cleared.');}
+ async close(){if(this.closed)return;if(this.busy)throw new Error('Cancel the calculation and wait for it to finish before closing.');await window.pdfix.clearFileFingerprint();this.closed=true;clearInterval(this.timer);this.dialog.close();this.dialog.remove();this.onClosed?.();}
+ async prepareDeparture(){await this.close();}
+}

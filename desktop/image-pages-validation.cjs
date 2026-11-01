@@ -1,0 +1,10 @@
+const path=require('node:path');
+const IMAGE_TYPES=['png','jpg','jpeg','webp','bmp'];
+const keys=(value,allowed)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).every(key=>allowed.includes(key));
+function validImagePages(draft){
+  const fail=()=>{throw new Error('The saved image page collection is invalid.');};
+  if(!keys(draft,['kind','version','sources','pages'])||draft.kind!=='image-pages'||draft.version!==1||!Array.isArray(draft.sources)||!draft.sources.length||draft.sources.length>10||!Array.isArray(draft.pages)||!draft.pages.length||draft.pages.length>100)fail();let total=0;
+  for(const source of draft.sources){if(!keys(source,['path','name','fingerprint','size'])||typeof source.path!=='string'||source.path.length>32767||source.path.includes('\0')||!path.isAbsolute(source.path)||!IMAGE_TYPES.includes(path.extname(source.path).slice(1).toLowerCase())||typeof source.name!=='string'||source.name.length>32767||typeof source.fingerprint!=='string'||!/^[a-f0-9]{64}$/.test(source.fingerprint)||!Number.isInteger(source.size)||source.size<1||source.size>32*1024*1024)fail();total+=source.size;}if(total>100*1024*1024)fail();
+  for(const page of draft.pages){const s=page?.settings;if(!keys(page,['source','settings'])||!Number.isInteger(page.source)||page.source<0||page.source>=draft.sources.length||!keys(s,['rotation','paper','orientation','margin','crop','brightness','contrast','deskew'])||![0,90,180,270].includes(s.rotation)||!['a4','letter','image'].includes(s.paper)||!['auto','portrait','landscape'].includes(s.orientation)||typeof s.margin!=='number'||!Number.isFinite(s.margin)||s.margin<0||s.margin>50)fail();const crop=s.crop??{left:0,top:0,right:0,bottom:0};if(!keys(crop,['left','top','right','bottom'])||['left','top','right','bottom'].some(side=>!Number.isFinite(crop[side])||crop[side]<0||crop[side]>=100)||crop.left+crop.right>=99.9||crop.top+crop.bottom>=99.9||![s.brightness??0,s.contrast??0].every(value=>Number.isFinite(value)&&value>=-100&&value<=100))fail();if(!Number.isFinite(s.deskew??0)||(s.deskew??0)<-15||(s.deskew??0)>15)fail();}return draft;
+}
+module.exports={validImagePages,IMAGE_TYPES};

@@ -1,0 +1,7 @@
+import {validateRichText} from './pdf-content-rich-layout.js';
+export function renderRichText(element,item,scale){
+ validateRichText(item.richText,item.text);element.replaceChildren();let ordinal=0;const doc=element.ownerDocument;
+ for(const p of item.richText){const row=doc.createElement('div'),list=p.list&&p.list!=='none';if(!list)ordinal=0;Object.assign(row.style,{textAlign:p.align||'left',lineHeight:String(p.lineSpacing||1.2),marginLeft:((p.indent||0)*36+(list?18:0)+(p.firstLine==='hanging'?36:0))*scale+'px',marginRight:(p.rightIndent||0)*36*scale+'px',textIndent:(p.firstLine==='first'?36:p.firstLine==='hanging'?-36:0)*scale+'px',paddingTop:(p.spaceBefore||0)*scale+'px',paddingBottom:(p.spaceAfter||0)*scale+'px'});if(list)row.append(doc.createTextNode(p.list==='number'?String(++ordinal)+'. ':'• '));
+  for(const r of p.runs){const span=doc.createElement('span');span.textContent=r.text;Object.assign(span.style,{fontFamily:(r.font||item.font)==='serif'?'"Times New Roman",serif':(r.font||item.font)==='mono'?'"Courier New",monospace':'Arial,sans-serif',fontSize:(r.size||item.size)*scale*(r.script?.length ? .65 : 1)+'px',fontWeight:r.bold?'bold':'normal',fontStyle:r.italic?'italic':'normal',textDecoration:[r.underline?'underline':'',r.strike?'line-through':''].join(' ').trim()||'none',color:r.color||item.color,backgroundColor:r.highlight||'transparent',verticalAlign:r.script==='super'?'super':r.script==='sub'?'sub':'baseline'});row.append(span);}element.append(row);
+ }
+}

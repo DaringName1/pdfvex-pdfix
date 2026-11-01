@@ -1,0 +1,113 @@
+/* Default chrome contrast. Keep document artwork and editable document styles
+   out of these rules: a readability preference must not alter saved content. */
+:root {
+  --teal: #176452;
+  --muted: #506258;
+  --line: #819389;
+  --ui-ink: #172f26;
+  --ui-secondary: #43594e;
+  --ui-control-border: #708278;
+  --ui-selected: #dceee4;
+  --ui-focus: #0755a4;
+  color: var(--ui-ink);
+}
+
+body :is(.nav-label,.brand small,.crumb,.crumb b,.local-badge,
+  .statusbar,.subtitle,.footnote,.empty-state,.capability-chips span,
+  .page-control,.zoom-value,.page-status,.page-total,.pdf-bottom,
+  .search-status,.pdf-search label,.search-result span,.inspector-note,
+  .inspector-note p,.document-title small,.workspace-room-caption,
+  .workspace-room-grid button small,.task-card p,.file-card small,
+  .file-card p,.privacy-card p,.connection-banner p,.info-card p,
+  .dialog-body,dialog .subtitle,dialog label,.drop-zone p,.section-heading p,
+  .phase-label,.empty-recents,.file-details small,.file-badge,kbd,
+  .output-count,.order-number,.page-source small,.review-details,
+  .workspace-tabs small,.editor-menu,.page-ruler,.editor-footer,
+  .workspace-hub p,.document-layout-controls p,.content td.planned,
+  .content td:last-child) {
+  color: var(--ui-secondary);
+}
+
+body :is(.sidebar nav button,.sidebar .nav-button,.sidebar nav button small,
+  .sidebar nav button .icon,.sidebar .nav-button .icon,.thumbnail,
+  .workspace-tabs button,.task-top>.icon) {
+  color: var(--ui-ink);
+}
+body :is(.primary):not(.danger):not(.destructive) {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+body :is(.secondary,.icon-button,.workspace-room-tabs button,
+  .task-card,.file-card,.search-result) {
+  color: var(--ui-ink);
+  border-color: var(--ui-control-border);
+}
+body :is(.global-search,.workspace-room-search input,
+  .pdf-toolbar input,.pdf-toolbar select,.editor-toolbar input,
+  .editor-toolbar select,.reader-inspector input,.reader-inspector select,
+  .content input,.content select,.content textarea,dialog input,
+  dialog select,dialog textarea) {
+  color: var(--ui-ink);
+  border-color: var(--ui-control-border);
+}
+body :is(.content,.sidebar,.pdf-toolbar,.editor-toolbar,dialog) a {
+  color: #075b9a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+body :is(.content,.pdf-toolbar,.editor-toolbar,.reader-inspector,dialog)
+  input:is([type="checkbox"],[type="radio"]) { accent-color: #176452; }
+body :is(.global-search input,.workspace-room-search input,
+  .reader-inspector input,.content input,.content textarea,
+  dialog input,dialog textarea)::placeholder {
+  color: #52665b;
+  opacity: 1;
+}
+body :is(.sidebar nav button.active,.thumbnail.current,
+  .pdf-navigation button[aria-selected="true"]) {
+  color: #123e2d;
+  background: var(--ui-selected);
+  box-shadow: inset 3px 0 0 #176452;
+}
+body .thumbnail.current { border: 2px solid #176452; }
+body .workspace-room-tabs button[aria-selected="true"] {
+  background: #123e2d;
+  border-color: #123e2d;
+  color: #fff;
+}
+body :is(.pdf-toolbar,.editor-toolbar) button[aria-pressed="true"] {
+  color: #123e2d;
+  background: var(--ui-selected);
+  border-color: #176452;
+}
+body :is(.pdf-tool-group,.toolbar-separator) { border-color: var(--line); }
+body .toolbar-separator { background: var(--line); }
+body :is(.page-stage,.editor-canvas) { background-color: #dfe7e2; }
+body :is(button,input,select,textarea,summary,a,[tabindex]):focus-visible {
+  outline: 3px solid var(--ui-focus);
+  outline-offset: 3px;
+}
+body :is(.secondary,.icon-button):hover:not(:disabled) {
+  background-color: #e5eee8;
+  border-color: #385e4b;
+}
+
+/* Keep status meanings and dark-surface text legible in the optional mode. */
+body.ui-contrast { --line: #52665c; --ui-control-border: #52665c; }
+body.ui-contrast :is(.primary,.workspace-room-tabs button[aria-selected="true"]) {
+  color: #fff;
+}
+body.ui-contrast .pdf-message.warning { color: #694912; background: #fff2cf; }
+
+@media (forced-colors: active) {
+  body :is(.thumbnail.current,.sidebar nav button.active) {
+    border-color: Highlight;
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+  body :is(button,input,select,textarea,summary,a,[tabindex]):focus-visible {
+    outline-color: Highlight;
+  }
+}

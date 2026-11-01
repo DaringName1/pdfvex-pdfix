@@ -1,0 +1,19 @@
+const X=require('./pdf-xfdf-import-validation.cjs'),E=require('./pdf-xfdf-validation.cjs');
+const {hash,canonicalJSON,validSource,validToken}=X,MAX_FDF=8*1024*1024,HASH=/^[a-f0-9]{64}$/;
+const fail=()=>{throw new Error('The native FDF request or receipt does not match its exact source and selection.');};
+const exact=(v,keys)=>v&&Object.getPrototypeOf(v)===Object.prototype&&Object.keys(v).sort().join(',')===keys.sort().join(',');
+function fdfBytes(value){return X.xfdfBytes(value);}
+function validFdfInspection(value){if(!exact(value,['fdf']))fail();fdfBytes(value.fdf);return {fdf:value.fdf};}
+function validFdfImportDraft(value){if(!exact(value,['fdf','proposalSha256','keys']))fail();X.validXfdfImportDraft({xfdf:value.fdf,proposalSha256:value.proposalSha256,keys:value.keys});return {...value,keys:[...value.keys]};}
+function records(value,maximum){if(!Array.isArray(value)||value.length!==maximum)fail();for(let i=0;i<value.length;i++){const row=value[i];if(!exact(row,['key','index','objectRef','notes'])||row.key!=='xfdf:'+(i+1)||row.index!==i+1||typeof row.objectRef!=='string'||row.objectRef.length>100||!Array.isArray(row.notes)||row.notes.length>20||row.notes.some(note=>typeof note!=='string'||note.length>2000))fail();}}
+function validFdfProposal(value,sourceSha256,fdfSha256){if(!exact(value,['version','format','sourceSha256','fdfSha256','proposalSha256','bridgeProposal','sourceRecords','notices'])||value.version!==1||value.format!=='FDF'||value.sourceSha256!==sourceSha256||value.fdfSha256!==fdfSha256||!HASH.test(value.proposalSha256)||!Array.isArray(value.notices)||value.notices.length>20||value.notices.some(note=>typeof note!=='string'||note.length>2000)||Buffer.byteLength(canonicalJSON(value))>MAX_FDF)fail();X.validXfdfImportProposal(value.bridgeProposal,sourceSha256,value.bridgeProposal?.xfdfSha256);records(value.sourceRecords,value.bridgeProposal.rows.length);const {proposalSha256,...body}=value;if(hash(Buffer.from(canonicalJSON(body)))!==proposalSha256)fail();return value;}
+function validFdfImportResult(value,draft,sourceSha256){const r=value?.report;if(!exact(value,['bytes','report'])||!exact(r,['version','format','sourceSha256','fdfSha256','proposalSha256','sha256','sourceRecords','pdfReceipt'])||r.version!==1||r.format!=='FDF'||r.sourceSha256!==sourceSha256||r.fdfSha256!==hash(fdfBytes(draft.fdf))||r.proposalSha256!==draft.proposalSha256||r.sha256!==hash(value.bytes)||!HASH.test(r.pdfReceipt?.proposalSha256)||!HASH.test(r.pdfReceipt?.xfdfSha256)||Buffer.byteLength(canonicalJSON(r))>MAX_FDF)fail();
+ // The contained codec independently reparses the native FDF and binds the bridge
+ // before returning. Validate the preserving PDF helper's complete receipt here.
+ // Reuse every structural retention check with an adapted hash binding. The
+ // actual bridge SHA is also checked against the inspected proposal by service.
+ X.validXfdfImportResult({bytes:value.bytes,report:{...r.pdfReceipt,xfdfSha256:r.fdfSha256}},{xfdf:draft.fdf,proposalSha256:r.pdfReceipt.proposalSha256,keys:draft.keys},sourceSha256);
+ if(!Array.isArray(r.sourceRecords)||!r.sourceRecords.length||r.sourceRecords.length>1000)fail();records(r.sourceRecords,r.sourceRecords.length);return value;}
+function validFdfExportDraft(value){const draft=E.validXfdfDraft(value);if(draft.keys.length>1000)throw new Error('Choose at most 1,000 comments per native FDF exchange.');return draft;}
+function validFdfExportResult(value,draft,sourceSha256){E.validXfdfResult(value,draft,sourceSha256);if(value.report.format!=='FDF'||value.report.nativeReadback!==true||!Buffer.from(value.bytes).subarray(0,8).equals(Buffer.from('%FDF-1.2')))fail();return value;}
+module.exports={hash,canonicalJSON,validSource,validToken,MAX_FDF,fdfBytes,validFdfInspection,validFdfImportDraft,validFdfProposal,validFdfImportResult,validFdfExportDraft,validFdfExportResult};

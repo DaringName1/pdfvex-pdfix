@@ -1,0 +1,11 @@
+import {test,expect} from '@playwright/test';import fs from 'node:fs/promises';import path from 'node:path';import {tableActions} from '../../scripts/user-robot/actions-codex.mjs';
+import {launchReader} from '../helpers/reader-launch.mjs';import {closeReaderApp} from '../helpers/reader-desktop.mjs';
+for(const [width,height,scale]of [[1366,820,1],[800,620,1],[800,620,1.5]])test(`main-page table extraction saves every CSV/XLSX cell and cancellation retains review (${width}, ${scale})`,async({},info)=>{
+ await fs.mkdir('.test-data',{recursive:true});const root=await fs.mkdtemp(path.resolve('.test-data/inline-table-')),app=await launchReader({args:['.'],env:{...process.env,PDFIX_TEST_DATA:path.join(root,'profile'),PDFIX_TEST_VISIBLE:'0'}},info),page=await app.firstWindow(),errors=[];page.on('pageerror',error=>errors.push(error.message));
+ try{
+  await app.evaluate(({BrowserWindow},[w,h])=>BrowserWindow.getAllWindows()[0].setSize(w,h),[width,height]);await page.waitForLoadState('domcontentloaded');
+  if(scale!==1){await page.getByRole('button',{name:/Settings/}).click();await page.getByRole('combobox',{name:'Interface text size',exact:true}).selectOption(String(scale));await page.getByRole('button',{name:'Home',exact:true}).click();}
+  const ctx={files:path.join(root,'files'),goHome:async()=>{const back=page.getByRole('button',{name:'Back to Home',exact:true});if(await back.isVisible())await back.click();await page.getByRole('button',{name:'Home',exact:true}).click();},chooseFile:file=>app.evaluate(({dialog},file)=>{dialog.showOpenDialog=async()=>({canceled:false,filePaths:[file]});},file),saveAs:file=>app.evaluate(({dialog},filePath)=>{dialog.showSaveDialog=async()=>({canceled:false,filePath});},file),cancelSave:()=>app.evaluate(({dialog})=>{dialog.showSaveDialog=async()=>({canceled:true});}),capture:async name=>{await page.screenshot({path:info.outputPath(name+'.png'),animations:'disabled'});expect(await page.locator('body').evaluate(body=>body.scrollWidth<=innerWidth)).toBe(true);}};
+  await tableActions[0].run(page,ctx);expect(await tableActions[0].verify(ctx)).toMatchObject({pass:true,problems:[]});expect(errors).toEqual([]);
+ }finally{await closeReaderApp(app);}
+});

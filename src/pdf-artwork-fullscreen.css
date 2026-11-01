@@ -1,0 +1,11 @@
+#app.pdf-artwork-fullscreen{grid-template-columns:minmax(0,1fr)!important}
+.pdf-artwork-fullscreen>.sidebar,.pdf-artwork-fullscreen>.main>.topbar,.pdf-artwork-fullscreen>.skip{display:none!important}
+.pdf-artwork-host>.pdf-toolbar,.pdf-artwork-host>.pdf-message,.pdf-artwork-host>.pdf-bottom,.pdf-artwork-host>:not(.pdf-body){display:none!important}
+.pdf-artwork-host .pdf-body{display:flex!important;min-height:0}
+.pdf-artwork-host .pdf-body>:not(.page-stage){display:none!important}
+#app .pdf-artwork-host .page-stage{position:fixed;inset:0;z-index:25;margin:0;padding:8px;outline:0;background:#202724}
+.pdf-artwork-host .region-layer,.pdf-artwork-host .drawing-measurement-overlay{display:none!important}
+.pdf-artwork-exit{position:fixed;right:14px;top:12px;z-index:26;opacity:0;pointer-events:none;transition:opacity .18s}
+.pdf-artwork-exit.is-visible,.pdf-artwork-exit:focus-within{opacity:1;pointer-events:auto}
+.pdf-artwork-exit button{box-shadow:0 3px 16px #0005}
+@media(prefers-reduced-motion:reduce){.pdf-artwork-exit{transition:none}}

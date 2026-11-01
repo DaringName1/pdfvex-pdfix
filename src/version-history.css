@@ -1,0 +1,25 @@
+.version-history{background:#fff;width:min(1060px,94vw);max-width:1060px;max-height:90vh;overflow:auto;padding:26px}.version-policy{font-size:12px;color:#6e8076;line-height:1.7;border-bottom:1px solid var(--line);padding-bottom:14px}.version-create{display:flex;gap:14px;align-items:end;margin:18px 0}.version-create label{font-size:12px;flex:1;color:#6b8070}.version-create input{display:block;padding:10px;width:100%;border:1px solid var(--line);border-radius:7px;margin-top:7px}.version-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;min-height:300px}.version-list{max-height:420px;overflow:auto}.version-row{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fafcf9;border-radius:8px;padding:13px;margin-bottom:8px}.version-row b,.version-row span{display:block}.version-row b{font-size:13px}.version-row span{font-size:11px;color:#75887a;margin-top:5px}.version-row[aria-pressed=true]{background:#eaf4ed;border-color:#9fbea8}.version-preview{min-width:0;border:1px solid var(--line);border-radius:9px;padding:18px}.version-preview h3{font-size:15px;margin:0 0 8px}.version-preview p{font-size:11px;color:#7a8a7f;margin:0 0 14px}.version-preview pre{white-space:pre-wrap;overflow:auto;max-height:350px;font:14px/1.6 'Segoe UI',sans-serif;word-break:break-word}.version-bottom{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:20px}.version-status{font-size:12px;color:#6e8373}.editor-menu .history-button{font-size:11px;padding:5px 8px;white-space:nowrap}.recovery-alert{padding:12px 24px;background:#fff0e9;color:#894632;border-bottom:1px solid #eac9bb;font-size:12px;display:flex;align-items:center;gap:14px}.recovery-alert p{margin:0;flex:1}.privacy-actions{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}.recovery-summary{font-size:12px;color:#74867a}.recovery-cleanup{background:#fff}.recovery-cleanup p{font-size:13px;line-height:1.8}.cleanup-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:20px}@media(max-width:850px){.version-layout{grid-template-columns:1fr}.version-list{max-height:220px}.version-create{flex-wrap:wrap}.editor-menu{gap:10px;padding:10px 14px}}
+/* One history list; keep actions reachable while the entries and preview scroll. */
+.version-history{display:flex;flex-direction:column;width:min(1060px,94vw);max-height:calc(100dvh - 32px);padding:18px;overflow:hidden;box-sizing:border-box}
+.version-history:not([open]){display:none}
+.version-history>.dialog-header{flex:none;margin:0 0 10px;gap:8px}
+.version-history .history-content{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain}
+.version-history .version-policy{margin:0;padding:4px 0 8px;line-height:1.5}
+.version-history .version-policy summary{cursor:pointer}
+.version-history .version-create{gap:10px;margin:12px 0;align-items:end}
+.version-history .version-create label{min-width:120px}
+.version-history .version-create input{box-sizing:border-box;max-width:100%}
+.version-history .version-layout{grid-template-columns:minmax(180px,32%) minmax(0,1fr);gap:14px;min-height:160px}
+.version-history .version-list{max-height:40vh}
+.version-history .version-row{overflow-wrap:anywhere;box-sizing:border-box}
+.version-history .version-row small{display:block;margin-top:5px;font-size:11px;color:var(--muted,#53685e)}
+.version-history .version-preview{padding:12px}
+.version-history .version-preview pre{margin:0;max-height:32vh}
+.version-history .version-bottom{flex:none;display:block;margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.version-history .version-status{margin:0 0 8px;line-height:1.4}
+.version-history .history-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.version-history .history-actions button{max-width:100%;white-space:normal}
+.version-history :where(button,input,pre,summary):focus-visible{outline:2px solid var(--teal,#216d4c);outline-offset:2px}
+@media(max-width:850px){.version-history{padding:12px}.version-history .version-layout{grid-template-columns:1fr}.version-history .version-list{max-height:24vh}.version-history .version-create{align-items:stretch}.version-history .version-preview pre{max-height:24vh}}
+
+@media(min-width:651px) and (max-width:850px){.version-history .version-layout{grid-template-columns:minmax(180px,32%) minmax(0,1fr)}}

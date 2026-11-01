@@ -1,0 +1,10 @@
+.reader-panel-rail{order:100;flex:0 0 38px;min-height:0;display:flex;flex-direction:column;align-items:center;gap:3px;overflow-y:auto;overflow-x:hidden;padding:6px 2px;box-sizing:border-box;border-left:1px solid var(--line);background:var(--surface,#fff)}
+.reader-panel-rail>button{display:grid;place-items:center;width:32px;min-width:32px;min-height:34px;padding:6px;border:0;border-radius:4px;background:transparent;color:var(--ink,#183b35)}
+.reader-panel-rail>button svg{width:19px;height:19px;pointer-events:none}
+.reader-panel-rail>button:hover:not(:disabled),.reader-panel-rail>button[aria-pressed=true]{background:#e5f0e7}
+.reader-panel-rail>button:focus-visible{outline:2px solid var(--teal,#216d4c);outline-offset:-2px}
+.reader-one-place .pdf-body[data-options-folded]>.reader-options-panel,.reader-one-place .pdf-body[data-options-folded]>.reader-tool-options{display:none!important}
+
+@media(max-height:650px){.reader-panel-rail{gap:0;padding-top:2px;padding-bottom:2px}.reader-panel-rail>button{min-height:28px;height:28px;padding:4px}.reader-panel-rail>button svg{width:18px;height:18px}}
+
+@media(max-height:650px){body:not([data-ui-scale="1"]) #app .reader-panel-rail>button{min-height:28px}}

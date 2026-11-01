@@ -1,0 +1,3 @@
+import {RedactionWriter} from './redaction-output.js';
+const writer=new RedactionWriter();let failed=false;
+self.onmessage=async({data})=>{if(failed)return;try{let value;if(data.action==='begin'){await writer.begin(data.pages,data.draft);value={ready:true};}else if(data.action==='page'){writer.page(data.index,data.rgb);value={page:data.index};}else if(data.action==='finish')value=await writer.finish();else throw new Error('Unknown redaction writer action.');self.postMessage({ok:true,value},value.bytes?[value.bytes.buffer]:[]);}catch(error){failed=true;self.postMessage({ok:false,message:error.message});}};

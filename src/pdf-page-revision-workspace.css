@@ -1,0 +1,13 @@
+.pdf-page-revision{width:min(1480px,94vw);max-height:92vh;overflow:auto;padding:1.25rem;border:1px solid var(--border,#758494);border-radius:12px;background:var(--surface,#fff);color:var(--text,#1e293b)}
+.pdf-page-revision::backdrop{background:rgb(15 23 42 / 55%)}
+.pdf-revision-actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.65rem 0}
+.pdf-revision-actions select{max-width:100%;padding:.45rem}
+.pdf-revision-mappings{padding-left:1.5rem}.pdf-revision-mappings>li{padding:.7rem;margin:.6rem 0;border:1px solid var(--border,#758494);border-radius:6px}
+.pdf-page-revision pre{font-size:.75rem;max-height:220px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.pdf-revision-comment-list{max-height:320px;overflow:auto;padding:.5rem}
+.pdf-revision-comment-list label{display:flex;gap:.5rem;align-items:flex-start;margin:.55rem 0;overflow-wrap:anywhere}
+.pdf-revision-review{display:flex;align-items:flex-start;gap:.6rem;margin:.8rem 0}.pdf-revision-review input,.pdf-revision-comment-list input{flex:none;margin-top:.2rem}
+.pdf-revision-warning{color:var(--danger,#a32929)}
+.pdf-revision-artwork{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.pdf-revision-artwork figure{margin:0;min-width:0}.pdf-revision-artwork figcaption{margin:.5rem 0;font-weight:600}.pdf-revision-artwork canvas{max-width:100%;height:auto;border:1px solid var(--border,#758494);background:white}
+.pdf-page-revision textarea{width:100%;height:180px;margin:.6rem 0;font-family:monospace;font-size:.75rem}
+@media(max-width:900px){.pdf-revision-artwork{grid-template-columns:1fr}.pdf-page-revision{width:94vw}}

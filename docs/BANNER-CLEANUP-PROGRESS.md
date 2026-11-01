@@ -1,0 +1,5 @@
+# PDFix banner cleanup
+
+Removed the repeated sidebar privacy card, preview labels, topbar local-workspace badge, shell status footer, Home AI promotion and task availability badges, and static PDF-reader reassurance text. Privacy and development details remain in Settings; page status and operation/error messages remain available. Long editor format/import notes now use a closed-by-default native disclosure, hidden when empty. Import failures automatically expand it; recovery-save failure alerts and source-preview controls are outside the disclosure.
+
+Source syntax checks passed for app.js, document-editor.js, pdf-reader.js and source-preview.js. Compilation passed: 244 modules, renderer index-sL_bsGWS.js, stylesheet index-D3kjXCNU.css. Existing large-chunk build warning remains. No application/runtime tests were run. The user's running PDFix window was not interrupted; reopening the app loads the changed build. This is implemented and compiled, with visual/runtime acceptance still pending.

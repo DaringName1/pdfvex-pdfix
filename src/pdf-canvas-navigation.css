@@ -1,0 +1,2 @@
+.page-stage.pdf-hand-mode,.page-stage.pdf-hand-mode .pdf-paper,.page-stage.pdf-hand-mode .textLayer,.page-stage.pdf-hand-mode .textLayer span{cursor:grab}
+.page-stage.pdf-hand-dragging,.page-stage.pdf-hand-dragging *{cursor:grabbing!important;user-select:none!important}

@@ -1,0 +1,8 @@
+.saved-copy-receipt{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;flex:none;gap:8px 16px;padding:8px 14px;border-bottom:1px solid var(--line,#cbd9d0);background:#edf5ef;min-width:0;max-height:30vh;overflow:auto;box-sizing:border-box}.saved-copy-receipt>div{min-width:0}.saved-copy-receipt>div:first-child{flex:1 1 180px}.saved-copy-receipt p{margin:0;overflow-wrap:anywhere;font-size:calc(13px * var(--ui-font-scale,1));font-weight:600}.saved-copy-receipt small{font-size:calc(12px * var(--ui-font-scale,1));overflow-wrap:anywhere}.saved-copy-receipt>div:last-child{display:flex;flex-wrap:wrap;gap:8px}.saved-copy-receipt button{white-space:normal;max-width:100%}
+
+/* Keep both choices visible beside the saved filename on laptop windows. */
+@media(max-width:900px){.saved-copy-receipt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:6px 10px;align-items:center}.saved-copy-receipt>div:last-child{flex-wrap:wrap;justify-content:flex-end;max-width:340px;gap:5px}.saved-copy-receipt button{font-size:calc(12px * var(--ui-font-scale,1));padding:5px 8px;max-width:150px;line-height:1.25}.saved-copy-receipt p{font-size:calc(12px * var(--ui-font-scale,1))}.saved-copy-receipt small{font-size:calc(11px * var(--ui-font-scale,1));line-height:1.25}}
+@media(max-width:580px){.saved-copy-receipt{display:flex}.saved-copy-receipt>div:last-child{flex-wrap:wrap}}
+.saved-copy-receipt[data-copy-state=error]{background:#fff3ed;border-color:#c99580;color:#69341f}
+/* Preserve writing space on short windows; every receipt choice stays scrollable. */
+@media(max-height:650px){.saved-copy-receipt{max-height:14vh}}

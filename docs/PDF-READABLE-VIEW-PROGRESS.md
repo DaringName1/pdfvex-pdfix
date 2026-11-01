@@ -1,0 +1,9 @@
+# Responsive readable PDF text — F02/F03/A24
+
+Saved code extends the existing readable-text view with local preferences for type size (14–32 px), line spacing, text width, inferred separated columns, visible rows, original PDF content sequence, explicitly chosen two/three-column order and left/right half views. A control returns directly to the exact page artwork. Source page references stay visible and the PDF is never rewritten by these preferences.
+
+Each reflow uses only the current physical page, actual PDF.js text and the reader's copy-permission decision. Run bounds account for the text baseline and original page rotation/UserUnit. Row ordering follows RTL run direction where the row has an RTL majority; paragraph direction uses browser automatic text direction. Automatic column gaps are proposals, with spanning text and difficult layouts explicitly flagged for manual review. A selected half intentionally omits other text from this view and says so. No text, OCR, font mapping or semantic tag is fabricated.
+
+Per-page processing is bounded to 20,000 runs and 200,000 text characters. Row assembly avoids scanning every previous row; only one readable page is retained. The hidden readable view does not construct duplicate paragraphs during ordinary artwork navigation. Preferences store settings only, without document text. Controls wrap and narrow reading margins at small widths.
+
+This is meaningful responsive reflow groundwork, not a released mobile client or proof of correct semantic order. Tables, captions, multi-column overlap, drawings, vertical writing, untagged content and missing glyph mappings still require source comparison, stronger semantic reconstruction and a representative corpus. Source syntax checks and compilation are recorded separately; no runtime/UI/document tests were performed for this addition.

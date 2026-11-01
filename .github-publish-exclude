@@ -1,0 +1,5 @@
+# Paths that never leave this PC when uploading to GitHub (scripts/publish-github.mjs).
+# Real client and family files stay local; tests use generated fixtures instead.
+samples/dad-drawing-review
+docs/DAD-DRAWING-REVIEW-SAMPLES.md
+pdfix information form owner

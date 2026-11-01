@@ -1,0 +1,29 @@
+import {validBatesSettings,batesSequence} from './pdf-bates-model.js';
+export const DECORATION_TEMPLATE_STORAGE_KEY='pdfix-decoration-templates-v1';
+export const DECORATION_TEMPLATE_MAX_BYTES=64*1024,DECORATION_TEMPLATE_MAX_COUNT=20;
+const ITEMS=['pageNumbers','header','footer','watermark','stamp'],FONTS=['Helvetica','Times-Roman','Courier'],POSITIONS=['top-left','top-center','top-right','middle-left','center','middle-right','bottom-left','bottom-center','bottom-right'];
+const object=(value,allowed)=>{if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>!allowed.includes(key)))throw new Error('The decoration template contains unsupported fields. Source pages, IDs and output receipts cannot be stored.');};
+const number=(value,min,max,label)=>{if(typeof value!=='number'||!Number.isFinite(value)||value<min||value>max)throw new Error(`Choose ${label} between ${min} and ${max}.`);return value;};
+export const decorationTemplateNameKey=name=>name.normalize('NFKC').toLocaleLowerCase('en-US');
+// Mirrors the native decoration validator for style-only settings. Page selection is intentionally excluded.
+export function validateDecorationTemplateStyle(value){
+ object(value,['version','font','marginMm',...ITEMS]);if(value.version!==1||!FONTS.includes(value.font))throw new Error('Choose Helvetica, Times Roman or Courier for a decoration template.');number(value.marginMm,2,50,'the page inset in millimeters');
+ const result={version:1,font:value.font,marginMm:value.marginMm};let enabled=0;
+ for(const kind of ITEMS){const item=value[kind];object(item,['enabled','text','size','color','opacity','position',...(kind==='watermark'?['angle']:kind==='pageNumbers'?['start','mode','prefix','suffix','padding']:[])]);
+  if(typeof item.enabled!=='boolean'||typeof item.text!=='string'||item.text.length>200||/[^\x20-\x7e]/.test(item.text)||typeof item.color!=='string'||!/^#[0-9a-f]{6}$/i.test(item.color)||!POSITIONS.includes(item.position))throw new Error('Decorations need single-line ASCII text, a supported position and a six-digit color.');
+  number(item.size,6,144,'the text size in points');number(item.opacity,.05,1,'the opacity');if(item.enabled){if(!item.text.trim()&&!(kind==='pageNumbers'&&item.mode==='bates'))throw new Error('Enabled decorations need visible text.');enabled++;}
+  if(kind==='stamp'&&!['DRAFT','APPROVED','REVIEWED'].includes(item.text))throw new Error('Choose the Draft, Approved or Reviewed stamp.');if(kind==='header'&&!item.position.startsWith('top-')||kind==='footer'&&!item.position.startsWith('bottom-'))throw new Error('Headers need a top position and footers need a bottom position.');
+  const copy={enabled:item.enabled,text:item.text,size:item.size,color:item.color.toLowerCase(),opacity:item.opacity,position:item.position};
+  if(kind==='watermark'){if(![-45,0,45].includes(item.angle))throw new Error('Choose a -45, 0 or 45 degree watermark angle.');copy.angle=item.angle;}
+  if(kind==='pageNumbers'){
+   if(item.mode!==undefined&&!['standard','bates'].includes(item.mode))throw new Error('Choose standard page numbers or Bates numbering.');
+   if(item.mode==='bates'){Object.assign(copy,validBatesSettings(item));if(item.enabled)batesSequence(copy,[0]);}
+   else{if(item.prefix!==undefined||item.suffix!==undefined||item.padding!==undefined)throw new Error('Bates prefix, suffix and padding require Bates mode.');if(!Number.isInteger(item.start)||item.start<1||item.start>100000)throw new Error('Choose a numbering start from 1 to 100,000.');if(!/\{(?:page|total|n)\}/.test(item.text)||/[{}]/.test(item.text.replace(/\{(?:page|total|n)\}/g,'')))throw new Error('Page numbers support {page}, {total} and {n} placeholders.');copy.start=item.start;if(item.mode!==undefined)copy.mode=item.mode;}
+  }
+  result[kind]=copy;
+ }
+ if(!enabled)throw new Error('Enable at least one decoration before saving its template.');return result;
+}
+export function validateDecorationTemplate(value){object(value,['name','settings']);if(typeof value.name!=='string'||value.name!==value.name.trim()||!value.name||value.name.length>60||/[\u0000-\u001f\u007f]/.test(value.name))throw new Error('Use a template name of 1–60 characters without control characters.');return {name:value.name,settings:validateDecorationTemplateStyle(value.settings)};}
+export function decodeDecorationTemplates(raw){if(raw===null)return [];if(new TextEncoder().encode(raw).length>DECORATION_TEMPLATE_MAX_BYTES)throw new Error('Saved decoration templates exceed 64 KB.');let value;try{value=JSON.parse(raw);}catch{throw new Error('Saved decoration templates are not readable JSON.');}object(value,['version','templates']);if(value.version!==1||!Array.isArray(value.templates)||value.templates.length>DECORATION_TEMPLATE_MAX_COUNT)throw new Error('The saved decoration-template format is unsupported.');const names=new Set();return value.templates.map(template=>{const checked=validateDecorationTemplate(template),key=decorationTemplateNameKey(checked.name);if(names.has(key))throw new Error('Saved decoration-template names are duplicated.');names.add(key);return checked;});}
+export function captureDecorationTemplateStyle(workspace){const style={version:1,font:workspace.font.value,marginMm:Number(workspace.margin.value)};for(const [kind,{map}]of workspace.cards){style[kind]={enabled:map.enabled.checked,text:map.text.value,size:Number(map.size.value),color:map.color.value,opacity:Number(map.opacity.value),position:map.position.value};if(map.angle)style[kind].angle=Number(map.angle.value);if(map.start)style[kind].start=(map.start.value===''?NaN:Number(map.start.value));if(map.mode){style[kind].mode=map.mode.value;if(map.mode.value==='bates'){style[kind].prefix=map.prefix.value;style[kind].suffix=map.suffix.value;style[kind].padding=Number(map.padding.value);}}}return validateDecorationTemplateStyle(style);}

@@ -1,0 +1,12 @@
+.text-statistics-workspace{position:relative;padding:12px 22px;border-bottom:1px solid var(--line,#dce6dc);background:#fafcf8;color:var(--ink,#33473b);font-size:12px}
+.text-statistics-workspace[hidden]{display:none}
+.text-statistics-workspace h2{font-size:14px;margin:0 75px 9px 0}
+.text-statistics-close{position:absolute;right:22px;top:10px}
+.text-statistics-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.text-statistics-controls select,.text-statistics-controls button,.text-statistics-close{border:1px solid var(--line,#dce6dc);border-radius:5px;background:#fff;padding:5px 8px;color:inherit}
+.text-statistics-controls label{display:inline-flex;align-items:center;gap:4px}
+.text-statistics-status{margin:8px 0 5px;color:#617568}
+.text-statistics-results{display:grid;grid-template-columns:max-content max-content;gap:3px 16px;margin:0;font-variant-numeric:tabular-nums}
+.text-statistics-results dt{color:#617568}.text-statistics-results dd{margin:0;font-weight:600}
+.text-statistics-notes{margin:8px 0 0;color:#617568}
+.text-statistics-footer-button{border:0;background:transparent;color:#34644b;text-decoration:underline;cursor:pointer;font:inherit;padding:0 4px}

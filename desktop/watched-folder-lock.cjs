@@ -1,0 +1,10 @@
+'use strict';
+const path=require('node:path'),{spawn}=require('node:child_process');
+// The lease allows readers but denies writers/deletion for the snapshot lifetime.
+// Input is JSON stdin; no source path is interpolated into executable text.
+const SCRIPT=`$ErrorActionPreference='Stop'; $f=$null; try { $r=ConvertFrom-Json -InputObject ([Console]::ReadLine()); $f=[IO.File]::Open([string]$r.path,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read); [Console]::WriteLine('READY'); [Console]::ReadLine() | Out-Null } catch { [Console]::WriteLine('LOCKED') } finally { if($null -ne $f){$f.Dispose()} }`;
+function acquireReadLease(filename){
+ if(process.platform!=='win32')throw new Error('Watched-folder reading currently requires the Windows read-lease broker.');
+ return new Promise((resolve,reject)=>{const child=spawn(path.join(process.env.SystemRoot||'C:\\Windows','System32','WindowsPowerShell','v1.0','powershell.exe'),['-NoLogo','-NoProfile','-NonInteractive','-EncodedCommand',Buffer.from(SCRIPT,'utf16le').toString('base64')],{windowsHide:true,stdio:['pipe','pipe','ignore']});let ready=false,closed=false,output='',settled=false;const timer=setTimeout(()=>fail(),10000);const fail=()=>{clearTimeout(timer);child.kill();if(!settled){settled=true;reject(new Error('The PDF is locked, unavailable, or its read lease could not be obtained. Close the writer and retry after review.'));}};child.stdout.setEncoding('utf8');child.stdout.on('data',chunk=>{output+=chunk;if(output.length>100)fail();if(output.includes('\n')&&!settled){if(output.trim()!=='READY')return fail();settled=ready=true;clearTimeout(timer);resolve({check(){if(!ready||closed)throw Error('The PDF read lease ended before its snapshot was sealed.');},async close(){if(closed)return;ready=false;child.stdin.end('\n');await new Promise(done=>{const timeout=setTimeout(()=>{child.kill();done();},2000);child.once('close',()=>{clearTimeout(timeout);done();});});}});}});child.on('error',fail);child.on('close',()=>{closed=true;ready=false;if(!settled)fail();});child.stdin.on('error',fail);child.stdin.write(JSON.stringify({path:filename})+'\n');});
+}
+module.exports={acquireReadLease};

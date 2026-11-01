@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Build Home</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root{--surface-0:#eef1ef;--surface-1:#f6f7f6;--surface-2:#fff;--surface-3:#fff;--border:#dfe3e0;--border-strong:#c5ccc7;--text-primary:#1d2420;--text-secondary:#5c6660;--text-muted:#8c958f;--green:#0F6E56;--green-bg:#e3f2ec;--green-text:#0b5a46;--green-border:#9fd2bf}
+body{margin:0;background:var(--surface-1);font-family:"Segoe UI",system-ui,sans-serif;color:var(--text-primary);padding:16px}
+.note{max-width:1100px;margin:0 auto 14px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;line-height:1.55}
+.note h1{font-size:18px;margin:0 0 6px;font-weight:600}
+.note ol{margin:6px 0 0 18px;padding:0}
+.wrap{max-width:1100px;margin:0 auto}
+.app{display:flex;border:1px solid var(--border-strong);border-radius:10px;overflow:hidden;background:var(--surface-2);font-size:13px}
+.rail{width:46px;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:18px;padding:12px 0;color:var(--text-secondary);font-size:19px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:10px;padding:6px 10px;border-bottom:1px solid var(--border)}
+.btn{border:1px solid var(--border-strong);border-radius:7px;padding:4px 10px;white-space:nowrap;cursor:pointer;font-size:12.5px;background:#fff}
+.ftab{font-size:12.5px;padding:5px 10px;border:1px solid var(--border);border-bottom:none;border-radius:7px 7px 0 0;color:var(--text-secondary);white-space:nowrap}
+.ftab.on{background:#fff;color:var(--text-primary)}
+.kind{font-size:10px;border:1px solid var(--border-strong);border-radius:3px;padding:0 3px;margin-right:5px;color:var(--text-secondary)}
+.tab{padding:7px 2px;cursor:pointer;color:var(--text-secondary);border-bottom:2px solid transparent;white-space:nowrap}
+.tab.on{color:var(--text-primary);font-weight:600;border-bottom-color:var(--green)}
+.tab.off{color:var(--text-muted)}
+.ribbon{display:flex;align-items:stretch;padding:8px 0;border-bottom:1px solid var(--border);position:relative;height:96px;box-sizing:border-box}
+.grp{display:flex;flex-direction:column;align-items:center;padding:0 12px;border-right:1px solid var(--border)}
+.gl{font-size:10.5px;color:var(--text-muted);margin-top:auto;letter-spacing:.04em;text-transform:uppercase}
+.ib{width:28px;height:26px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;cursor:pointer;font-size:16px}
+.ib:hover,.tile:hover{background:var(--surface-1)}
+.tile{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 8px;border-radius:7px;cursor:pointer;font-size:12px;text-align:center;max-width:96px}
+.tile i{font-size:22px}
+.sel{height:26px;font-size:12px;padding:0 4px}
+.sw{padding:7px 16px;border-radius:8px;cursor:pointer;border:1px solid var(--border-strong);background:#fff}
+.sw.on{background:var(--green-bg);color:var(--green-text);border-color:var(--green-border)}
+</style>
+</head>
+<body>
+<div class="note">
+<h1>Unified Build: same tabs on PDFs and documents, Home = all text tools</h1>
+Owner decisions, October 28, 2026 (mockup by Claude, reviewed with the owner). <b>This shows the idea, not exact pixels:
+Codex may adjust spacing, sizes and styling so it looks right in the real app.</b>
+<ol>
+<li>Same tabs, same order, on PDF and new-document Build: File, Home, Insert, Edit, Review, Fill &amp; Sign, Pages, View, Protect, Measure, Export. Review = PDF Comment + document Review; Pages = PDF Pages + document Layout. A tab that can't work for the file type stays in place, greyed out with a short reason (Measure on documents).</li>
+<li>Home = every text tool, the same on both: Style; Font (font, size, B, I, U, S, superscript, subscript, color, highlight, clear style); Paragraph (bullets, numbering, indents, Spacing menu with line spacing, space before/after, first line, right indent; four alignments); Find. On a PDF they apply to text typed on the page (e.g. a school worksheet).</li>
+<li>All other tabs keep the current big icon + name tiles in labelled groups (as the PDF Pages tab looks now). Home keeps the same toolbar height so the page doesn't jump.</li>
+<li>The PDF's current Home tools move to Edit, Review, Fill &amp; Sign and Pages.</li>
+<li>No "Name" box in the tab row: double-click the name at the top left to rename.</li>
+<li>Quick edit stays without tabs.</li>
+</ol>
+Try: switch PDF / New document, click tabs, double-click the name, click Spacing.
+</div>
+<div class="wrap">
+<div style="display:flex;gap:8px;margin:0 0 12px">
+<span class="sw on" id="swPdf" onclick="setMode('pdf')">Open PDF</span>
+<span class="sw" id="swDoc" onclick="setMode('doc')">New document</span>
+</div>
+<div class="app">
+<div class="rail"><i class="ti ti-file-text" style="color:var(--green);font-size:24px"></i><i class="ti ti-home"></i><i class="ti ti-file"></i><i class="ti ti-star"></i><i class="ti ti-apps"></i><i class="ti ti-sparkles"></i><i class="ti ti-arrows-exchange"></i></div>
+<div class="main">
+<div class="row" style="justify-content:space-between">
+<div style="display:flex;align-items:center;gap:10px;min-width:0">
+<i class="ti ti-layout-sidebar" style="font-size:17px"></i><i class="ti ti-arrow-left" style="font-size:17px"></i>
+<span id="nmBox"></span>
+<i class="ti ti-arrow-back-up" style="font-size:17px;color:var(--text-muted)"></i><i class="ti ti-arrow-forward-up" style="font-size:17px;color:var(--text-muted)"></i>
+</div>
+<div style="display:flex;gap:6px;align-items:center" id="topBtns"></div>
+</div>
+<div style="display:flex;gap:3px;padding:6px 10px 0;border-bottom:1px solid var(--border);background:var(--surface-1)">
+<span class="ftab" id="ft1"><span class="kind">DOCX</span>Untitled document</span><span class="ftab" id="ft2"><span class="kind">PDF</span>Worksheet-1.pdf</span>
+</div>
+<div class="row" style="gap:14px">
+<span class="btn" style="background:var(--green-bg);color:var(--green-text);border-color:var(--green-border);font-weight:600"><i class="ti ti-adjustments-horizontal"></i> Build <i class="ti ti-chevron-down"></i></span>
+<span style="color:var(--text-secondary)">Page 1 / <span id="pg">4</span></span>
+<span style="color:var(--text-secondary)">&minus;&nbsp; 125% &nbsp;+&nbsp; Fit width</span>
+<span style="flex:1"></span><span style="border:1px solid var(--border);border-radius:6px;padding:3px 10px;color:var(--text-muted);width:150px">Filter tools</span>
+</div>
+<div class="row" id="tabs" style="gap:18px;padding:0 12px"></div>
+<div class="ribbon" id="ribbon"></div>
+<div style="display:flex;background:var(--surface-0)">
+<div style="flex:1;display:flex;justify-content:center;padding:18px 0;min-height:300px"><div id="page" style="background:#fff;width:70%;padding:24px 34px;color:#2C2C2A;font-size:14px;border:1px solid var(--border)"></div></div>
+<div style="width:38px;border-left:1px solid var(--border);background:#fff;display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:12px;color:var(--text-secondary);font-size:17px"><i class="ti ti-layout-grid"></i><i class="ti ti-list"></i><i class="ti ti-bookmark"></i><i class="ti ti-search"></i><i class="ti ti-message"></i></div>
+</div>
+<div class="row" style="border-bottom:none;justify-content:space-between;color:var(--text-secondary);font-size:12px"><span id="st"></span><span id="st2"></span></div>
+</div></div>
+<div id="tabnote" style="font-size:13px;color:var(--text-secondary);margin-top:8px;min-height:18px"></div>
+</div>
+<script>
+var T=['File','Home','Insert','Edit','Review','Fill & Sign','Pages','View','Protect','Measure','Export'],mode='pdf',tab='Home',docName={pdf:'Worksheet-1.pdf',doc:'Untitled document'};
+var TILES={
+ 'File':[['File',[['folder-open','Open'],['copy','Save a copy'],['printer','Print'],['info-circle','Document info']]]],
+ 'Insert':[['Insert',[['photo','Picture'],['table','Table'],['forms','Text box'],['link','Link'],['rubber-stamp','Stamp']]]],
+ 'Edit':[['Edit',[['pointer','Select'],['typography','Add text'],['pencil','Draw'],['edit','Edit text'],['photo-edit','Edit pictures']]]],
+ 'Review':[['Comment',[['highlight','Highlight'],['message','Add comment'],['messages','Replies']]],['Track',[['git-compare','Track changes']]]],
+ 'Fill & Sign':[['Fill and sign',[['forms','Fill form'],['signature','Sign'],['calendar','Date'],['letter-case','Initials']]]],
+ 'Pages':[['Organize',[['layout-grid','Organize pages'],['file-minus','Review possible blank pages'],['files','Combine PDF originals']]],['Layout',[['dimensions','Page size and margins'],['rotate','Rotate']]],['Numbering',[['hash','Page numbers and stamps']]]],
+ 'View':[['View',[['book','Reading view'],['columns','Two pages'],['zoom-in','Zoom']]]],
+ 'Protect':[['Protect',[['lock','Password'],['eraser','Redact'],['eye-off','Remove hidden data']]]],
+ 'Measure':[['Measure',[['ruler-measure','Distance'],['shape','Area'],['map-pin','Point']]]],
+ 'Export':[['Export',[['file-word','Word copy'],['photo-down','Picture'],['file-export','Other formats']]]]};
+function tabs(){var h='';T.forEach(function(t){var off=(mode=='doc'&&t=='Measure');h+='<span class="tab'+(t==tab?' on':'')+(off?' off':'')+'" title="'+(off?'Measuring works on PDFs only':'')+'" onclick="pick(\''+t+'\')">'+t+'</span>';});document.getElementById('tabs').innerHTML=h;}
+function home(){return '<div class="grp"><select class="sel" style="width:110px;margin-top:2px"><option>Normal text</option><option>Heading 1</option><option>Heading 2</option><option>Title</option></select><span class="gl">Style</span></div>'+
+'<div class="grp"><div style="display:flex;gap:4px"><select class="sel" style="width:130px"><option>Document font</option><option>Arial</option><option>Times New Roman</option></select><select class="sel" style="width:54px"><option>11</option><option>12</option><option>14</option></select></div>'+
+'<div style="display:flex;margin-top:3px"><span class="ib" style="font-weight:700">B</span><span class="ib" style="font-style:italic">I</span><span class="ib" style="text-decoration:underline">U</span><span class="ib" style="text-decoration:line-through">S</span><span class="ib" style="font-size:13px">x<sup style="font-size:9px">2</sup></span><span class="ib" style="font-size:13px">x<sub style="font-size:9px">2</sub></span><span class="ib" title="Text color"><i class="ti ti-letter-a" style="border-bottom:3px solid #185FA5"></i></span><span class="ib" title="Highlight"><i class="ti ti-highlight" style="border-bottom:3px solid #EF9F27"></i></span><span class="ib" title="Clear style"><i class="ti ti-clear-formatting"></i></span></div><span class="gl">Font</span></div>'+
+'<div class="grp" style="position:relative"><div style="display:flex;align-items:center"><span class="ib" title="Bullets"><i class="ti ti-list"></i></span><span class="ib" title="Numbering"><i class="ti ti-list-numbers"></i></span><span class="ib" title="Decrease indent"><i class="ti ti-indent-decrease"></i></span><span class="ib" title="Increase indent"><i class="ti ti-indent-increase"></i></span><span class="btn" style="padding:2px 7px;margin-left:4px" onclick="sp()">Spacing <i class="ti ti-chevron-down"></i></span></div>'+
+'<div style="display:flex;margin-top:3px"><span class="ib" style="background:var(--surface-1)" title="Align left"><i class="ti ti-align-left"></i></span><span class="ib" title="Center"><i class="ti ti-align-center"></i></span><span class="ib" title="Align right"><i class="ti ti-align-right"></i></span><span class="ib" title="Justify"><i class="ti ti-align-justified"></i></span></div><span class="gl">Paragraph</span>'+
+'<div id="spm" style="display:none;position:absolute;top:36px;left:20px;z-index:2;background:#fff;border:1px solid var(--border-strong);border-radius:8px;padding:10px;width:220px;font-size:12px;box-shadow:0 6px 18px rgba(0,0,0,.12)"><div style="display:grid;grid-template-columns:1fr 90px;gap:6px;align-items:center"><span>Line spacing</span><select class="sel"><option>Default</option><option>1.15</option><option>1.5</option><option>Double</option></select><span>Space before</span><select class="sel"><option>Default</option><option>6 pt</option></select><span>Space after</span><select class="sel"><option>Default</option><option>6 pt</option></select><span>First line</span><select class="sel"><option>None</option><option>Indent</option><option>Hanging</option></select><span>Right indent</span><select class="sel"><option>None</option><option>0.5 in</option></select></div></div></div>'+
+'<div class="grp" style="border-right:none"><span class="tile"><i class="ti ti-search"></i>Find</span><span class="gl">Find</span></div>';}
+function tiles(t){var h='';(TILES[t]||[]).forEach(function(g){h+='<div class="grp"><div style="display:flex;gap:2px">';g[1].forEach(function(x){h+='<span class="tile"><i class="ti ti-'+x[0]+'"></i>'+x[1]+'</span>';});h+='</div><span class="gl">'+g[0]+' &#9662;</span></div>';});return h;}
+function pick(t){tab=t;var off=(mode=='doc'&&t=='Measure');tabs();document.getElementById('ribbon').innerHTML=t=='Home'?home():tiles(t);document.getElementById('ribbon').style.opacity=off?.45:1;
+document.getElementById('tabnote').textContent=off?'Measure stays in its place but is greyed out on documents: measuring works on PDFs only.':(t=='Home'?'Home: every text tool, the same on both screens (compact controls, same toolbar height as the other tabs).':t+': keeps the current big icon + name tile style. Tool lists here are examples; keep the real ones.');}
+function nameSpan(){document.getElementById('nmBox').innerHTML='<span id="nm" title="Double-click to rename" ondblclick="ren()" style="font-weight:600;font-size:14px;cursor:text;padding:2px 5px;border-radius:4px;border:1px dashed var(--border-strong);white-space:nowrap"></span>';document.getElementById('nm').textContent=docName[mode];}
+function setMode(m){mode=m;document.getElementById('swPdf').className='sw'+(m=='pdf'?' on':'');document.getElementById('swDoc').className='sw'+(m=='doc'?' on':'');nameSpan();
+document.getElementById('topBtns').innerHTML=m=='pdf'?'<span class="btn"><i class="ti ti-search"></i> Find in PDF</span><span class="btn">Save a copy</span><span class="btn"><i class="ti ti-printer"></i> Print</span><span class="btn"><i class="ti ti-apps"></i> Find a tool</span>':'<span class="btn" style="background:var(--green);color:#fff;border-color:var(--green)">Save</span><span class="btn">Export <i class="ti ti-chevron-down"></i></span><span class="btn"><i class="ti ti-printer"></i> Print</span><span class="btn"><i class="ti ti-apps"></i> Find a tool</span>';
+document.getElementById('ft1').className='ftab'+(m=='doc'?' on':'');document.getElementById('ft2').className='ftab'+(m=='pdf'?' on':'');
+document.getElementById('pg').textContent=m=='pdf'?'4':'1';
+document.getElementById('st').innerHTML=m=='pdf'?'Page 1 of 4 &middot; Typing on page':'Page 1 &middot; 7 words';
+document.getElementById('st2').textContent=m=='pdf'?'125% · Original unchanged':'125% · Saved';
+document.getElementById('page').innerHTML=m=='pdf'?'<div style="text-align:center;font-size:20px;text-decoration:underline;margin-bottom:14px">The Progressive Era</div><div style="font-weight:600">A. Progressivism defined:</div><div style="margin:8px 0 0 20px">&bull; <span style="border:1px dashed #1D9E75;padding:1px 4px;color:#185FA5">Reform movement to fix problems from industry|</span></div><div style="margin:8px 0 0 20px">&bull; ____________________</div><div style="margin:8px 0 0 20px">&bull; ____________________</div>':'<div style="font-size:20px;font-weight:600;margin-bottom:8px">My essay</div><div>The Progressive Era changed America because|</div>';
+pick(tab);}
+function ren(){document.getElementById('nmBox').innerHTML='<input id="nmi" style="height:26px;font-size:14px;width:200px" onblur="done()" onkeydown="if(event.key==\'Enter\')done()">';var i=document.getElementById('nmi');i.value=docName[mode];i.focus();i.select();}
+function done(){var i=document.getElementById('nmi');if(!i)return;docName[mode]=i.value.trim()||docName[mode];nameSpan();}
+function sp(){var e=document.getElementById('spm');e.style.display=e.style.display=='none'?'block':'none';}
+setMode('pdf');
+</script>
+</body>
+</html>

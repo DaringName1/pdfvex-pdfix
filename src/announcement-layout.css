@@ -1,0 +1,3 @@
+.announcement-space{flex:none;min-height:0;pointer-events:none}
+#toast.toast[popover]{inset:auto auto 0 var(--announcement-left,0px);width:var(--announcement-width,100vw);max-width:var(--announcement-width,100vw);max-height:min(140px,30vh);margin:0;transform:none;border:0;border-radius:0;padding:4px 14px;box-sizing:border-box;box-shadow:none;overflow:auto;overflow-wrap:anywhere;pointer-events:auto;line-height:1.4}
+.has-announcement dialog[open]{inset-block-end:var(--announcement-space,0px);max-height:calc(100dvh - var(--announcement-space,0px) - 32px)!important}

@@ -1,0 +1,5 @@
+.page-stage.reader-scan-failed{display:block;overflow-x:hidden}
+.page-stage.reader-scan-failed>.pdf-paper{display:none}
+.reader-scan-failure{box-sizing:border-box;width:100%;max-width:620px;margin:12px auto;padding:20px;background:#fff;border:1px solid #d7e2db;border-radius:6px;line-height:1.6;overflow-wrap:anywhere;white-space:normal}
+
+.pdf-multi-slot[data-failed=true] .pdf-multi-placeholder{place-items:start;text-align:left;color:#674f24}

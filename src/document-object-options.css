@@ -1,0 +1,31 @@
+.document-area[data-object-panel-rail] .editor-canvas{margin-right:32px}
+.document-area[data-object-options-open] .editor-canvas{margin-right:calc(var(--document-object-width) + 32px)}
+.document-area[data-object-panel-rail][data-document-options-open] .editor-canvas{margin-right:calc(var(--document-options-width) + 32px)}
+.document-object-options{position:fixed;z-index:8;box-sizing:border-box;border-left:1px solid var(--line);background:white;color:var(--ink);min-height:0}
+.document-object-options[hidden],.document-object-rail[hidden]{display:none}
+.document-object-body{height:100%;overflow:auto;scrollbar-gutter:stable}
+.document-object-options :is(.document-image-controls,.document-table-controls){padding:0 12px 12px;border:0;background:white;max-width:100%;box-sizing:border-box}
+.document-object-options summary{font-size:calc(12px * var(--ui-font-scale,1));padding:12px 32px 12px 0;font-weight:600;cursor:pointer}
+.document-object-options details>summary:first-child{position:sticky;top:0;background:white;z-index:1}
+.document-object-options .document-image-crop>summary{position:static;font-weight:400}
+.document-object-options :is(label,button,input,select,p){font-size:calc(11px * var(--ui-font-scale,1));max-width:100%;box-sizing:border-box;white-space:normal}
+.document-object-options label{flex-wrap:wrap;overflow-wrap:anywhere}
+.document-object-options .document-layout-controls{padding:0 12px 12px;border:0;background:white;max-width:100%;box-sizing:border-box}
+.document-object-options .document-layout-controls>div{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+.document-object-options .document-layout-controls label{display:flex;justify-content:space-between;gap:8px;max-width:100%}
+.document-object-options .document-layout-controls input,.document-object-options .document-layout-controls select{min-width:0;max-width:100%}
+.document-object-options .document-tile-icon{display:none}
+.document-object-options input[type=text]{width:100%;min-width:0}
+.document-object-options input[type=number]{width:76px}
+.document-object-options button{line-height:1.3}
+.document-object-options [data-object-selected=false] [data-object-edit],.document-object-options [data-object-selected=true] [data-object-insert]{display:none}
+.document-object-close{position:absolute;right:8px;top:6px;z-index:3;border:0;background:white;color:inherit;font-size:20px!important;padding:5px 7px}
+.document-object-rail{position:fixed;z-index:9;display:flex;flex-direction:column;width:32px;border-left:1px solid var(--line);background:#f7faf7;box-sizing:border-box;padding-top:6px;gap:5px}
+.document-object-rail button{border:0;background:transparent;padding:6px 3px;font-size:20px;color:var(--ink);width:31px}
+.document-object-rail button[aria-expanded=true]{background:var(--mint);color:var(--teal)}
+.document-object-options :is(button,input,summary):focus-visible,.document-object-rail button:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+.document-area[data-object-panel-rail][data-interaction-mode=view] .editor-canvas{margin-right:0}
+.document-object-options button:not(.document-object-close){border:1px solid var(--line);border-radius:5px;padding:6px 9px;background:white;color:var(--ink)}
+.document-area[data-interaction-mode=view] .document-image-handle{display:none}
+
+.document-area>.document-headings{display:none}.document-object-options .document-headings{padding:0 12px 12px}.document-headings nav{display:flex;flex-direction:column;gap:7px}.document-headings nav button{text-align:left;overflow-wrap:anywhere;align-self:stretch}.document-area[data-object-panel-rail][data-interaction-mode=view] .editor-canvas{margin-right:32px}.document-area[data-object-panel-rail][data-interaction-mode=view][data-object-options-open] .editor-canvas{margin-right:calc(var(--document-object-width) + 32px)}

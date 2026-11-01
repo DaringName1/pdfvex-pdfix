@@ -1,0 +1,26 @@
+/* Fixed heading and footer, one scrolling content area. Never overlays the page. */
+.reader-one-place .reader-options-panel.reader-options-panel{position:relative;display:flex;flex-direction:column;align-self:stretch;flex:0 0 var(--options-width,290px);width:var(--options-width,290px);max-width:46%;min-width:0;min-height:0;height:auto;max-height:none;overflow:hidden;box-sizing:border-box;padding:0;border:0;border-left:1px solid var(--line);border-radius:0;margin:0;background:var(--surface,#fff)}
+.reader-options-panel[hidden]{display:none!important}
+.reader-options-panel>.dialog-header{position:static!important;flex:none;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin:0!important;padding:10px 12px!important;min-width:0;border-bottom:1px solid var(--line);background:var(--surface,#fff)}
+.reader-options-panel>.dialog-header h2{flex:1 1 100px;min-width:0;margin:0;font-size:14px;line-height:1.3;overflow-wrap:anywhere}.reader-options-panel>.dialog-header .subtitle{display:none}.reader-options-panel>.dialog-header button{flex:0 1 auto;max-width:100%;white-space:normal;overflow-wrap:break-word}
+.reader-options-body{flex:1 1 0;min-height:0;min-width:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:10px 12px;box-sizing:border-box}
+.reader-options-help{margin:0 0 12px!important;font-size:12px;line-height:1.4;color:var(--muted,#53685e)}
+.reader-options-footer{flex:none;padding:8px 12px;border-top:1px solid var(--line);background:var(--surface,#fff);font-size:11px;line-height:1.35}.reader-options-footer small{font-size:inherit}
+.reader-options-resize{position:absolute;z-index:30;left:0;top:0;bottom:0;width:5px;cursor:col-resize;touch-action:none}.reader-options-resize:hover{background:#176c5d55}.reader-options-resize:focus-visible{outline:2px solid #176c5d;outline-offset:-2px;background:#176c5d33}
+.reader-options-panel .markup-side,.reader-options-panel .form-side,.reader-options-panel .content-side{height:auto;max-height:none;overflow:visible;border:0;padding:0;background:transparent}
+.reader-options-panel .markup-columns,.reader-options-panel .form-columns{min-height:0;display:block}
+.reader-options-panel .markup-list,.reader-options-panel .form-field-list{max-height:none}
+.reader-options-body button,.reader-options-body input,.reader-options-body select,.reader-options-body textarea{max-width:100%;box-sizing:border-box}.reader-options-body button{white-space:normal}.reader-options-body label{overflow-wrap:anywhere}
+@media(max-height:650px){.reader-options-panel>.dialog-header{padding:6px 10px!important}.reader-options-body{padding:8px 10px}.reader-options-footer{padding:6px 10px}}
+
+.markup-appearance-defaults{display:grid;gap:3px;margin-bottom:6px}.markup-appearance-defaults>label{display:flex;align-items:start;gap:5px;font-size:11px}.markup-default-actions{display:flex;flex-wrap:wrap;gap:8px}.markup-default-actions button{padding:2px 0;font-size:11px}.markup-appearance-defaults small:empty{display:none}.markup-appearance-defaults small{font-size:11px}.markup-default-setting{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+
+.reader-options-panel .redaction-save{align-items:stretch}.reader-options-panel .redaction-save label{flex:1 1 100%;min-width:0;align-items:flex-start}.reader-options-panel .redaction-save input[type=checkbox]{flex:none}
+
+/* Informational copy scrolls with settings; keep only tool actions fixed. */
+.reader-options-footer:empty{display:none}
+.reader-options-body>small{display:block;margin-top:12px;font-size:11px;line-height:1.4;color:var(--muted,#53685e)}
+
+.reader-options-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}.reader-options-footer .compression-save{margin-left:auto}.reader-tool-cancel{flex:none}
+
+.reader-options-footer .compression-save{flex:1 1 100px;min-width:0}.reader-options-footer .compression-save button{width:100%;min-width:0}

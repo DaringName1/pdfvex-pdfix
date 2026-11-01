@@ -1,0 +1,15 @@
+.email-clipboard-workspace{width:min(860px,92vw);max-height:90vh;overflow:auto;border:1px solid #cbd8d2;border-radius:12px;padding:24px;background:var(--panel,#fff);color:var(--text,#172b24)}
+.email-clipboard-workspace::backdrop{background:#10241c80}
+.email-clipboard-workspace label{display:block;margin:12px 0}
+.email-clipboard-workspace input[type=text]{max-width:100%;width:420px}
+.email-clipboard-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.email-clipboard-preview{max-height:48vh;overflow:auto;border:1px solid #d5dfda;border-radius:8px;padding:12px;margin:12px 0}
+.email-clipboard-preview:empty{display:none}
+.email-clipboard-preview dl{display:grid;grid-template-columns:minmax(70px,110px) 1fr;gap:6px}
+.email-clipboard-preview dt{font-weight:600}
+.email-clipboard-preview dd{margin:0;overflow-wrap:anywhere}
+.email-body-preview{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;max-height:250px;overflow:auto}
+.clipboard-item{border-bottom:1px solid #d5dfda;padding-bottom:12px;margin-bottom:12px}
+.clipboard-item textarea{width:100%;min-height:100px;resize:vertical;box-sizing:border-box}
+.clipboard-item img{display:block;max-width:100%;max-height:220px;object-fit:contain}
+.email-clipboard-workspace input[type=text]{display:block;margin-top:5px;padding:9px 12px;border:1px solid #cfdcd3;border-radius:8px;background:#fff;color:inherit}

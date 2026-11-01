@@ -1,0 +1,31 @@
+.pdf-navigation{width:104px;flex:none;min-height:0;display:flex;flex-direction:column;background:#f1f5ef;border-right:1px solid var(--line)}.navigation-tabs{display:flex;border-bottom:1px solid var(--line);padding:5px 3px;gap:2px;flex:none}.navigation-tabs button{flex:1;min-width:0;border:0;border-radius:5px;background:transparent;padding:7px 3px;font-size:10px;color:#657d6a}.navigation-tabs button[aria-selected=true]{background:#dfece1;color:#315f4d;font-weight:600}.pdf-navigation .thumbnails{border:0;width:100%;min-height:0;flex:1;overflow:auto}.pdf-navigation.wide-navigation{width:210px}.navigation-panel{min-height:0;flex:1;overflow:auto;padding:12px;font-size:12px;color:#667e6b}.outline-entry{display:block;width:100%;border:0;border-radius:5px;background:transparent;text-align:left;padding:9px 10px;font-size:12px;line-height:1.5;overflow-wrap:anywhere}.outline-entry:hover{background:#e4eee2}.saved-pages label{font-size:11px}.bookmark-name{width:100%;border:1px solid var(--line);border-radius:5px;padding:8px;margin:7px 0}.saved-pages>button{width:100%}.bookmark-list{margin-top:15px;line-height:1.6}.saved-page{display:flex;align-items:center;border-bottom:1px solid #dbe6d9;gap:6px;padding:9px 0}.saved-page-open{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1;border:0;background:transparent;text-align:left;font-size:12px;overflow-wrap:anywhere}.saved-page-open b{font-weight:600}.saved-page-open small{font-size:11px;color:#788d7d}.bookmark-status{font-size:11px;line-height:1.5;margin:9px 0 0}.pdf-toolbar [data-action=fit-page],.pdf-toolbar [data-action=rotate-view],.pdf-toolbar [data-action=bookmark]{font-size:11px}.pdf-toolbar .toolbar-pair{display:flex;align-items:center;gap:5px}.pdf-toolbar .selection-mode,.pdf-toolbar .reading-view{max-width:132px}.navigation-panel[hidden],.thumbnails[hidden]{display:none!important}
+@media(max-width:850px){.pdf-navigation{width:92px}.pdf-navigation.wide-navigation{width:190px}.navigation-tabs button{font-size:9px}.pdf-toolbar{gap:5px}.pdf-toolbar .compact{padding:5px 7px}}
+.reader-main-controls,.reader-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.reader-main-controls{flex:1}.reader-tools{margin-left:auto}.reader-view-options{position:relative}.reader-view-options summary{cursor:pointer;list-style:none}.reader-view-options summary::after{content:' ▾'}.reader-view-options summary:focus-visible{outline:3px solid #4185a7;outline-offset:3px}.view-options-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:10;width:240px;padding:14px;border:1px solid #d3e0d3;border-radius:9px;background:white;box-shadow:0 8px 28px #17372524;display:flex;flex-direction:column;gap:12px}.view-options-panel label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px}.view-options-panel select{padding:6px;border:1px solid var(--line);border-radius:5px;background:white}.view-options-panel .reader-pane-controls{display:flex;gap:6px}.view-options-panel .reader-pane-controls button{flex:1}.pdf-toolbar:has(.reader-view-options[open]){position:relative;z-index:5}.reader-tools .text-button{font-size:11px;padding:6px}
+@media(max-width:1000px){.reader-main-controls{flex-basis:100%}.reader-tools{margin-left:0}.view-options-panel{right:0}.reader-main-controls{gap:5px}}
+.reader-view-options .pdf-tool-group-content>label:has(>select){flex-direction:column;align-items:stretch;gap:4px}
+.reader-view-options .pdf-tool-group-content select{min-width:0;max-width:100%;width:100%}
+.reader-view-options .pdf-tool-group-content>button{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.navigation-tabs button{display:flex;align-items:center;justify-content:center;gap:4px;min-height:32px}.navigation-tabs button .icon{width:15px;height:15px}.navigation-tabs button span{display:none}.wide-navigation .navigation-tabs button span{display:inline}.pdf-navigation .thumbnails{padding:10px 4px;overflow-x:hidden;scrollbar-width:thin}.pdf-navigation .thumbnail{width:100%;max-width:90px;padding:4px;gap:6px;margin-bottom:10px}.pdf-navigation .thumbnail canvas{max-width:100%;min-width:0;min-height:0;height:auto}
+
+/* Enlarged tab labels must wrap within their own navigation button. */
+.wide-navigation .navigation-tabs button{flex-direction:column;white-space:normal}.wide-navigation .navigation-tabs{flex-wrap:wrap}.wide-navigation .navigation-tabs button{flex:1 0 4.5rem}.wide-navigation .navigation-tabs button span{min-width:0;max-width:100%;overflow-wrap:normal}
+body[data-ui-scale="1.5"] .reader-view-options .pdf-tool-group-content{grid-template-columns:minmax(0,1fr)}
+.reader-view-options .pdf-view-history{grid-column:1/-1;min-width:0}.reader-view-options .pdf-view-history>button{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+
+/* Full-width actions keep long tool names readable without splitting words. */
+.reader-view-options .pdf-tool-group-content{grid-template-columns:minmax(0,1fr)}
+.reader-view-options .pdf-tool-group-content>button{overflow-wrap:normal}
+
+/* Tool previews retain page/zoom controls; secondary actions use the existing menu. */
+.pdf-preview-controls .reader-main-controls{flex:1 1 auto;min-width:0;gap:5px}
+.pdf-preview-controls .reader-tools{margin-left:0}
+.pdf-preview-controls .pdf-toolbar{gap:5px;padding:6px 8px}
+
+.pdf-preview-controls .view-options-panel{max-height:min(50vh,240px);overflow:auto}
+.pdf-preview-controls .reader-inspector:not([hidden]){display:flex;position:absolute;right:0;top:0;bottom:0;width:270px;max-width:100%;z-index:8;box-shadow:-3px 0 15px #17372524}
+.pdf-preview-controls .inspector-title{gap:6px;margin-bottom:12px}
+.pdf-preview-controls .inspector-title .icon-button{margin-left:auto;flex:none}
+
+/* Narrow proof menus must allow their label and choice to wrap independently. */
+.reader-view-options .view-options-panel label{flex-wrap:wrap;min-width:0}
+.reader-view-options .view-options-panel select{min-width:0;max-width:100%;flex:1 1 8rem}

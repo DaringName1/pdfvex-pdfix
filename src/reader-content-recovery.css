@@ -1,0 +1,2 @@
+.reader-content-recovery{display:flex;flex:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 12px;background:#fff3d5;color:#473a14;border-bottom:1px solid #bfa66b;font-size:calc(12px * var(--ui-font-scale,1));line-height:1.4}
+.reader-content-recovery span{flex:1 1 200px}.reader-content-recovery button{max-width:100%;white-space:normal}

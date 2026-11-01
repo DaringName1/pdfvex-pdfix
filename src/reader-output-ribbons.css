@@ -1,0 +1,10 @@
+.reader-one-place:is([data-tool-group=Export],[data-tool-group=Protect]) .reader-job-buttons{max-height:none;overflow:visible}
+.reader-one-place:is([data-tool-group=Export],[data-tool-group=Protect]) .reader-job-tools{max-height:44vh}
+.reader-one-place:is([data-tool-group=Export],[data-tool-group=Protect]) .reader-job-tabs{position:sticky;top:0;background:#fff;z-index:1}
+.reader-one-place:is([data-tool-group=Export],[data-tool-group=Protect]) .reader-job-buttons:has(.reader-ribbon[data-ribbon-names=show]){flex:none;width:100%;height:auto;max-height:min(28vh,200px);min-height:0;overflow-y:auto;overflow-x:hidden}
+
+/* Keep canonical tool names readable without turning the toolbar into a grid. */
+.reader-one-place[data-tool-group=Export] .reader-ribbon .reader-ribbon-buttons>button{max-width:calc(132px * var(--ui-font-scale,1))}
+
+/* Large text in a narrow window folds two actions into their existing one-level menus. */
+@media(max-width:900px){body:not([data-ui-scale="1"]) .reader-one-place[data-tool-group=Export] .reader-ribbon[data-ribbon-names=show]:not([data-ribbon-search]) .reader-ribbon-buttons>button:is([aria-label="Name and save unchanged copy"],[aria-label="Print-production marks"]){display:none}}

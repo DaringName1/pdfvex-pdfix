@@ -1,0 +1,7 @@
+const fs=require('node:fs/promises'),path=require('node:path'),{createHash}=require('node:crypto');
+const {FileError}=require('./file-store.cjs');
+async function readChosenXfdf(selected){
+ if(typeof selected!=='string'||!path.isAbsolute(selected)||path.extname(selected).toLowerCase()!=='.xfdf')throw new FileError('XFDF','Choose an XFDF comment file using the native picker.');let handle,allocation;
+ try{handle=await fs.open(selected,'r');const before=await handle.stat();if(!before.isFile()||!before.size||before.size>8*1024*1024)throw new FileError('XFDF','Choose a regular XFDF file under 8 MB.');allocation=Buffer.alloc(before.size+1);let length=0;while(length<allocation.length){const part=await handle.read(allocation,length,allocation.length-length,length);if(!part.bytesRead)break;length+=part.bytesRead;}const after=await handle.stat();if(length!==before.size||after.size!==before.size||after.mtimeMs!==before.mtimeMs||after.ctimeMs!==before.ctimeMs)throw new FileError('CHANGED','The selected XFDF changed while being read. Choose it again.');const bytes=Buffer.from(allocation.subarray(0,length));return {name:path.basename(selected),bytes,sha256:createHash('sha256').update(bytes).digest('hex')};}catch(error){throw error instanceof FileError?error:new FileError('XFDF','The chosen XFDF could not be read. Check its permissions or choose it again.');}finally{allocation?.fill(0);await handle?.close().catch(()=>{});}
+}
+module.exports={readChosenXfdf};

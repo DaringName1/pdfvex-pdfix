@@ -1,0 +1,9 @@
+import {inspectImage,IMAGE_LIMITS} from './image-header.js';
+export async function normalizeImage(bytes,ext){
+ const source=inspectImage(bytes,ext);let bitmap,canvas;
+ try{bitmap=await createImageBitmap(new Blob([bytes]),{imageOrientation:'from-image',colorSpaceConversion:'default'});if(!Number.isInteger(bitmap.width)||!Number.isInteger(bitmap.height)||bitmap.width<1||bitmap.height<1||bitmap.width>IMAGE_LIMITS.side||bitmap.height>IMAGE_LIMITS.side||bitmap.width*bitmap.height>IMAGE_LIMITS.pixels)throw new Error('The decoded image exceeds the pixel limit.');
+  // Camera orientation may swap the source axes, but cannot change its pixel count.
+  if(!((bitmap.width===source.width&&bitmap.height===source.height)||(bitmap.width===source.height&&bitmap.height===source.width)))throw new Error('The decoded image dimensions differ from its source header.');
+  canvas=new OffscreenCanvas(bitmap.width,bitmap.height);const context=canvas.getContext('2d');if(!context)throw new Error('This device could not create an image conversion canvas.');context.drawImage(bitmap,0,0);const png=await canvas.convertToBlob({type:'image/png'});if(png.type!=='image/png')throw new Error('This device could not normalize the image as PNG.');if(png.size>64*1024*1024)throw new Error('The normalized image exceeds 64 MB. Use a smaller image.');const output=new Uint8Array(await png.arrayBuffer()),size=inspectImage(output,'png',{...IMAGE_LIMITS,bytes:64*1024*1024});if(size.width!==bitmap.width||size.height!==bitmap.height)throw new Error('The normalized image dimensions changed during encoding.');return {bytes:output,width:bitmap.width,height:bitmap.height};
+ }catch(error){if(error.name==='InvalidStateError'||error.name==='EncodingError')throw new Error('This picture could not be read. It may be damaged; try getting a new copy, or save it again as PNG or JPEG.');throw error;}finally{bitmap?.close();if(canvas){canvas.width=0;canvas.height=0;}}
+}

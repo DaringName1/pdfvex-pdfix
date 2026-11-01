@@ -1,0 +1,48 @@
+import './pdf-certificate-workspace.css';
+const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
+const integrityLabel={verified:'Cryptographic integrity verified',failed:'Cryptographic integrity failed',unsupported:'Unable to verify this signature'};
+const trustLabel={'trusted-offline-chain':'Trusted by local Windows roots at inspection time (offline base chain only)','untrusted-chain':'Offline certificate chain did not pass validation',unavailable:'Unavailable — certificate trust has not been established','not-checked':'Not checked — requires a supported signature with verified integrity'};
+const chainErrors=[[0x1,'outside validity period'],[0x2,'validity periods not nested'],[0x4,'revoked/distrusted status'],[0x8,'invalid certificate signature'],[0x10,'invalid usage'],[0x20,'untrusted root'],[0x40,'revocation status unknown'],[0x80,'cyclic chain'],[0x100,'invalid extension'],[0x200,'invalid policy constraints'],[0x400,'invalid basic constraints'],[0x800,'invalid name constraints'],[0x1000,'unsupported name constraints'],[0x2000,'undefined name constraints'],[0x4000,'name not permitted'],[0x8000,'excluded name'],[0x10000,'incomplete chain'],[0x20000,'CTL outside validity period'],[0x40000,'invalid CTL signature'],[0x80000,'invalid CTL usage'],[0x100000,'weak signature'],[0x1000000,'offline revocation status'],[0x2000000,'issuance policy missing'],[0x4000000,'explicitly distrusted'],[0x8000000,'unsupported critical extension']];
+function errorLabel(hex){const value=Number.parseInt(hex.slice(2),16);if(value===0)return 'No Windows chain errors';const names=chainErrors.filter(([flag])=>(value&flag)!==0).map(([,name])=>name);return (names.length?names.join('; '):'Additional Windows chain error')+' ('+hex+')';}
+function detail(list,label,value){const term=el('dt',label),description=el('dd',value);list.append(term,description);}
+function signatureCard(row){
+ const card=el('section',undefined,'certificate-signature certificate-'+row.integrity);card.append(el('h3','Signature '+row.index+' · '+integrityLabel[row.integrity]),el('p',row.reason));
+ const list=el('dl');detail(list,'Source object',row.objectRef);detail(list,'Coverage',row.coverage==='entire-current-file'?'All current file bytes except this signature’s Contents':row.coverage==='earlier-revision'?'Earlier revision only; '+row.unsignedBytes.toLocaleString()+' later bytes are not covered':'Not established');
+ if(row.byteRange)detail(list,'ByteRange',row.byteRange.join(', '));
+ detail(list,'Signed message digest',row.messageDigest==='not-present'?'No signed attributes; signature checks covered content directly':row.messageDigest==='not-checked'?'Not checked':row.messageDigest);
+ detail(list,'Signature value',row.signatureValue);if(row.subFilter)detail(list,'PDF signature format',row.subFilter);if(row.digestAlgorithm)detail(list,'Algorithms',row.digestAlgorithm.toUpperCase()+' / '+row.signatureAlgorithm);
+ detail(list,'Certificate trust',trustLabel[row.trust]||trustLabel['not-checked']);detail(list,'Trusted signing time','Not checked — no timestamp authority validated');detail(list,'Certificate revocation','Not checked — no OCSP or CRL validation');detail(list,'Allowed document changes','Not checked — DocMDP, FieldMDP and later revisions are not evaluated');
+ if(row.signer){const signer=row.signer;detail(list,'Signer subject (certificate claim)',signer.subject||'(empty)');detail(list,'Issuer (certificate claim)',signer.issuer||'(empty)');detail(list,'Certificate serial',signer.serial);detail(list,'Certificate SHA-256',signer.fingerprintSha256);detail(list,'Certificate validity period',signer.validFrom+' through '+signer.validTo);detail(list,'Validity at inspection time',signer.currentValidity==='within-validity-period'?'Within the certificate’s stated dates':signer.currentValidity==='expired'?'Expired at inspection time':'Not yet valid at inspection time');}
+ if(row.chainInspection){const chain=row.chainInspection;detail(list,'Offline chain inspection time',chain.checkedAt);detail(list,'Root certificate in Windows Root stores',chain.rootInWindowsStore?'Yes — locally configured trust anchor':'No — no locally configured root matched');detail(list,'Windows chain errors',errorLabel(chain.chainErrorStatus));detail(list,'Windows base-policy result',chain.policyError==='0x00000000'?'Passed':chain.policyError);detail(list,'Signer certificate key usage',chain.keyUsage==='allowed'?'Signing permitted or key-usage extension absent':'Certificate key usage does not permit signing');detail(list,'Document-signing EKU and policy','Not checked — base-chain trust does not establish document-signing policy');
+  for(const [index,certificate]of chain.elements.entries())detail(list,'Chain certificate '+(index+1)+(index===0?' (signer)':''),(certificate.subject||'(empty subject)')+' · Issuer: '+(certificate.issuer||'(empty issuer)')+' · SHA-256: '+certificate.fingerprintSha256+' · '+certificate.validFrom+' through '+certificate.validTo+' · '+errorLabel(certificate.errorStatus));
+ }
+ detail(list,'Claimed signing time',row.claimedSigningTime);if(row.unsignedAttributes)detail(list,'Unsigned CMS attributes','Present; timestamps and countersignatures are not validated');card.append(list);return card;
+}
+export function showPdfCertificateReport(file,{announce=()=>{}}={}){
+ if(file?.ext!=='pdf'||typeof file.id!=='string'){announce('Open a PDF to inspect certificate signatures.',true);return null;}
+ const sourceId=file.id,sourceFingerprint=file.fingerprint,dialog=el('dialog',undefined,'pdf-certificate-workspace');dialog.setAttribute('aria-label','Certificate signature inspection');
+ const status=el('p','Inspecting certificate signatures in the opened source snapshot…','certificate-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+ const body=el('div',undefined,'certificate-body'),actions=el('div',undefined,'certificate-actions'),cancel=el('button','Cancel inspection','secondary'),close=el('button','Close','primary');cancel.type=close.type='button';actions.append(cancel,close);
+ dialog.append(el('h2','Certificate signatures'),el('p',file.name,'certificate-file'),el('p','Inspect signature mathematics and covered bytes. Certificate identity, trust, trusted signing time and revocation are reported separately. The original PDF stays unchanged.','certificate-policy'),status,body,actions);document.body.append(dialog);dialog.showModal();
+ let closed=false,closing=false,canceled=false,pending=true,request=null,canceling=null;
+ const stop=()=>{
+  if(!pending)return Promise.resolve(true);if(canceling)return canceling;canceled=true;cancel.disabled=true;status.textContent='Canceling certificate inspection and waiting for the contained worker to stop…';
+  canceling=(async()=>{try{const stopped=await window.pdfix.cancelPdfCertificates(sourceId);if(stopped===false)throw new Error('Worker cancellation could not be confirmed. Wait for inspection to finish before closing.');await request;return true;}catch(error){if(!closed)status.textContent=error.message||'Certificate inspection cancellation failed.';canceling=null;return false;}})();return canceling;
+ };
+ const finishClose=async()=>{if(closed||closing)return;closing=true;close.disabled=true;const stopped=await stop();if(!stopped&&pending){closing=false;close.disabled=false;return;}await request;closed=true;dialog.close();dialog.remove();};
+ cancel.onclick=async()=>{await stop();if(!closed&&!closing&&!pending)status.textContent='Certificate inspection canceled. No result is being presented.';};
+ close.onclick=()=>{void finishClose();};dialog.addEventListener('cancel',event=>{event.preventDefault();void finishClose();});
+ // Native IPC also fences the source identity after inspection; renderer checks
+ // retain a second guard when the opened file exposes its fingerprint.
+ request=(async()=>{try{
+  const report=await window.pdfix.inspectPdfCertificates(sourceId);if(closed||canceled)return;if(sourceFingerprint&&report.sourceSha256!==sourceFingerprint)throw new Error('The opened source changed. Reopen certificate inspection for the current PDF.');
+  status.textContent=report.signatures.length?report.signatures.length+' signature '+(report.signatures.length===1?'dictionary inspected.':'dictionaries inspected.'):'No certificate signature dictionary was found in the inspected objects. This is not proof that the PDF is unsigned.';
+  if(!report.inventoryComplete)body.append(el('p','Inspection is incomplete. Unsupported or unreadable structures may contain additional signatures.','certificate-warning'));
+  body.append(el('p','Inspection time: '+report.inspectedAt),el('p','Source SHA-256: '+report.sourceSha256,'certificate-hash'));
+  for(const row of report.signatures)body.append(signatureCard(row));
+  if(report.limits.length){body.append(el('h3','Inspection limits'));const list=el('ul');for(const limit of report.limits)list.append(el('li',limit));body.append(list);}
+  body.append(el('p',report.scope,'certificate-policy'),el('p','Typed names, drawn signatures and initials are visual marks. This report does not certify signer identity or establish legal validity.','certificate-policy'));
+ }catch(error){if(!closed&&!canceled){status.textContent=error.message||'Certificate signature inspection failed.';body.replaceChildren(el('p','No signature integrity or trust conclusion is available.','certificate-warning'));announce(status.textContent,true);}}
+ finally{pending=false;if(!closed){cancel.hidden=true;if(canceled&&!closing)status.textContent='Certificate inspection canceled. No result is being presented.';}}})();
+ dialog.prepareDeparture=finishClose;return dialog;
+}

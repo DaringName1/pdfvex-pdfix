@@ -1,0 +1,8 @@
+.reader-quick-tools{padding:3px 10px 5px;border-bottom:1px solid var(--line,#d7e2db);flex:none;background:#fff}
+.reader-quick-tools[hidden]{display:none!important}
+.reader-quick-tools .reader-quick-hint{align-self:center;margin:0 0 0 auto;max-width:140px;padding:6px;border:0;background:transparent;color:#356d5b;font-size:11px}.reader-quick-tools .reader-ribbon-names{margin-left:8px}.reader-quick-hint:hover{background:#eaf3ec!important}
+.reader-one-place[data-interaction-mode=quick] .reader-tool-options,.reader-one-place[data-interaction-mode=quick] .markup-direct-tools{display:none!important}
+.reader-quick-tools[data-split-buttons] .reader-ribbon-group{flex-direction:row;justify-content:flex-start;align-items:stretch;padding:0 3px;border-right:0}
+.reader-quick-tools[data-split-buttons] .reader-ribbon-menu-button{align-self:stretch;margin:0;padding:4px;min-width:22px;border-left:1px solid var(--line,#d7e2db);border-radius:0 4px 4px 0}
+.reader-quick-tools[data-split-buttons] .reader-ribbon-menu-button:hover{background:#eaf3ec}
+.reader-quick-tools[data-split-buttons] .reader-ribbon-menu-button[hidden]{display:none!important}

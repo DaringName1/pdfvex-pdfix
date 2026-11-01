@@ -1,0 +1,154 @@
+{
+  "kind": "PDFix.ConverterWorkstreamSource.v1",
+  "localDate": "2026-10-13",
+  "files": [
+    {
+      "path": "src/image-output.js",
+      "sha256": "acb8137a1e0077f17a8ee2ea2ae558c2218e585de57088ab76df582630c12949"
+    },
+    {
+      "path": "src/pdf-image-export.js",
+      "sha256": "c4d77e433c090d6ae8cc3c9edddcf7b09a237e09c43323dd12637a5cfcc70624"
+    },
+    {
+      "path": "src/pdf-image-export-model.js",
+      "sha256": "9931a7a458f426bbb921682494f5843bf8847281c461ce5ea8502391a77d2e3b"
+    },
+    {
+      "path": "tests/image-conversion-core.test.cjs",
+      "sha256": "a71eff8fc5a88246ecf1ab85aeb9b7f9b435789be9100c2ad57485fa48fae36c"
+    },
+    {
+      "path": "tests/pdf-image-export-model.test.cjs",
+      "sha256": "f448f467d3213d9a199efc407d890e3acc412513ef3b6be71f108b9cf03cf3a9"
+    },
+    {
+      "path": "scripts/prepare-reader-desktop.mjs",
+      "sha256": "46138aa874369edc6071b9684d106047ecb56d1d97fb8228686b13ddae1beb96"
+    },
+    {
+      "path": "src/pdf-image-operation.js",
+      "sha256": "5db520dd1bcf1060e0f69fdaff86f9a000ac274ed7c8bd805b3841ef4e0e66d9"
+    },
+    {
+      "path": "src/image-file-output.js",
+      "sha256": "ec9ee54140b80e0e7864a5699040da449aee2aa8f9a9c662dd91d7e43365ddb1"
+    },
+    {
+      "path": "tests/pdf-image-operation.test.cjs",
+      "sha256": "08cde8ea85208cb639e3bdff78e52475ef480b12ec059f472d2b89311d4b0cd1"
+    },
+    {
+      "path": "tests/image-file-output-core.test.cjs",
+      "sha256": "a909455330f335f7b18a264786706f5c0c6a850744111c591809745af3cba252"
+    },
+    {
+      "path": "src/image-adjustments.js",
+      "sha256": "5dc519328f2924031af59639f65d59118214ebc81fff965bb628afd4890e76e1"
+    },
+    {
+      "path": "tests/image-adjustments-core.test.cjs",
+      "sha256": "48adf531706c06005759608b8afe6f5b8d5a223c2a1e4b37a81eeec22dd7a156"
+    },
+    {
+      "path": "src/pdf-image-encoding.js",
+      "sha256": "693b700fb859124c42ff7235b9b19ae89191d26046d3ecdc0b92b61c4bcb2071"
+    },
+    {
+      "path": "tests/pdf-image-encoding.test.cjs",
+      "sha256": "2badcca7adc37be7d1ba9cfe1e4a0aab72729445f6063f48df99beb8df3d1e8c"
+    },
+    {
+      "path": "src/image-codec.js",
+      "sha256": "5eab64522076399fabfc5e94dc3225430b9eeab959cc789a83292a90564a48a3"
+    },
+    {
+      "path": "src/workbook-csv.js",
+      "sha256": "f474528053d1164ca424cb9d5e3047c03e3a6c09645477ac7a4b21576d286550"
+    },
+    {
+      "path": "src/workbook-workspace.js",
+      "sha256": "a72ec21047056a1870e4e8a2f4b63250bd8639a93e7cb405a62aa94496a0f511"
+    },
+    {
+      "path": "src/image-file-export.js",
+      "sha256": "8ac4a229dd900726380ca1b52df65f36aa65b0aa5d1cc04ee9cde0b0bc7e34cf"
+    },
+    {
+      "path": "src/image-file-comparison.css",
+      "sha256": "e02677f15e0c99953e24f4d94ce5095886d451b641e297306d4a89549add2990"
+    },
+    {
+      "path": "desktop/image-export-writer.cjs",
+      "sha256": "ddd50c9f8b20cb481ad112c4419d51062b10c1350dd20c6571aba606bb34e0b7"
+    },
+    {
+      "path": "desktop/image-output-png-validation.cjs",
+      "sha256": "f1ac0696fe4238cf6f761504423d765d7f22eebfa216eaf32fbd1d93fc39f984"
+    },
+    {
+      "path": "tests/image-normalization-core.test.cjs",
+      "sha256": "779e41ada98435d1783076cf2370ae5ca28a7cfbf57bff646fb7cb97074850d0"
+    },
+    {
+      "path": "tests/tiff-conversion-core.test.cjs",
+      "sha256": "30e0dd73b2e2064787b631e788ca64041e9827c386ea1ad475e1bb6d8bb0711a"
+    },
+    {
+      "path": "tests/workbook-csv-core.test.cjs",
+      "sha256": "6a9645e5c87e6dbe782013f906916eb6e309a711ee1f1d0d4da54ad82cae0c12"
+    },
+    {
+      "path": "tests/office-conversion-core.test.cjs",
+      "sha256": "b7057ea876d4f1da98304dc00655832f149c21c959dec9203cf363cb238579ee"
+    },
+    {
+      "path": "tests/email-conversion-core.test.cjs",
+      "sha256": "11bdfd487e6915fa7da9ccb8896d5ee79a3d3420e0dc56d3cb494284ec8f34a2"
+    },
+    {
+      "path": "tests/image-copy-writer-core.test.cjs",
+      "sha256": "e5e8c5db72f2a278dba3e5e4fd71f065af7122eb94d4705944d101a9cbec7e9e"
+    },
+    {
+      "path": "tests/helpers/converter-tiff-fixture.cjs",
+      "sha256": "cf686556301aea46118668104ad948f233cefcd0b03e7ba3a39e235f92b7927d"
+    },
+    {
+      "path": "tests/helpers/converter-office-fixture.cjs",
+      "sha256": "7d3aca07f96eb793d5194cf3deb24613b539a0eeac64219d6abf6480f69c5336"
+    },
+    {
+      "path": "scripts/check-converter-codecs.mjs",
+      "sha256": "ce7944a9f21a555d9606cb5139e25b114921b50e058d50f8fd8ee15d53e0e56c"
+    },
+    {
+      "path": "scripts/check-converter-source.mjs",
+      "sha256": "10f90c0f5fce15614432a5005e3057d62dd182c8892e30e8471da5ecedd9ec8d"
+    },
+    {
+      "path": "desktop/batch-compression.cjs",
+      "sha256": "2ecc7e3a0a0154d95f917251c9205216d680f074e856d83a4f20f2e32b726a7e"
+    },
+    {
+      "path": "desktop/batch-document-actions.cjs",
+      "sha256": "d6c88fee7b1830d80ec33f144f0461a173fb5f2d626c21f4865976b11598cd15"
+    },
+    {
+      "path": "src/batch-compression-workspace.js",
+      "sha256": "210fba91797c49d6919e6a50b9834a6808f53ac52e91ce90a0fe5c362edf9e77"
+    },
+    {
+      "path": "src/batch-document-actions-workspace.js",
+      "sha256": "6898cf6e610d57749fceda1c298b603efa3059d2f18a3b351cf2455ae373c202"
+    },
+    {
+      "path": "tests/batch-conversion-core.test.cjs",
+      "sha256": "66a6e27a5bf3e5299bd9835789d9ffaa9a6e6b486ebfc218536c11922a4db66a"
+    },
+    {
+      "path": "tests/batch-pdf-text-core.test.cjs",
+      "sha256": "a236d84c118603840b8f3f826cd05d36fd6a962ad48f730cb1923927ffdd565a"
+    }
+  ]
+}

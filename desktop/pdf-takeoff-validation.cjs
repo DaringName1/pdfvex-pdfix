@@ -1,0 +1,21 @@
+const {hash,validSource,validToken,MAX_BYTES}=require('./pdf-review-edit-validation.cjs');
+const {canonicalJSON}=require('./pdf-review-validation.cjs');
+const {validateTakeoffLedger,takeoffDisplay}=require('./pdf-takeoff-model.cjs');
+const {MEASUREMENT_UNITS}=require('./pdf-takeoff-math.cjs');
+const fail=message=>{throw new Error(message);};
+const subtype=entry=>entry.kind==='distance'?'Line':entry.kind==='count'?'Ink':entry.kind==='area'||entry.closed?'Polygon':'PolyLine';
+function validTakeoffDraft(value){
+ if(!value||Object.getPrototypeOf(value)!==Object.prototype||!['author,ledger,unit','author,ledger,replaceRecovered,unit'].includes(Object.keys(value).sort().join(','))||Object.hasOwn(value,'replaceRecovered')&&typeof value.replaceRecovered!=='boolean'||typeof value.author!=='string'||!value.author.trim()||value.author!==value.author.trim()||value.author.length>200||/[\u0000-\u001f\u007f]/u.test(value.author)||typeof value.author.isWellFormed==='function'&&!value.author.isWellFormed()||!Object.hasOwn(MEASUREMENT_UNITS,value.unit))fail('Takeoff PDF copies require a supported display unit and plain annotation author.');
+ if(Buffer.byteLength(canonicalJSON(value),'utf8')>2*1024*1024)fail('The takeoff request exceeds 2 MB.');
+ const source=value.ledger?.source;if(!source||!Number.isInteger(source.pageCount)||source.pageCount<1||source.pageCount>500)fail('Choose a ledger for 1–500 source pages.');
+ const ledger=validateTakeoffLedger(value.ledger,source);if(!ledger.entries.length||canonicalJSON(ledger)!==canonicalJSON(value.ledger))fail('The frozen takeoff ledger must contain exact recomputed quantities and supported fields.');
+ return {ledger,unit:value.unit,author:value.author,replaceRecovered:value.replaceRecovered===true};
+}
+function metadata(draft,entry){return {kind:'pdfix-takeoff-annotation',version:1,source:draft.ledger.source,entry,displayUnit:draft.unit,author:draft.author};}
+function validTakeoffResult(result,draft,sourceSha256){
+ const r=result?.report;if(!(result?.bytes instanceof Uint8Array)||!result.bytes.length||result.bytes.length>MAX_BYTES||!r||r.version!==1||r.verified!==true||r.sourceSha256!==sourceSha256||r.sha256!==hash(result.bytes)||r.author!==draft.author||r.unit!==draft.unit||r.pageCount!==draft.ledger.source.pageCount||r.ledgerSha256!==hash(Buffer.from(canonicalJSON(draft.ledger)))||canonicalJSON(r.verifiedLedger)!==canonicalJSON(draft.ledger)||!Array.isArray(r.annotations)||r.annotations.length!==draft.ledger.entries.length)fail('The takeoff receipt does not match the exact source-bound request.');
+ const refs=new Set(),pages=[...new Set(draft.ledger.entries.map(entry=>entry.page))].sort((a,b)=>a-b);if(canonicalJSON(r.changedPages)!==canonicalJSON(pages))fail('Takeoff changed pages do not match the request.');
+ const replacements=draft.replaceRecovered?draft.ledger.entries.filter(entry=>entry.origin):[];if(!Array.isArray(r.replacedAnnotations)||r.replacedAnnotations.length!==replacements.length)fail('The replaced takeoff receipt does not match the explicit update choice.');r.replacedAnnotations.forEach((row,index)=>{const entry=replacements[index];if(!row||row.objectRef!==entry.origin.annotationRef||row.page!==entry.page||row.nm!==entry.origin.originalEntryId||row.entryId!==entry.id||row.metadataSha256!==entry.origin.metadataSha256)fail('An undeclared recovered annotation was replaced.');});
+ r.annotations.forEach((row,index)=>{const entry=draft.ledger.entries[index];if(!row||row.entryId!==entry.id||row.nm!==entry.id||row.page!==entry.page||row.subtype!==subtype(entry)||!/^ref:[1-9]\d*:\d+$/.test(row.objectRef)||refs.has(row.objectRef)||typeof row.contents!=='string'||row.contents.length>16384||!Array.isArray(row.rect)||row.rect.length!==4||row.rect.some(n=>!Number.isFinite(n)||Math.abs(n)>1e7)||row.rect[2]<=row.rect[0]||row.rect[3]<=row.rect[1]||! /^[a-f0-9]{64}$/.test(row.appearanceSha256)||row.metadataSha256!==hash(Buffer.from(canonicalJSON(metadata(draft,entry))))||canonicalJSON(row.quantity)!==canonicalJSON(entry.quantity))fail('A takeoff annotation receipt differs from its frozen entry.');refs.add(row.objectRef);});return result;
+}
+module.exports={hash,validSource,validToken,MAX_BYTES,canonicalJSON,validTakeoffDraft,validTakeoffResult,metadata,subtype,takeoffDisplay};

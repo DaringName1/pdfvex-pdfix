@@ -1,0 +1,2 @@
+.pdf-text-tools-dialog{width:min(1020px,calc(100vw - 48px));max-height:calc(100vh - 48px);overflow:auto;padding:24px;border:1px solid var(--border,#dbe3e9);border-radius:14px;background:var(--panel,#fff);color:var(--text,#162e42)}
+.pdf-text-tools-dialog>button{float:right;margin:0 0 12px 12px}.pdf-text-tools-dialog>select{margin:12px 0;padding:8px}.pdf-speech-page{outline:3px solid #009d80;outline-offset:4px}

@@ -1,0 +1,13 @@
+import {tableSignatureValue,tableGeometry,validateDocumentTables} from './document-table-model.js';
+import LIMITS from '../desktop/document-limits.cjs';
+const digest=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(b=>b.toString(16).padStart(2,'0')).join('');
+export async function applyImportedTableGrids(workspace,result){
+ if(workspace.disposed||workspace.departing)return [];if(!result||result.error)return ['Original table column widths could not be inspected: '+(result?.error??'the contained grid API is unavailable')+'. Equal-column fallback remains editable.'];
+ const sourceSha=await digest(workspace.file.bytes);if(workspace.disposed||workspace.departing)return [];if(result.version!==1||result.sourceSha256!==sourceSha||!Array.isArray(result.tables)||result.tables.length>LIMITS.TABLE_COUNT)throw new Error('DOCX column grids do not match the opened source.');
+ const json=workspace.editor.getJSON();validateDocumentTables(json);const tables=[];const walk=node=>{if(node.type==='table')tables.push(node);for(const child of node.content??[])walk(child);};walk(json);
+ const native=new Map(),duplicates=new Set();for(const item of result.tables){if(!item.signature)continue;if(native.has(item.signature))duplicates.add(item.signature);else native.set(item.signature,item);}
+ const signatures=await Promise.all(tables.map(table=>digest(new TextEncoder().encode(JSON.stringify(tableSignatureValue(table))))));if(workspace.disposed||workspace.departing)return [];const counts=new Map();for(const signature of signatures)counts.set(signature,(counts.get(signature)??0)+1);
+ let applied=0,fallback=0;for(let index=0;index<tables.length;index++){const signature=signatures[index],item=native.get(signature),table=tables[index];if(!item?.widthsTwips||duplicates.has(signature)||counts.get(signature)!==1){fallback++;continue;}const geometry=tableGeometry(table);if(item.rows!==geometry.height||item.columns!==geometry.width||!Array.isArray(item.widthsTwips)||item.widthsTwips.length!==geometry.width||item.widthsTwips.some(w=>!Number.isInteger(w)||w<1||w>30000))throw new Error('A source table grid failed its geometry bounds.');table.attrs={...table.attrs,columnGridTwips:[...item.widthsTwips]};applied++;}
+ validateDocumentTables(json);if(applied)workspace.editor.commands.setContent(json,{emitUpdate:false});
+ return [...(applied?[`Retained declared column proportions for ${applied} uniquely matched table(s); widths fit the available page.`]:[]),...(fallback?[`${fallback} table(s) use equal-column fallback because original grids were missing, conflicting or not uniquely matched.`]:[]),...(Array.isArray(result.notices)?result.notices.slice(0,3).map(n=>String(n).slice(0,600)):[])];
+}

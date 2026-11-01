@@ -1,0 +1,28 @@
+.document-compact-groups{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;width:100%;min-width:0}
+.document-compact-group{display:flex;flex-direction:column;justify-content:space-between;gap:3px;padding:0 9px;border-right:1px solid var(--line);min-width:0}
+.document-compact-primary{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.document-compact-group>button{align-self:center;border:0;background:transparent;padding:3px 6px;font:inherit;font-size:calc(10px * var(--ui-font-scale,1));text-transform:uppercase;max-width:100%;white-space:normal;color:var(--teal)}
+.document-ribbon[data-compact-document] .document-quick-controls{overflow:visible;padding-top:5px;padding-bottom:5px}
+.document-ribbon[data-compact-document] [data-ribbon-panel=home]{display:none!important}
+.document-ribbon[data-compact-document]:not([data-document-tab=home]) [data-home-only]{display:none!important}
+.document-compact-options{position:fixed;inset:auto;margin:0;box-sizing:border-box;overflow:auto;padding:14px;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;box-shadow:0 8px 24px #183b3526}
+.document-compact-options[hidden]{display:none!important}
+.document-ribbon .document-compact-options :is(.document-command-group,.document-formatting-controls){display:flex;flex-wrap:wrap;min-width:0;gap:8px;border:0;padding:0;margin-bottom:12px}
+.document-ribbon .document-compact-options label{display:flex;flex-wrap:wrap;align-items:center;gap:5px;font-size:calc(11px * var(--ui-font-scale,1));white-space:normal}
+.document-ribbon .document-compact-options button{max-width:100%;white-space:normal}
+.document-compact-extra{display:flex;flex-wrap:wrap;gap:6px}
+.document-compact-options :is(button,select,input):focus-visible,.document-compact-group>button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.document-compact-groups>[aria-label=History]{padding:0 8px}
+.document-compact-groups>[aria-label=Find]{padding:0 8px;border:0}
+/* The group captions stay compact while the writing controls follow Interface text size. */
+.document-ribbon[data-compact-document] .document-compact-group>button{font-size:calc(10px * var(--ui-font-scale,1))!important;line-height:1.2;padding:3px 6px!important}
+.document-ribbon[data-compact-document] .document-quick-controls [data-command]{font-size:calc(13px * var(--ui-font-scale,1))!important;height:auto;min-height:29px}
+.document-ribbon[data-compact-document] .document-compact-group>button{min-height:28px!important}
+
+/* Live options sit beside the same document; they never cover its writing area. */
+.document-area[data-document-options-open] .editor-canvas{margin-right:var(--document-options-width)}
+.document-compact-options{display:flex;flex-direction:column;padding:0;border-radius:0;overflow:hidden;max-height:none;box-shadow:-3px 0 12px #183b3512}
+.document-options-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);flex:none;font-size:calc(12px * var(--ui-font-scale,1))}
+.document-options-heading button{border:0;background:transparent;padding:4px 8px!important;font-size:20px!important}
+.document-options-content{min-height:0;overflow:auto;padding:12px;flex:1}
+.document-options-content :is(input,select){max-width:100%;box-sizing:border-box}

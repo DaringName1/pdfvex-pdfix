@@ -1,0 +1,10 @@
+.reader-one-place .reader-reading-shortcut{border:0;background:transparent;box-shadow:none;padding:6px 9px;font-size:12px;white-space:nowrap}
+.reader-one-place .reader-reading-shortcut:hover:not(:disabled){background:#edf5ef}
+.reader-one-place .reader-reading-shortcut[aria-pressed=true]{background:#e5f0e7;color:#34644b}
+.reader-one-place[data-interaction-mode=view]>.pdf-toolbar{min-height:48px}
+
+/* Everyday page/zoom actions share the same slim, unboxed treatment as Fit. */
+.reader-one-place .reader-main-controls>button{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:32px;padding:5px 8px;border:0;border-radius:4px;box-shadow:none;background:transparent;color:inherit;font:inherit;white-space:nowrap}
+.reader-one-place .reader-main-controls>button:hover:not(:disabled){background:var(--mint,#edf5ef)}
+.reader-one-place .reader-main-controls>button[aria-pressed=true]{background:#e5f0e7;color:#34644b}
+.reader-one-place .reader-main-controls>button:focus-visible{outline:2px solid var(--teal,#216d4c);outline-offset:1px}

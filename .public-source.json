@@ -1,0 +1,14 @@
+{
+ "commit": "fedfb1cdb9ee4035e2ec2c2634d4cd736b6cadcd",
+ "files": 1831,
+ "excluded": [
+  "samples/dad-drawing-review",
+  "docs/DAD-DRAWING-REVIEW-SAMPLES.md",
+  "pdfix information form owner",
+  "docs/evidence",
+  ".github/workflows",
+  "docs/spare-pc",
+  "scripts/spare-follow",
+  "docs/START-HERE.md"
+ ]
+}

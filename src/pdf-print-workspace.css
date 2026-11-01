@@ -1,0 +1,18 @@
+.pdf-print-workspace{width:min(1120px,95vw);max-height:94vh;padding:22px;overflow:auto}.print-options{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:15px 0}.print-options label{display:flex;align-items:center;gap:5px;font-size:12px}.print-options input:not([type=checkbox]){width:65px}.print-options [data-range]{width:150px!important}.print-options select,.print-options input:not([type=checkbox]){padding:6px;border:1px solid var(--line);border-radius:5px}.print-policy{font-size:12px;color:#66766d;line-height:1.5}.print-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.print-actions label{font-size:12px}.print-status{font-size:12px}.print-previews{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}.print-previews figure{margin:0;min-width:0}.prepared-print-sheet{position:relative;width:100%;max-height:600px;background:white;box-shadow:0 2px 13px #0002;border:1px solid #a6b7ad;overflow:hidden}.prepared-print-sheet img{position:absolute;object-fit:fill}.print-previews figcaption{font-size:11px;padding-top:6px;overflow-wrap:anywhere}.pdf-print-workspace [hidden]{display:none!important}@media print{.pdf-print-workspace{display:none!important}}
+.print-blank-cell{display:grid;place-items:center;color:#708478;font-size:11px;border:1px dashed #dce5df}
+.pdf-print-workspace{max-width:1120px;height:min(820px,calc(100vh - 32px));max-height:calc(100vh - 32px);padding:16px;overflow:hidden}
+.pdf-print-workspace[open]{display:flex;flex-direction:column;gap:10px}
+.pdf-print-workspace .dialog-header,.pdf-print-workspace .print-actions{flex:none}
+.pdf-print-workspace .dialog-header h2{margin:0;font-size:20px}
+.pdf-print-workspace .print-source{margin:4px 0 0;overflow-wrap:anywhere}
+.print-layout{display:grid;grid-template-columns:minmax(205px,32%) minmax(0,1fr);gap:16px;flex:1;min-height:0;min-width:0}
+.print-settings-panel{overflow:auto;min-width:0;padding-right:8px;scrollbar-gutter:stable}
+.print-settings-panel .print-options{margin:0;display:flex;flex-direction:column;align-items:stretch}
+.print-settings-panel .print-options label{flex-wrap:wrap;justify-content:space-between;min-width:0}
+.print-settings-panel .print-options select{max-width:100%}
+.print-settings-panel .print-options [data-paper]{width:100%}
+.print-settings-panel p,.print-copy-details{font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.print-copy-details summary{cursor:pointer}
+.print-layout .print-previews{overflow:auto;align-content:start;min-width:0;min-height:0;padding:8px;background:var(--surface-alt,#eef2ef);border:1px solid var(--line);border-radius:6px;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.pdf-print-workspace .print-status{flex:none;max-height:3.5em;overflow:auto;margin:0}
+@media(max-width:850px){.pdf-print-workspace{padding:12px}.print-layout{grid-template-columns:minmax(185px,39%) minmax(0,1fr);gap:10px}.pdf-print-workspace .print-actions{gap:6px}}

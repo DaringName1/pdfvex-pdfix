@@ -1,0 +1,48 @@
+const {PDFDocument,PDFDict,PDFArray,PDFRef,PDFName,PDFString,PDFHexString,PDFNumber,PDFRawStream,PDFInvalidObject}=require('pdf-lib');
+const {inflateSync}=require('node:zlib'),{createHash}=require('node:crypto');
+const SOURCE_MAX=100*1024*1024,ATTACHMENT_MAX=10*1024*1024,TOTAL_MAX=25*1024*1024,COUNT_MAX=100;
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex'),key=PDFName.of;
+function text(value){if(!(value instanceof PDFString||value instanceof PDFHexString))return '';if(value.sizeInBytes()>16384)throw new Error('An attachment name or description exceeds the supported metadata limit.');const decoded=value.decodeText();if(decoded.length>4096)throw new Error('An attachment name or description exceeds 4,096 characters.');return decoded;}
+function display(value){return value.replace(/[\x00-\x1f\x7f\u202a-\u202e\u2066-\u2069]/g,character=>'\\u'+character.charCodeAt(0).toString(16).padStart(4,'0'));}
+async function inventory(bytes,selectedId){
+ if(!(bytes instanceof Uint8Array)||!bytes.length||bytes.length>SOURCE_MAX)throw new Error('Choose an opened PDF under 100 MB.');
+ const doc=await PDFDocument.load(bytes,{updateMetadata:false,throwOnInvalidObject:true,capNumbers:false});if(doc.isEncrypted||doc.context.trailerInfo.Encrypt)throw new Error('Attachment export requires an owner-authorized decrypted copy.');
+ const context=doc.context,seen=new WeakSet(),refs=new Set(),stack=[doc.catalog],specs=[];let nodes=0,signaturePresent=false;
+ const resolve=value=>{if(!(value instanceof PDFRef))return value;const found=context.lookup(value);if(!found)throw new Error('An attachment reference cannot be resolved. This PDF needs repair.');return found;};
+ const get=(dict,name)=>resolve(dict.get(key(name))),name=value=>value instanceof PDFName?value.decodeText():'';
+ while(stack.length){let value=stack.pop();if(++nodes>250000)throw new Error('Attachment inventory exceeds the 250,000-node limit.');if(value instanceof PDFRef){const id=value.toString();if(refs.has(id))continue;refs.add(id);value=resolve(value);}if(!value||typeof value!=='object'||seen.has(value))continue;seen.add(value);
+  if(value instanceof PDFInvalidObject)throw new Error('Malformed PDF objects cannot be inventoried reliably.');
+  if(value instanceof PDFNumber&&(!Number.isFinite(value.asNumber())||Math.abs(value.asNumber())>1e15))throw new Error('Unsupported PDF numbers cannot be inventoried reliably.');
+  if(value instanceof PDFRawStream){stack.push(value.dict);continue;}
+  if(value instanceof PDFDict){const type=name(get(value,'Type')),subtype=name(get(value,'Subtype'));if(type==='Sig'||name(get(value,'FT'))==='Sig'||value.has(key('ByteRange')))signaturePresent=true;if(value.has(key('XFA')))throw new Error('XFA attachment containers are not supported.');if(['RichMedia','Movie','Sound','Screen','3D'].includes(subtype)||['Rendition','RichMediaContent','RichMediaConfiguration','RichMediaInstance'].includes(type))throw new Error('Multimedia-bearing PDF containers are not supported for attachment export.');if(type==='Filespec'||value.has(key('EF'))){if(specs.length>=COUNT_MAX)throw new Error('This PDF exceeds the 100 attachment-description limit.');specs.push(value);}for(const [,item]of value.entries())stack.push(item);}
+  else if(value instanceof PDFArray){if(value.size()>100000)throw new Error('The PDF contains an oversized attachment array.');for(let i=0;i<value.size();i++)stack.push(value.get(i));}
+ }
+ if(context.enumerateIndirectObjects().length>100000)throw new Error('This PDF exceeds the 100,000-object inventory limit.');
+ const sourceSha256=hash(bytes),attachments=[];let totalBytes=0,decodedWork=0,selectedBytes=null;
+ for(const [index,spec]of specs.entries()){
+  const declaredName=text(get(spec,'UF'))||text(get(spec,'F'))||'(unnamed attachment)',description=text(get(spec,'Desc')),ef=get(spec,'EF');
+  const base={number:index+1,declaredName:display(declaredName),description:display(description),declaredType:'not declared',declaredBytes:null,actualBytes:null,sha256:null,available:false,reason:null,defaultName:'attachment-'+String(index+1).padStart(2,'0')+'.bin'};
+  let embedded,encodedSha256='none';
+  try{
+   if(name(get(spec,'FS'))==='URL'||!(ef instanceof PDFDict))throw new Error('This is an external or unsupported file reference. PDFix will not fetch it.');
+   if(spec.has(key('RF'))||spec.has(key('CI'))||spec.has(key('Collection'))||name(get(spec,'FS'))&&name(get(spec,'FS'))!=='')throw new Error('This attachment uses an unsupported external, related-file or portfolio structure.');
+   if(ef.entries().some(([entry])=>!['F','UF'].includes(entry.decodeText())))throw new Error('Platform-specific or exotic attachment streams are unsupported.');
+   const unicode=get(ef,'UF'),fallback=get(ef,'F');if(unicode&&fallback&&unicode!==fallback)throw new Error('The attachment declares different filename streams. Choose a simpler source container.');embedded=unicode||fallback;
+   if(!(embedded instanceof PDFRawStream)||name(get(embedded.dict,'Type'))!=='EmbeddedFile')throw new Error('The attachment does not resolve to a standard embedded-file stream.');
+   if(embedded.dict.has(key('F'))||embedded.dict.has(key('FFilter'))||embedded.dict.has(key('FDecodeParms')))throw new Error('External attachment stream resources are not supported.');
+   if(embedded.contents.length>ATTACHMENT_MAX)throw new Error('The encoded attachment exceeds the 10 MB limit.');
+   encodedSha256=hash(embedded.contents);base.declaredType=display(name(get(embedded.dict,'Subtype'))||'not declared');
+   if(base.declaredType.length>1024)throw new Error('The declared attachment type exceeds its metadata limit.');
+   const params=get(embedded.dict,'Params');if(params!==undefined&&!(params instanceof PDFDict))throw new Error('The attachment size metadata is malformed.');const size=params instanceof PDFDict?get(params,'Size'):undefined;if(size!==undefined&&(!(size instanceof PDFNumber)||!Number.isSafeInteger(size.asNumber())||size.asNumber()<0))throw new Error('The declared attachment size is malformed.');base.declaredBytes=size?.asNumber()??null;
+   let filter=get(embedded.dict,'Filter'),decodeParams=get(embedded.dict,'DecodeParms');if(filter instanceof PDFArray){if(filter.size()!==1)throw new Error('Multi-filter attachment streams are unsupported.');filter=resolve(filter.get(0));}if(decodeParams instanceof PDFArray){if(decodeParams.size()!==1)throw new Error('Complex attachment decoding parameters are unsupported.');decodeParams=resolve(decodeParams.get(0));}if(decodeParams!==undefined&&String(decodeParams)!=='null'&&!(decodeParams instanceof PDFDict&&decodeParams.entries().length===0))throw new Error('Attachment decoding parameters are unsupported.');
+   const filterName=name(filter);if(filter!==undefined&&filterName!=='FlateDecode')throw new Error('Only unfiltered or Flate-compressed attachment streams are supported.');
+   const allowance=Math.min(ATTACHMENT_MAX,TOTAL_MAX-decodedWork);if(allowance<=0)throw new Error('The attachment inventory exhausted its 25 MB decoding-work budget.');let decoded;try{if(filterName==='FlateDecode')decoded=inflateSync(embedded.contents,{maxOutputLength:allowance});else{if(embedded.contents.length>allowance)throw new Error('The attachment exceeds the remaining decoded-data budget.');decoded=Buffer.from(embedded.contents);}}catch(error){decodedWork+=allowance;throw error;}decodedWork+=decoded.length;if(decoded.length>ATTACHMENT_MAX)throw new Error('The decoded attachment exceeds 10 MB.');if(totalBytes+decoded.length>TOTAL_MAX)throw new Error('The attachment inventory exceeds the 25 MB decoded-data limit.');totalBytes+=decoded.length;base.actualBytes=decoded.length;base.sha256=hash(decoded);base.available=true;base.sizeMatchesDeclaration=base.declaredBytes===null?null:base.declaredBytes===decoded.length;
+   const id=hash(Buffer.from([sourceSha256,index,declaredName,encodedSha256].join('\n')));base.id=id;if(id===selectedId)selectedBytes=Uint8Array.from(decoded);
+  }catch(error){base.reason=String(error.message||'Attachment decoding failed.').toWellFormed().replace(/[\x00-\x1f\x7f\u202a-\u202e\u2066-\u2069]/g,' ').slice(0,500);}
+  if(!base.id)base.id=hash(Buffer.from([sourceSha256,index,declaredName,encodedSha256].join('\n')));attachments.push(base);
+ }
+ const report={version:1,sourceSha256,sourceBytes:bytes.length,attachmentCount:attachments.length,decodedBytes:totalBytes,decodingWorkBytes:decodedWork,signaturePresent,signatureValidity:'unable to verify',attachments,scope:'Reachable standard file-specification descriptions only. Attachment names, types and declared sizes are untrusted document metadata. Actual sizes and hashes describe decoded bytes, not safety or authenticity. No attachment content is interpreted, executed, opened or fetched.',limits:['100 descriptions, 10 MB per decoded attachment and 25 MB decoded data per inventory.','Only unfiltered and plain Flate streams are supported. External resources, exotic decoding, portfolios, XFA and multimedia containers are refused.','Attachment inspection and decoding use the fixed Windows-contained document engine; runtime security acceptance remains pending.']};
+ if(selectedId){const item=attachments.find(value=>value.id===selectedId);if(!item||!item.available||!selectedBytes)throw new Error(item?.reason||'The chosen embedded file no longer resolves in this source snapshot.');return {bytes:selectedBytes,report:{version:1,sourceSha256,signaturePresent,signatureValidity:'unable to verify',attachment:item,scope:report.scope}};}
+ return report;
+}
+module.exports={inventory,SOURCE_MAX,ATTACHMENT_MAX,TOTAL_MAX};

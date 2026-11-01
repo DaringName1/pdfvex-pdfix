@@ -1,0 +1,32 @@
+.compression-workspace{width:calc(100vw - 40px);max-width:1050px;height:fit-content;max-height:calc(100vh - 40px);padding:18px;overflow:hidden}.compression-workspace[open]{display:flex;flex-direction:column}.compression-workspace.has-preview{height:min(800px,calc(100vh - 40px))}.compression-workspace .dialog-header,.compression-settings,.compression-results,.compression-save{flex:none}.compression-workspace h2{font-size:21px;margin:0 0 5px}.compression-workspace .subtitle{font-size:12px;margin:0}.compression-settings,.compression-results,.compression-save{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:10px 0 0}.compression-workspace label{display:flex;align-items:center;gap:6px;font-size:12px}.compression-settings select,.compression-settings input{border:1px solid #dce5da;border-radius:5px;padding:7px;background:white;min-width:0}.compression-settings input{width:64px}.compression-tradeoff,.compression-status,.compression-policy{font-size:12px;line-height:1.5;margin:8px 0;flex:none;overflow-wrap:anywhere}.compression-status{max-height:60px;overflow:auto}.compression-policy{font-size:11px;color:#72816a;margin-bottom:0}.compression-size{font-size:12px;font-weight:600;flex:1}.compression-reader{display:flex;flex:1;min-height:120px;flex-direction:column;border:1px solid #dce5da;border-radius:7px;overflow:hidden;margin-top:10px}.compression-reader .pdf-navigation,.compression-reader .reader-inspector,.compression-reader .reader-tools,.compression-reader .reader-view-options{display:none}.compression-reader .pdf-toolbar{padding:6px 10px}.compression-reader .page-stage{padding:12px}.compression-save [data-save]{margin-left:auto}.compression-workspace [hidden]{display:none!important}@media(max-width:850px){.compression-workspace{padding:14px}.compression-settings{gap:7px;margin-top:8px}.compression-tradeoff,.compression-policy{font-size:10px}.compression-reader .pdf-message{padding:5px 10px}.compression-results{margin-top:4px}}
+.compression-workspace{height:min(800px,calc(100vh - 40px))}
+.compression-live-layout{display:grid;grid-template-columns:minmax(180px,30%) minmax(0,1fr);gap:14px;flex:1;min-height:0;min-width:0;margin-top:10px}
+.compression-settings-panel{overflow:auto;min-width:0;scrollbar-gutter:stable;padding-right:7px}
+.compression-settings-panel .compression-settings,.compression-settings-panel .compression-results{flex-direction:column;align-items:stretch;margin-top:0}
+.compression-settings-panel label{flex-wrap:wrap}
+.compression-settings-panel select{max-width:100%}
+.compression-settings-panel .compression-settings{min-width:0;width:100%}
+.compression-settings-panel .compression-settings label{display:flex;flex-direction:column;align-items:stretch;min-width:0;width:100%;box-sizing:border-box}
+.compression-settings-panel select,.compression-settings-panel button{min-width:0;max-width:100%;box-sizing:border-box}
+.compression-settings-panel select{width:100%}
+.compression-settings-panel button{white-space:normal;overflow-wrap:anywhere}
+.compression-settings-panel details{font-size:12px;line-height:1.5;margin-top:12px}
+.compression-settings-panel summary{cursor:pointer}
+.compression-live-layout .compression-reader{margin:0;min-width:0;min-height:0}
+@media(max-width:850px){.compression-live-layout{grid-template-columns:minmax(170px,36%) minmax(0,1fr);gap:8px}}
+.reader-one-place .compression-inline{width:290px;flex-basis:290px;max-height:none;height:auto;overflow:auto;padding:12px}
+.compression-inline{display:flex;flex-direction:column}
+.compression-inline .compression-live-layout{display:block;flex:1;min-height:70px;overflow:auto;margin-top:12px}
+.compression-inline .compression-settings-panel{overflow:visible;padding:0}
+.compression-inline .compression-status{max-height:82px;overflow:auto}
+.compression-inline .compression-save{display:grid;gap:10px}
+.compression-inline .compression-save [data-save]{margin:0;width:100%}
+.compression-inline .compression-save label{align-items:start;line-height:1.5}
+.compression-inline .compression-settings{display:grid;gap:9px}
+.compression-inline .compression-settings label{display:grid;gap:5px;width:100%;min-width:0}
+.compression-inline .compression-settings select{width:100%}
+.compression-inline h2{font-size:16px}
+.compression-inline .dialog-header{position:static;background:var(--surface,#fff);padding:4px 0;flex:none}
+.reader-one-place .compression-reader.reader-inline-proof{margin:0;min-width:0;min-height:0;border:0;border-radius:0}
+.reader-one-place .compression-reader .pdf-body{min-height:0;flex:1}
+@media(max-width:850px){.reader-one-place .compression-inline{width:240px;flex-basis:240px;padding:9px}.compression-inline .dialog-header{top:-9px}}

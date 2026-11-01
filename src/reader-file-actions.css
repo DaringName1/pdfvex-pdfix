@@ -1,0 +1,5 @@
+.file-header>.reader-file-action{display:inline-flex;align-items:center;justify-content:center;gap:5px;border:0;border-radius:5px;background:transparent;color:inherit;min-width:32px;min-height:32px;padding:5px 8px;flex:none;font-size:12px;white-space:nowrap}
+.file-header>.reader-file-action:hover:not(:disabled){background:#edf5ef}
+.file-header>.reader-file-action[aria-pressed=true]{background:#e5f0e7;color:#34644b}
+.file-header>.reader-file-action svg{width:17px;height:17px;flex:none}
+@media(max-width:1100px){.file-header>.reader-file-action>span{display:none}}

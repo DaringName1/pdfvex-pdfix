@@ -1,0 +1,36 @@
+// ZIP/XML writing and read-back occur only in the fixed contained document engine.
+const {createHash}=require('node:crypto');
+const {writeArchive,xml,all,children}=require('./office-archive.cjs');
+const {readWorkbook}=require('./workbook-codec.cjs');
+const {MAX_XLSX_BYTES,validTableXlsxDraft,tableCellFingerprint,tableMergeFingerprint}=require('./table-xlsx-validation.cjs');
+const NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main',REL='http://schemas.openxmlformats.org/officeDocument/2006/relationships',PACKAGE_REL='http://schemas.openxmlformats.org/package/2006/relationships';
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+const header='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+const escapeXml=text=>text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&apos;');
+// OOXML's escaped-string notation needs literal _xHHHH_ sequences escaped first.
+const encodeCell=text=>escapeXml(text.replace(/_x[0-9a-f]{4}_/gi,part=>'_x005F_'+part.slice(1)).replaceAll('\r','_x000D_'));
+const decodeCell=text=>text.replace(/_x([0-9a-f]{4})_/gi,(_,digits)=>String.fromCharCode(parseInt(digits,16)));
+function columnName(index){let text='';for(let n=index+1;n;n=Math.floor((n-1)/26))text=String.fromCharCode(65+(n-1)%26)+text;return text;}
+function writeTableXlsx(sourceBytes,value){
+ if(!(sourceBytes instanceof Uint8Array)||!sourceBytes.length||sourceBytes.length>100*1024*1024)throw new Error('Choose an opened PDF under 100 MiB for table XLSX export.');
+ const draft=validTableXlsxDraft(value,hash(sourceBytes)),rows=draft.cells.length,columns=draft.cells[0].length,entries=new Map();
+ const add=(name,text)=>entries.set(name,Buffer.from(header+text,'utf8'));
+ add('[Content_Types].xml','<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>');
+ add('_rels/.rels',`<Relationships xmlns="${PACKAGE_REL}"><Relationship Id="rId1" Type="${REL}/officeDocument" Target="xl/workbook.xml"/></Relationships>`);
+ add('xl/workbook.xml',`<workbook xmlns="${NS}" xmlns:r="${REL}"><bookViews><workbookView/></bookViews><sheets><sheet name="Extracted table" sheetId="1" r:id="rId1"/></sheets></workbook>`);
+ add('xl/_rels/workbook.xml.rels',`<Relationships xmlns="${PACKAGE_REL}"><Relationship Id="rId1" Type="${REL}/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="${REL}/styles" Target="styles.xml"/></Relationships>`);
+ add('xl/styles.xml',`<styleSheet xmlns="${NS}"><fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="49" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`);
+ const dimensions=`A1:${columnName(columns-1)}${rows}`,colXml=Array.from({length:columns},(_,c)=>`<col min="${c+1}" max="${c+1}" width="${Math.min(60,Math.max(12,...draft.cells.map(row=>Math.max(...row[c].split(/[\r\n]/).map(line=>Math.min(line.length+2,60))))))}" customWidth="1"/>`).join('');
+ const mergeRefs=draft.merges.map(item=>columnName(item.column)+(item.row+1)+':'+columnName(item.column+item.columnSpan-1)+(item.row+item.rowSpan)),mergeXml=mergeRefs.length?'<mergeCells count="'+mergeRefs.length+'">'+mergeRefs.map(ref=>'<mergeCell ref="'+ref+'"/>').join('')+'</mergeCells>':'';
+ const cellXml=draft.cells.map((row,r)=>`<row r="${r+1}">${row.map((text,c)=>`<c r="${columnName(c)}${r+1}" t="inlineStr" s="1"><is><t xml:space="preserve">${encodeCell(text)}</t></is></c>`).join('')}</row>`).join('');
+ add('xl/worksheets/sheet1.xml',`<worksheet xmlns="${NS}"><dimension ref="${dimensions}"/><sheetViews><sheetView workbookViewId="0"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>${colXml}</cols><sheetData>${cellXml}</sheetData>${mergeXml}</worksheet>`);
+ const output=writeArchive(entries);if(output.length>MAX_XLSX_BYTES)throw new Error('The extracted XLSX copy exceeds its 10 MiB limit.');
+ const reopened=readWorkbook(output);if(reopened.entries.size!==entries.size||reopened.model.external||reopened.model.signed||reopened.model.readOnly||reopened.model.sheets.length!==1)throw new Error('The extracted XLSX read-back has unsupported parts or relationships.');
+ for(const [name,data]of entries)if(!reopened.entries.get(name)?.equals(data))throw new Error('The extracted XLSX archive did not preserve its generated parts.');
+ const sheet=xml(reopened.entries.get('xl/worksheets/sheet1.xml')),stored=all(sheet,'c');if(all(sheet,'f').length||all(sheet,'hyperlink').length||all(sheet,'oleObject').length||stored.length!==rows*columns)throw new Error('The extracted XLSX contains nonliteral cell content.');
+ const actualMergeRefs=all(sheet,'mergeCell').map(node=>node.getAttribute('ref'));if(JSON.stringify(actualMergeRefs)!==JSON.stringify(mergeRefs)||reopened.model.sheets[0].ranges.length!==draft.merges.length)throw new Error('The extracted XLSX merged-cell layout did not read back exactly.');for(const [i,item]of draft.merges.entries()){const range=reopened.model.sheets[0].ranges[i];if(range.row!==item.row+1||range.col!==item.column+1||range.lastRow!==item.row+item.rowSpan||range.lastCol!==item.column+item.columnSpan)throw new Error('The extracted XLSX merged-cell rectangle changed.');}
+ const cells=new Map(reopened.model.sheets[0].cells.map(cell=>[cell.ref,cell]));
+ for(let r=0;r<rows;r++)for(let c=0;c<columns;c++){const ref=columnName(c)+(r+1),cell=cells.get(ref),node=stored[r*columns+c];if(cell?.type!=='text'||cell.formula!==null||cell.unsupported||decodeCell(cell.value)!==draft.cells[r][c]||node.getAttribute('r')!==ref||node.getAttribute('t')!=='inlineStr'||children(node,'is').length!==1)throw new Error('The extracted XLSX literal cell did not read back exactly.');}
+ return {bytes:Uint8Array.from(output),report:{version:1,sourceSha256:draft.sourceSha256,page:draft.page,mode:draft.mode,region:{...draft.region},rows,columns,cellsSha256:tableCellFingerprint(draft.cells),sha256:hash(output),outputBytes:output.length,format:'xlsx',cellType:'inlineStr',formulaCells:0,externalRelationships:0,macroParts:0,mergedRanges:draft.merges.length,mergesSha256:tableMergeFingerprint(draft.merges),verified:true}};
+}
+module.exports={writeTableXlsx};

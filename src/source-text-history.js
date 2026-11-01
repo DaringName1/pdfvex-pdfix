@@ -1,0 +1,7 @@
+// Native textarea history, using the same browser commands as Ctrl+Z/Ctrl+Y.
+export function installSourceTextHistory(workspace){
+ const input=workspace.input,doc=workspace.root.ownerDocument,events=new AbortController(),group=doc.createElement('div'),state={undo:false,redo:false};let disposed=false;group.hidden=true;group.setAttribute('aria-label','Source text history');
+ const sources=['undo','redo'].map(command=>{const button=doc.createElement('button');button.type='button';button.textContent=command==='undo'?'Undo':'Redo';button.setAttribute('aria-label',button.textContent);button.disabled=true;button.onclick=()=>{if(disposed||input.readOnly||workspace.saving||workspace.departing)return;input.focus({preventScroll:true});doc.execCommand(command);sync();};group.append(button);return button;});workspace.root.append(group);
+ function sync(){if(disposed)return;if(doc.activeElement===input){for(const command of ['undo','redo'])state[command]=doc.queryCommandEnabled(command);}sources.forEach((button,i)=>button.disabled=input.readOnly||!!workspace.saving||!!workspace.departing||!state[i?'redo':'undo']);}
+ const on=(node,type)=>node.addEventListener(type,()=>queueMicrotask(sync),{signal:events.signal});for(const type of ['input','focus','keyup','mouseup'])on(input,type);on(doc,'selectionchange');const observer=new MutationObserver(sync);observer.observe(input,{attributes:true,attributeFilter:['readonly']});sync();return{sources,sync,dispose(){disposed=true;events.abort();observer.disconnect();group.remove();}};
+}

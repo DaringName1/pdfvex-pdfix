@@ -1,0 +1,7 @@
+# F63 fingerprint workflow — October 12, 2026
+
+Connected **Verify PDF fingerprint** to Workspaces and the command finder. A native picker selects the original; a streaming parent SHA-256 reader uses 1 MiB chunks without parsing or modifying PDF content. Progress, cancellation, expected-hash comparison, JSON receipt import, exclusive receipt export and clearing are connected. The receipt records file name, byte count, check time, digest and the last reviewed comparison when present. It omits absolute source paths and document text. The UI distinguishes byte equality from signer/author identity and future integrity.
+
+The reader checks regular files, link aliases, named/descriptor identity, size and timestamps before/after reading, catches growth/short reads, and checks cancellation before publishing a result. No whole-file RAM size threshold is imposed; safe-integer file sizes and availability still apply. Imported receipts are bounded 64 KiB UTF-8 JSON with SHA-256/version/name checks. An imported fingerprint is data, not an authenticated trust assertion. Exports use the existing new-copy exclusive writer and recheck the receipt after the save chooser. Closing/clearing/renderer loss remove in-memory state.
+
+Remaining: broad UI/cancel/locked/cloud/hostile-path replacement cases, authenticated receipt formats, opened-source integration and receipt history. Node path checks do not certify handle-relative resistance to an adversarial directory replacement. This narrow coding batch does not establish all security or compatibility acceptance.

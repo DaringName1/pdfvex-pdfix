@@ -1,0 +1,11 @@
+const fs=require('node:fs/promises'),path=require('node:path'),{createHash}=require('node:crypto');
+const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
+async function saveAttachment(store,destination,bytes,expectedHash){
+ if(typeof destination!=='string'||!path.isAbsolute(destination)||!(bytes instanceof Uint8Array)||bytes.length>10*1024*1024||! /^[a-f0-9]{64}$/.test(expectedHash)||digest(bytes)!==expectedHash)throw new Error('Choose a native destination for the exact reviewed attachment bytes.');
+ const name=path.basename(destination);if(path.extname(name).toLowerCase()!=='.bin'||/[\x00-\x1f<>:"|?*]/.test(name)||/[ .]$/.test(name)||/^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(name))throw new Error('Use a new ordinary .bin filename. Keep these unverified bytes inert until you independently assess them.');
+ const parent=await fs.realpath(path.dirname(destination)),target=path.join(parent,name),canonical=value=>path.resolve(value).toLowerCase();
+ if([...store.handles.values()].some(source=>canonical(source.path)===canonical(target))||store.recents.some(source=>canonical(source.path)===canonical(target)))throw new Error('Choose a new output filename; opened and recent originals are protected.');
+ let handle,created=false;try{handle=await fs.open(target,'wx+');created=true;await handle.writeFile(bytes);await handle.sync();const stat=await handle.stat(),hash=createHash('sha256'),buffer=Buffer.alloc(128*1024);let total=0;while(total<bytes.length){const read=await handle.read(buffer,0,Math.min(buffer.length,bytes.length-total),total);if(!read.bytesRead)break;hash.update(buffer.subarray(0,read.bytesRead));total+=read.bytesRead;}const extra=await handle.read(buffer,0,1,total);if(stat.size!==bytes.length||total!==bytes.length||extra.bytesRead||hash.digest('hex')!==expectedHash)throw new Error('The saved attachment bytes did not match the reviewed hash.');await handle.close();handle=null;return {name,location:target,size:bytes.length,sha256:expectedHash};}
+ catch(error){await handle?.close().catch(()=>{});if(created){try{await fs.unlink(target);}catch{throw new Error('Unverified output could not be removed at '+target+'. Remove that copy before sharing.');}}if(error.code==='EEXIST')throw new Error('That filename already exists. Choose a new name.');throw error;}
+}
+module.exports={saveAttachment};

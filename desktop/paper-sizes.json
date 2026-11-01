@@ -1,0 +1,19 @@
+[
+  {"id":"letter","name":"Letter","group":"Everyday","width":8.5,"height":11,"unit":"in"},
+  {"id":"legal","name":"Legal","group":"Everyday","width":8.5,"height":14,"unit":"in"},
+  {"id":"ansi-a","name":"ANSI A","group":"ANSI engineering","width":8.5,"height":11,"unit":"in"},
+  {"id":"ansi-b","name":"ANSI B","group":"ANSI engineering","width":11,"height":17,"unit":"in"},
+  {"id":"ansi-c","name":"ANSI C","group":"ANSI engineering","width":17,"height":22,"unit":"in"},
+  {"id":"ansi-d","name":"ANSI D","group":"ANSI engineering","width":22,"height":34,"unit":"in"},
+  {"id":"ansi-e","name":"ANSI E","group":"ANSI engineering","width":34,"height":44,"unit":"in"},
+  {"id":"arch-a","name":"ARCH A","group":"Architecture","width":9,"height":12,"unit":"in"},
+  {"id":"arch-b","name":"ARCH B","group":"Architecture","width":12,"height":18,"unit":"in"},
+  {"id":"arch-c","name":"ARCH C","group":"Architecture","width":18,"height":24,"unit":"in"},
+  {"id":"arch-d","name":"ARCH D","group":"Architecture","width":24,"height":36,"unit":"in"},
+  {"id":"arch-e","name":"ARCH E","group":"Architecture","width":36,"height":48,"unit":"in"},
+  {"id":"a0","name":"ISO A0","group":"ISO A series","width":841,"height":1189,"unit":"mm"},
+  {"id":"a1","name":"ISO A1","group":"ISO A series","width":594,"height":841,"unit":"mm"},
+  {"id":"a2","name":"ISO A2","group":"ISO A series","width":420,"height":594,"unit":"mm"},
+  {"id":"a3","name":"ISO A3","group":"ISO A series","width":297,"height":420,"unit":"mm"},
+  {"id":"a4","name":"ISO A4","group":"ISO A series","width":210,"height":297,"unit":"mm"}
+]

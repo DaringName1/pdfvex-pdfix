@@ -1,0 +1,24 @@
+From: Dana Sender <dana@example.com>
+To: Alex Reader <alex@example.com>
+Subject: =?UTF-8?Q?Site_visit_=E2=80=93_Thursday?=
+Date: Mon, 12 Oct 2026 09:30:00 +0000
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="edge"
+
+--edge
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello Alex,
+
+The caf=C3=A9 meeting is at 10:00. Please bring the drawings.
+
+Regards,
+Dana
+--edge
+Content-Type: text/plain; name="secret-attachment.txt"
+Content-Disposition: attachment; filename="secret-attachment.txt"
+Content-Transfer-Encoding: base64
+
+QVRUQUNITUVOVC1CT0RZLVNIT1VMRC1OT1QtQVBQRUFS
+--edge--

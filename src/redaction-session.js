@@ -1,0 +1,5 @@
+export class RedactionSession{
+ constructor(){this.worker=new Worker(new URL('./redaction-writer.worker.js',import.meta.url),{type:'module'});this.worker.onmessage=({data})=>{const pending=this.pending;if(!pending)return;this.pending=null;clearTimeout(pending.timer);data.ok?pending.resolve(data.value):pending.reject(new Error(data.message));};this.worker.onerror=()=>this.cancel('The redaction writer could not finish.');}
+ send(data,transfer=[]){if(this.closed)return Promise.reject(new Error('Redaction canceled. No copy was saved.'));if(this.pending)return Promise.reject(new Error('A redaction page is still being written.'));return new Promise((resolve,reject)=>{const timer=setTimeout(()=>this.cancel('Redaction exceeded its two-minute stage limit. Try fewer or smaller pages.'),120000);this.pending={resolve,reject,timer};this.worker.postMessage(data,transfer);});}
+ cancel(message='Redaction canceled. No copy was saved.'){if(this.closed)return;this.closed=true;this.worker.terminate();if(this.pending){clearTimeout(this.pending.timer);this.pending.reject(new Error(message));this.pending=null;}}
+}

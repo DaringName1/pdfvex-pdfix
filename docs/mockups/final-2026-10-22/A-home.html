@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PDFix Home</title>
+<script src="dc-local.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+a{color:#3d7868}a:hover{color:#315f4d}
+</style>
+</helmet>
+<div style="width: 1366px; height: 820px; display: flex; background: #f6f8f6; color: #263b34; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; box-sizing: border-box;">
+  <nav aria-label="PDFix" style="width: 226px; flex: none; background: #ffffff; border-right: 1px solid #e3eae5; display: flex; flex-direction: column; padding: 28px 16px 20px; box-sizing: border-box; gap: 4px;">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 10px 26px; font-size: 30px; font-weight: 700; color: #315f4d;">
+      <img src="../../../public/brand/pdfix-logo.png" alt="PDFix" style="width: 180px; height: 76px; object-fit: contain; display: block;">
+    </div>
+    <div style="font-size: 11px; letter-spacing: 1.5px; color: #5f7268; padding: 6px 10px;">YOUR SPACE</div>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; background: #eaf3ec; border-left: 3px solid #3d7868; color: #315f4d; text-decoration: none; font-weight: 600;">Home</a>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #263b34; text-decoration: none;">Files</a>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #263b34; text-decoration: none;">Favorites</a>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #263b34; text-decoration: none;">All tools</a>
+    <div style="font-size: 11px; letter-spacing: 1.5px; color: #5f7268; padding: 18px 10px 6px;">GET THINGS DONE</div>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #263b34; text-decoration: none;">Ask about files</a>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #263b34; text-decoration: none;">Format support</a>
+    <div style="flex-grow: 1;"></div>
+    <a href="#" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #263b34; text-decoration: none;">Settings &amp; privacy</a>
+  </nav>
+  <main style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <header style="height: 54px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 24px; background: #ffffff; border-bottom: 1px solid #e3eae5;">
+      <span style="color: #5f7268;">Workspace</span><span style="color: #9aaba1;">›</span><span style="font-weight: 600;">Home</span>
+      <div style="flex-grow: 1;"></div>
+      <label style="display: flex; align-items: center; gap: 8px; width: 360px; height: 36px; padding: 0 12px; border: 1px solid #cfdcd4; border-radius: 8px; background: #ffffff; color: #5f7268; box-sizing: border-box;">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5f7268" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input aria-label="Search files, tools and help" placeholder="Search files, tools and help" style="border: 0; outline: 0; flex: 1; font: inherit; color: #263b34; background: transparent;">
+        <span style="font-size: 11px; color: #5f7268;">Ctrl K</span>
+      </label>
+    </header>
+    <div style="flex: 1; min-height: 0; padding: 30px 40px 24px; display: flex; flex-direction: column; gap: 22px; box-sizing: border-box;">
+      <div style="display: flex; align-items: flex-end; gap: 16px;">
+        <div style="flex: 1;">
+          <h1 style="margin: 0 0 6px; font-size: 30px; font-weight: 600; color: #315f4d;">What would you like to do?</h1>
+          <p style="margin: 0; color: #5f7268;">Open a file, start something new, or pick up where you left off.</p>
+        </div>
+        <button type="button" style="height: 44px; padding: 0 22px; border: 0; border-radius: 9px; background: #3d7868; color: #ffffff; font: inherit; font-weight: 600; cursor: pointer;">Open a file</button>
+        <button type="button" style="height: 44px; padding: 0 20px; border: 1px solid #b9cbc0; border-radius: 9px; background: #ffffff; color: #1f3d33; font: inherit; font-weight: 600; cursor: pointer;">New document</button>
+      </div>
+      <section aria-label="Tip" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 10px; background: #edf5ef; border: 1px solid #d3e6da;">
+        <span style="font-weight: 600; color: #3d7868;">New here?</span>
+        <span style="flex: 1; color: #2f4b40;">Drop a file anywhere to open it. PDFs open in <b>Quick edit</b>; the mode button at the top switches to <b>View</b> or <b>Build</b>.</span>
+        <button type="button" style="height: 32px; padding: 0 12px; border: 1px solid #b9cbc0; border-radius: 7px; background: #ffffff; font: inherit; font-size: 13px; cursor: pointer;">Got it</button>
+      </section>
+      <div style="display: flex; gap: 22px; flex: 1; min-height: 0;">
+        <section aria-label="Recent files" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: baseline; gap: 10px;"><h2 style="margin: 0; font-size: 17px; font-weight: 600;">Recent files</h2><span style="color: #5f7268; font-size: 12px;">Preview shows when you hover</span><div style="flex: 1;"></div><a href="#" style="font-size: 13px;">See all files</a></div>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;">
+            <div style="border: 2px solid #3d7868; border-radius: 10px; background: #ffffff; overflow: hidden; box-shadow: 0 6px 18px rgba(31, 94, 75, 0.14);">
+              <div style="height: 132px; background: #e9efeb; display: flex; justify-content: center; align-items: flex-end;"><div style="width: 96px; height: 120px; background: #ffffff; border: 1px solid #d6e0da; box-sizing: border-box; padding: 10px 8px; display: flex; flex-direction: column; gap: 5px;"><div style="height: 6px; width: 70%; background: #31584a;"></div><div style="height: 3px; background: #c8d4cd;"></div><div style="height: 3px; background: #c8d4cd;"></div><div style="height: 3px; width: 80%; background: #c8d4cd;"></div><div style="height: 26px; margin-top: 6px; border: 1px solid #c8d4cd;"></div></div></div>
+              <div style="padding: 10px 12px;"><div style="font-weight: 600; font-size: 13px;">Site plan rev C.pdf</div><div style="color: #5f7268; font-size: 12px;">Today · 12 pages · Engineering</div></div>
+            </div>
+            <div style="border: 1px solid #e0e8e3; border-radius: 10px; background: #ffffff; overflow: hidden;">
+              <div style="height: 132px; background: #f2f5f3; display: flex; justify-content: center; align-items: center; color: #7d8f85; font-size: 12px;">PDF</div>
+              <div style="padding: 10px 12px;"><div style="font-weight: 600; font-size: 13px;">Parts order.pdf</div><div style="color: #5f7268; font-size: 12px;">Yesterday · 3 pages</div></div>
+            </div>
+            <div style="border: 1px solid #e0e8e3; border-radius: 10px; background: #ffffff; overflow: hidden;">
+              <div style="height: 132px; background: #f2f5f3; display: flex; justify-content: center; align-items: center; color: #7d8f85; font-size: 12px;">DOCX</div>
+              <div style="padding: 10px 12px;"><div style="font-weight: 600; font-size: 13px;">Site visit report.docx</div><div style="color: #5f7268; font-size: 12px;">Monday · unsaved changes</div></div>
+            </div>
+            <div style="border: 1px solid #e0e8e3; border-radius: 10px; background: #ffffff; overflow: hidden;">
+              <div style="height: 132px; background: #f2f5f3; display: flex; justify-content: center; align-items: center; color: #7d8f85; font-size: 12px;">XLSX</div>
+              <div style="padding: 10px 12px;"><div style="font-weight: 600; font-size: 13px;">Material takeoff.xlsx</div><div style="color: #5f7268; font-size: 12px;">Oct 18 · 2 sheets</div></div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 6px;"><h2 style="margin: 0; font-size: 17px; font-weight: 600;">Pinned</h2></div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid #dbe5df; border-radius: 9px; background: #ffffff; color: #263b34; text-decoration: none;"><span aria-hidden="true" style="color: #b7791f;">★</span>Company letterhead.docx</a>
+            <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid #dbe5df; border-radius: 9px; background: #ffffff; color: #263b34; text-decoration: none;"><span aria-hidden="true" style="color: #b7791f;">★</span>Safety checklist form.pdf</a>
+            <a href="#" style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid #dbe5df; border-radius: 9px; background: #ffffff; color: #263b34; text-decoration: none;"><span aria-hidden="true" style="color: #b7791f;">★</span>Standard details set.pdf</a>
+          </div>
+        </section>
+        <aside aria-label="Common tasks" style="width: 300px; flex: none; display: flex; flex-direction: column; gap: 10px;">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 600;">Common tasks</h2>
+          <button type="button" style="text-align: left; padding: 12px 14px; border: 1px solid #dbe5df; border-radius: 10px; background: #ffffff; font: inherit; cursor: pointer;"><b style="display: block;">Fill and sign</b><span style="color: #5f7268; font-size: 12px;">Type on a form and sign it</span></button>
+          <button type="button" style="text-align: left; padding: 12px 14px; border: 1px solid #dbe5df; border-radius: 10px; background: #ffffff; font: inherit; cursor: pointer;"><b style="display: block;">Combine files</b><span style="color: #5f7268; font-size: 12px;">Join PDFs and pictures into one PDF</span></button>
+          <button type="button" style="text-align: left; padding: 12px 14px; border: 1px solid #dbe5df; border-radius: 10px; background: #ffffff; font: inherit; cursor: pointer;"><b style="display: block;">Convert</b><span style="color: #5f7268; font-size: 12px;">Word, Excel, pictures ⇄ PDF</span></button>
+          <button type="button" style="text-align: left; padding: 12px 14px; border: 1px solid #dbe5df; border-radius: 10px; background: #ffffff; font: inherit; cursor: pointer;"><b style="display: block;">Compare drawings</b><span style="color: #5f7268; font-size: 12px;">See what changed between revisions</span></button>
+          <a href="#" style="padding: 6px 2px; font-size: 13px;">All tools →</a>
+          <div style="flex: 1;"></div>
+          <div style="font-size: 12px; color: #5f7268; line-height: 1.5;">Workspaces: <b style="color: #263b34;">Documents</b> · <b style="color: #263b34;">Engineering</b> · Science &amp; Data and Research come later</div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1366,"height":820}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+function validPresentationDraft(value){
+ if(!value||Object.getPrototypeOf(value)!==Object.prototype||value.kind!=='presentation'||Object.keys(value).sort().join(',')!=='changes,kind,slide'||!Number.isInteger(value.slide)||value.slide<0||value.slide>99||!Array.isArray(value.changes)||value.changes.length>3000)throw new Error('Invalid presentation recovery.');
+ const seen=new Set();let total=0;for(const change of value.changes){if(!change||Object.getPrototypeOf(change)!==Object.prototype||Object.keys(change).sort().join(',')!=='run,slide,text'||!Number.isInteger(change.slide)||change.slide<0||change.slide>99||!Number.isInteger(change.run)||change.run<0||change.run>19999||typeof change.text!=='string'||!change.text.isWellFormed()||change.text.length>32767||/[\x00-\x1f]/.test(change.text)||(total+=change.text.length)>500000)throw new Error('Use valid single-line presentation text within the editing limit.');const key=change.slide+':'+change.run;if(seen.has(key))throw new Error('Duplicate presentation text changes.');seen.add(key);}return value;
+}
+module.exports={validPresentationDraft};

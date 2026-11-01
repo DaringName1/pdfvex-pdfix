@@ -1,0 +1,26 @@
+node_modules/
+dist/
+out/
+.npm-cache/
+.electron-cache/
+.test-data/
+.preview-data/
+test-results/
+playwright-report/
+*.log
+
+# Build output, packaged releases and per-run scratch
+releases/
+tmp/
+tmp-*.log
+# Loose personal documents dropped in the project root are not source
+/*.pdf
+# Machine-local agent and editor state
+.claude/
+.codex/
+.vscode/
+
+# Private files: never in git, never uploaded (owner, October 23). They stay on this PC only.
+samples/dad-drawing-review/
+docs/DAD-DRAWING-REVIEW-SAMPLES.md
+pdfix information form owner/

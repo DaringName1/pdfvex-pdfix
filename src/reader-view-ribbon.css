@@ -1,0 +1,4 @@
+.reader-one-place[data-tool-group=View][data-interaction-mode=build] .reader-job-buttons{max-height:none;overflow:visible}
+.reader-one-place[data-tool-group=View][data-interaction-mode=build] .reader-job-tools{max-height:44vh;overflow:auto}
+.reader-one-place[data-tool-group=View][data-interaction-mode=build] .reader-job-tabs{position:sticky;top:0;background:#fff;z-index:1}
+.reader-one-place[data-tool-group=View][data-interaction-mode=build] .reader-job-buttons:has(.reader-ribbon[data-ribbon-names=show]){max-height:min(28vh,200px);overflow:auto}

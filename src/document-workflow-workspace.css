@@ -1,0 +1,23 @@
+.document-workflow-workspace{width:min(1100px,96vw);max-width:1100px;box-sizing:border-box;max-height:94vh;overflow:auto;padding:1.25rem;color:var(--text,#213245);background:var(--surface,#fff);border:1px solid #8998a5;border-radius:12px}
+.document-workflow-workspace::backdrop{background:#142338a8}
+.document-workflow-workspace h2{margin:.2rem 0 .5rem}
+.document-workflow-workspace .workflow-policy{font-size:.9rem;line-height:1.45;max-width:90ch}
+.document-workflow-workspace .workflow-actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.75rem 0}
+.document-workflow-workspace .workflow-step{border:1px solid #bac5cd;border-radius:8px;padding:.75rem;margin:.6rem 0}
+.document-workflow-workspace .workflow-library{border:1px solid #bac5cd;border-radius:8px;padding:.75rem;margin:.8rem 0}
+.document-workflow-workspace .workflow-library h3{margin:.1rem 0 .4rem}
+.document-workflow-workspace .workflow-library-note{font-size:.9rem;line-height:1.4;margin:.2rem 0 .65rem}
+.document-workflow-workspace .workflow-library label{margin:.35rem 0}
+.document-workflow-workspace .workflow-step-head{display:flex;justify-content:space-between;gap:.5rem;align-items:center}
+.document-workflow-workspace .workflow-step-head strong{font-size:1.02rem}
+.document-workflow-workspace .workflow-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:.55rem;margin-top:.65rem}
+.document-workflow-workspace label{display:grid;gap:.22rem;font-size:.9rem}
+.document-workflow-workspace input,.document-workflow-workspace textarea,.document-workflow-workspace select{min-width:0;width:100%;box-sizing:border-box}
+.document-workflow-workspace textarea{min-height:4.5rem}
+.document-workflow-workspace .workflow-wide{grid-column:1/-1}
+.document-workflow-workspace .workflow-preview{border-top:1px solid #bac5cd;margin-top:1rem;padding-top:1rem}
+.document-workflow-workspace .workflow-pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.document-workflow-workspace figure{margin:0;min-width:0}
+.document-workflow-workspace canvas{display:block;max-width:100%;height:auto;max-height:55vh;object-fit:contain;margin:0 auto;border:1px solid #9aa9b6;background:#fff}
+.document-workflow-workspace .workflow-receipts{max-height:18rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.4 monospace;background:#f2f5f7;padding:.6rem}
+.document-workflow-workspace .workflow-status{min-height:1.5rem}

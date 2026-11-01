@@ -1,0 +1,11 @@
+export function imageSize(bytes,ext){
+ const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);let width=0,height=0;
+ if(bytes.length>4*1024*1024)throw new Error('Choose a signature image under 4 MB.');
+ if(ext==='png'&&bytes.length>=33){width=v.getUint32(16);height=v.getUint32(20);}
+ if(['jpg','jpeg'].includes(ext)){let i=2,count=0;while(i+9<bytes.length&&++count<4096){if(bytes[i++]!==255)throw new Error('This JPEG header is invalid.');while(bytes[i]===255)i++;const marker=bytes[i++];if(marker===217||marker===218)break;if(marker===216||marker===1||marker>=208&&marker<=215)continue;const length=v.getUint16(i);if(length<2||i+length>bytes.length)break;if([192,193,194,195,197,198,199,201,202,203,205,206,207].includes(marker)){height=v.getUint16(i+3);width=v.getUint16(i+5);break;}i+=length;}}
+ if(ext==='webp'&&bytes.length>=30){const tag=String.fromCharCode(...bytes.slice(12,16));if(tag==='VP8X'){if(bytes[20]&2)throw new Error('Animated signatures are unsupported. Choose a still image.');width=1+bytes[24]+bytes[25]*256+bytes[26]*65536;height=1+bytes[27]+bytes[28]*256+bytes[29]*65536;}if(tag==='VP8 '){width=v.getUint16(26,true)&16383;height=v.getUint16(28,true)&16383;}if(tag==='VP8L'){width=1+((bytes[21]|bytes[22]<<8)&16383);height=1+((bytes[22]>>6|bytes[23]<<2|bytes[24]<<10)&16383);}}
+ if(!width||!height||width>4096||height>4096||width*height>4000000)throw new Error('Choose a readable signature image under four million pixels.');return {width,height};
+}
+export async function signatureImage(file){
+ imageSize(file.bytes,file.ext);const image=await createImageBitmap(new Blob([file.bytes]));try{if(image.width*image.height>4000000)throw new Error('The decoded signature exceeds its pixel limit.');const scale=Math.min(1,1200/image.width,600/image.height),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(image.width*scale));canvas.height=Math.max(1,Math.round(image.height*scale));canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);const data=canvas.toDataURL('image/png');if(data.length>1400000)throw new Error('Use a simpler signature image; the normalized PNG exceeds 1 MB.');return {type:'image',data};}finally{image.close();}
+}

@@ -1,0 +1,24 @@
+.source-view-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:8px 20px;background:#fff;border-bottom:1px solid var(--line);flex:none}.source-view-controls button[aria-pressed=true]{background:#deeee8;color:#174b40}.source-view-controls label{display:flex;gap:5px;align-items:center;font-size:11px}.source-view-controls select{padding:5px;border:1px solid var(--line);border-radius:4px}.source-preview-status{flex-basis:100%;font-size:11px;margin:0;color:#63786e}.source-preview-panel{min-width:0;max-width:100%;padding:24px;background:#fff;border:1px solid var(--line);border-radius:7px;color:var(--ink);font:14px/1.6 'Segoe UI',sans-serif;overflow:auto}.source-preview-panel[hidden]{display:none}.source-preview-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf2ef;padding:12px;font:13px/1.6 Consolas,monospace}.source-preview-panel p,.source-preview-panel blockquote{white-space:pre-wrap;overflow-wrap:anywhere}.source-preview-panel code{background:#edf2ef;border-radius:3px;padding:1px 4px}.source-preview-panel blockquote{border-left:3px solid #92b6a6;margin-left:0;padding-left:15px;color:#63786e}.source-preview-panel table{border-collapse:collapse;min-width:100%;font-size:12px}.source-preview-panel th,.source-preview-panel td{border:1px solid var(--line);padding:8px;max-width:300px;min-width:70px;vertical-align:top;white-space:pre-wrap;overflow-wrap:anywhere}.source-preview-panel th{background:#edf4ef;text-align:left}.source-inert-link{color:#326d64;text-decoration:underline dotted}.source-table-scroll{overflow:auto}.source-preview-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11px;margin-bottom:12px}.source-editor-mode[data-source-view=preview] .editor-page{display:none}.source-editor-mode[data-source-view=split] .editor-canvas{display:grid;grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);gap:18px;align-items:start}.source-editor-mode[data-source-view=split] .editor-page{width:100%;min-width:0;padding:22px}.source-editor-mode[data-source-view=split] .source-preview-panel{max-height:800px}.source-cell-dialog{width:min(650px,90vw)}.source-cell-dialog textarea{width:100%;height:350px;resize:vertical;white-space:pre-wrap;font:13px/1.5 Consolas,monospace}@media(max-width:1000px){.source-editor-mode[data-source-view=split] .editor-canvas{grid-template-columns:1fr}.source-view-controls{padding:8px 12px}}
+/* Source is an editor pane, not a zoomed paper sheet covering the preview. */
+.source-editor-mode .editor-page{min-width:0;min-height:0!important;overflow:hidden;margin:0}
+.source-editor-mode .editor-mount{height:100%;min-height:0}
+.source-editor-mode .source-editor{height:100%;min-height:0;resize:none}
+.source-editor-mode .source-preview-panel{height:100%;min-height:0}
+.source-editor-mode[data-source-view=split] .editor-canvas{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:minmax(0,1fr)}
+.source-editor-mode[data-source-view=split] .source-preview-panel{max-height:none}
+@media(max-width:1000px){.source-editor-mode[data-source-view=split] .editor-canvas{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}}
+
+.source-editor-mode .editor-canvas{padding:12px}
+.source-editor-mode .document-band-preview{display:none}
+.source-editor-mode .source-preview-panel{padding:14px}
+.source-editor-mode .document-ribbon .source-view-controls{flex-wrap:wrap;white-space:normal;min-width:0;width:100%}
+.source-editor-mode .document-ribbon .source-view-controls>button{white-space:nowrap}
+.source-editor-mode .document-ribbon .source-preview-status{flex:1 1 260px;white-space:normal;overflow-wrap:anywhere}
+.source-editor-mode .document-ribbon [data-ribbon-panel=home]{display:none!important}
+
+/* Announce completion without reserving another toolbar row; loading/errors remain visible. */
+.source-preview-status[data-preview-ready=true]{position:absolute;width:1px;height:1px;margin:-1px!important;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap!important}
+
+.source-editor-mode .source-editor{padding:0}
+.source-preview-nav[hidden]{display:none}
+.source-preview-panel>.source-preview-nav[hidden]+*{margin-top:0}

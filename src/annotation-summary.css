@@ -1,0 +1,5 @@
+.annotation-summary{width:min(900px,calc(100vw - 40px));max-height:calc(100dvh - 40px);overflow:auto;padding:24px;border:1px solid var(--border,#dce3e7);border-radius:16px;background:var(--surface,#fff);color:var(--ink,#193349)}
+.annotation-summary::backdrop{background:rgba(15,30,40,.4)}.annotation-summary h2{margin-top:0}.annotation-summary p{line-height:1.5;overflow-wrap:anywhere}
+.annotation-summary [hidden]{display:none!important}
+.annotation-summary-options{display:flex;align-items:end;gap:16px;flex-wrap:wrap}.annotation-summary-options label{display:grid;gap:7px;flex:1;min-width:180px}.annotation-summary-options select,.annotation-summary-options input{width:100%;box-sizing:border-box}
+.annotation-summary-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.annotation-summary-status{background:var(--surface-soft,#edf5f3);padding:12px;border-radius:8px}.annotation-summary>label{display:grid;gap:8px}.annotation-summary textarea{min-height:260px;max-height:45dvh;resize:vertical;width:100%;box-sizing:border-box;font:13px/1.5 ui-monospace,monospace;white-space:pre-wrap}

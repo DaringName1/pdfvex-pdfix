@@ -1,0 +1,10 @@
+.reading-density-setting{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px}
+.reading-density-setting select{padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:inherit}
+body[data-reading-density=comfortable] #app.document-open .topbar{min-height:48px;padding-block:7px}
+body[data-reading-density=comfortable] .document-open .pdf-toolbar{min-height:48px;padding:8px 14px;gap:8px}
+body[data-reading-density=comfortable] .document-open .pdf-toolbar .compact{min-height:34px;font-size:12px}
+body[data-reading-density=comfortable] .document-open .reader-main-controls{gap:7px;flex-wrap:wrap}
+body[data-reading-density=comfortable] .document-open .page-stage{padding:18px 20px}
+body[data-reading-density=comfortable] .document-open .editor-toolbar{padding:10px 16px;gap:7px}
+body[data-reading-density=comfortable] .document-open .editor-toolbar button{min-height:34px}
+body[data-reading-density=comfortable] .document-open .editor-canvas{padding:18px 24px 28px}

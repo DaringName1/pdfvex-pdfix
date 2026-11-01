@@ -1,0 +1,11 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),{createHash,webcrypto}=require('node:crypto');
+function node(){return {hidden:true,children:[],append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(){}};}
+test('repair preview inherits its reader UI helpers, so the real build method can open it',async()=>{
+ const bytes=Uint8Array.from([1,2,3]),report={sha256:createHash('sha256').update(bytes).digest('hex'),sourceSha256:'a'.repeat(64),inspectionSha256:'b'.repeat(64),pageCount:1,outputBytes:3,reopened:{pages:[{crop:{x:0,y:0,width:400,height:600},rotation:0,userUnit:1}]},notices:[]},output={bytes,report};let passed;
+ const source=fs.readFileSync(require.resolve('../src/pdf-repair-workspace.js'),'utf8').replace(/^import .*;\r?$/gm,'').replace('export class PdfRepairWorkspace','class PdfRepairWorkspace');
+ class Preview{constructor(root,file,ui){assert.equal(typeof ui.icon,'function','Preview requires the inherited icon renderer');passed=ui;}async open(){this.doc={numPages:1,getPermissions:async()=>null,getPage:async()=>({view:[0,0,400,600],rotate:0,userUnit:1})};}}
+ const context=vm.createContext({document:{createElement:node},crypto:webcrypto,PdfReader:Preview,sizeLabel:n=>n+' bytes',window:{pdfix:{repairPdfCopy:async()=>output}}});vm.runInContext(source+'\nglobalThis.Workspace=PdfRepairWorkspace;',context,{timeout:1000});
+ const icon=()=>'<svg/>',element=node,reader={file:{id:'generated',name:'source.pdf'},icon,element,announce(){}},w=new context.Workspace(reader);
+ Object.assign(w,{inspection:{eligible:true,sourceSha256:report.sourceSha256,inspectionSha256:report.inspectionSha256},acknowledge:{checked:true},reviewed:{checked:false},previewRoot:node(),summary:node(),diagnostics:node(),statusNode:node(),token:'generated'});w.diagnostic=()=>node();await w.build();assert.equal(w.output,output);assert.equal(passed.icon,icon);assert.equal(passed.element,element);assert.equal(w.previewRoot.hidden,false);
+ const override=()=>'<svg>override</svg>',custom=new context.Workspace(reader,{icon:override});assert.equal(custom.ui.icon,override);assert.equal(custom.ui.element,element);
+});

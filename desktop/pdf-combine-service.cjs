@@ -1,0 +1,15 @@
+const {ContainedServiceContext}=require('./contained-service-context.cjs');
+const {hash,canonicalJSON,validToken,encodeSources,validCombineDraft,validCombineInspection,validCombineResult}=require('./pdf-combine-validation.cjs');
+class PdfCombineService extends ContainedServiceContext{
+ constructor(options){super('Preserving PDF combination','Combine',options);}
+ ready(){if(this.disposed)throw new Error('The preserving combination service has closed.');if(this.active)throw new Error('Finish or cancel the current combination job first.');}
+ clear(){this.verified?.bytes.fill(0);this.verified=null;}
+ input(sessionId,sources){validToken(sessionId);return encodeSources(sources);}
+ async inspect(sessionId,sources){this.ready();const {packet,metadata}=this.input(sessionId,sources);this.clear();const report=await this._runContained(sessionId,null,'combine-inspect',packet,{},v=>validCombineInspection(v,metadata));return validCombineInspection(report,metadata);}
+ async build(sessionId,sources,token,value){this.ready();validToken(token);const draft=validCombineDraft(value),{packet,metadata}=this.input(sessionId,sources);this.clear();const result=await this._runContained(sessionId,token,'combine-build',packet,{draft},v=>validCombineResult(v,draft,metadata));validCombineResult(result,draft,metadata);this.verified={sourceId:sessionId,token,metadata:structuredClone(metadata),draft:structuredClone(draft),bytes:Buffer.from(result.bytes),report:structuredClone(result.report),receiptSha256:hash(Buffer.from(canonicalJSON(result.report)+'\n'))};return {token,bytes:Uint8Array.from(result.bytes),report:structuredClone(result.report),receiptSha256:this.verified.receiptSha256};}
+ output(sessionId,sources,token){if(this.disposed)throw new Error('The preserving combination service has closed.');validToken(token);const {packet,metadata}=this.input(sessionId,sources);packet.fill(0);const v=this.verified;if(!v||v.sourceId!==sessionId||v.token!==token||canonicalJSON(v.metadata)!==canonicalJSON(metadata)||v.receiptSha256!==hash(Buffer.from(canonicalJSON(v.report)+'\n')))throw new Error('Prepare and review a fresh copy of these exact source PDFs before saving.');validCombineResult({bytes:v.bytes,report:v.report},v.draft,metadata);return {bytes:Buffer.from(v.bytes),report:structuredClone(v.report)};}
+ async cancel(sessionId,token){validToken(sessionId);if(token)validToken(token);if(this.verified?.sourceId===sessionId&&(!token||this.verified.token===token))this.clear();const job=this.active,matched=job?.sourceId===sessionId&&(!token||job.token===token);const result=await super.cancel(sessionId,token);if(matched)await job.promise.catch(()=>{});if(this.engine.cleanupFailure||this.engine.active?.unsafe){this.disposed=true;throw new Error('Combination cancellation termination/cleanup was not observed. The service stays closed.');}return result;}
+ async discard(sessionId,token){const v=this.verified;if(v?.sourceId===sessionId&&(!token||v.token===token))v.bytes.fill(0);return super.discard(sessionId,token);}
+ async dispose(){this.verified?.bytes.fill(0);return super.dispose();}
+}
+module.exports={PdfCombineService};

@@ -1,0 +1,9 @@
+.file-header .document-title.with-header-history{margin-right:0;flex:0 1 320px;min-width:0;overflow:hidden}
+.file-header .document-title.with-header-history b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header-history{display:flex;align-items:center;gap:2px;flex:none;margin-right:auto}
+.file-header .header-history-action{display:inline-grid;place-items:center;width:30px;min-width:30px;min-height:32px;padding:5px;border:0;border-radius:4px;background:transparent;color:inherit}
+.file-header .header-history-action svg{width:18px;height:18px;pointer-events:none}
+.file-header .header-history-action:hover:not(:disabled){background:var(--mint)}
+.file-header .header-history-action:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+[data-header-history] .document-ribbon [aria-label=History]{display:none}
+@media(max-width:1000px){.file-header .document-title.with-header-history{flex-basis:170px}.header-history{gap:0}}

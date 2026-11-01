@@ -1,0 +1,11 @@
+# Reading capacity estimate
+
+PDFix can report host memory availability, logical CPU capacity, a bounded CPU model string, and graphics feature status supplied by the app. The estimate reserves 768 MiB and budgets three times a PDF's file size in memory, capped at 1 GiB. It also reports the current whole-file tool, page, range-assembly, and concurrent-read limits.
+
+The Settings panel offers a manual refresh and labels the PDF size as an estimate. PDF complexity, graphics content, other applications, and current workload affect responsiveness; this report does not promise a lag-free size. Graphics information is limited to status fields supplied by the app and does not query drivers or run benchmarks.
+
+The native report is available through the existing authorized IPC/preload bridge. PDF opening attaches a validated reading profile; native large-file admission uses the same memory formula as the report. PCs with less than 2 GiB currently available memory, fewer than four logical cores, or reported disabled/software graphics receive an 8-million-pixel page preview ceiling instead of 16 million. Multipage preview totals adapt to twice that ceiling, up to the existing 32-million-pixel maximum. Original document bytes and the existing image decoding limit are unchanged. Source-read concurrency is bounded to one through four calls from the profile. This profile is selected when opening; refreshing Settings updates the estimate, not an already opened document's profile.
+
+No document scan, benchmark, hardware driver query, external request, or performance test was run. Reading remains limited to 1 GiB and 500 pages, with available-memory admission. Whole-file editing/export tools remain limited to 100 MiB; source assembly still rejects an individual range over 64 MiB or a whole-source request.
+
+October 7 compilation: ten changed source files passed `node --check`; `npm run build` succeeded with 266 modules. Renderer `index-CGoTIaCk.js`, CSS `index-CDz2RNum.css`, build source SHA-256 `43fd6036a346d8b92f1c043deb8279971a1f057e154b12b0578c6bec01bac6a5`. The contained engine is unchanged at SHA-256 `63189581f2bd6c67dee0c126c465cee9575ecf374e27b8e2a29d5af2dfb98030` (3058588 bytes). The existing bundle-size warning remains. Current app restart, actual large-file behavior and performance acceptance remain pending.

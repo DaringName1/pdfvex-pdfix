@@ -1,0 +1,116 @@
+.editor-toolbar.document-ribbon{display:block;padding:0;background:#fff;flex:none;border-bottom:1px solid var(--line)}
+.document-ribbon-navigation{display:flex;align-items:center;gap:12px;min-height:43px;padding:0 18px;border-bottom:1px solid #e7ece8;background:#fbfcfa}
+/* The tabs keep their width; the name field gives way first in narrow windows. */
+.document-ribbon-tabs{display:flex;align-self:stretch;gap:3px;flex:1 1 100%;min-width:0;flex-wrap:wrap;order:2}
+.document-ribbon-navigation .document-primary-exports{order:1}
+.document-ribbon .document-ribbon-tab:disabled{opacity:.55;cursor:help}
+.document-area:not(.source-editor-mode) .document-ribbon-content{height:96px;min-height:96px;max-height:96px;overflow:auto;box-sizing:border-box}
+.document-ribbon-content .document-command-panel:not([hidden]){min-height:44px}
+.document-command-panel .document-command-tile{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:68px;min-width:64px;max-width:140px;white-space:normal;text-align:center;border:0;background:transparent;padding:6px 10px;box-sizing:border-box}
+.document-command-panel .document-command-tile:hover{background:var(--mint)}
+.document-tile-icon{display:inline-flex;flex:none;width:24px;height:24px;pointer-events:none}
+.document-tile-icon svg{width:100%;height:100%}
+.document-primary-exports .document-tile-icon{display:none}
+.document-ribbon .document-ribbon-tab{position:relative;flex:none;border:0!important;border-radius:0!important;padding:11px 13px!important;font-size:12px!important;font-weight:500;background:transparent!important;color:#607168}
+.document-ribbon .document-ribbon-tab[aria-selected=true]{color:#27654b;font-weight:650;background:#fff!important}
+.document-ribbon-tab[aria-selected=true]:after{content:"";height:3px;position:absolute;bottom:0;left:11px;right:11px;border-radius:3px 3px 0 0;background:var(--teal,#347c62)}
+.document-name-field{display:flex;align-items:center;gap:6px;flex:0 1 240px;min-width:110px;font-size:10px;color:#68786e}
+.document-name-field input{flex:1;min-width:0;height:28px;padding:4px 8px;font-size:12px;color:inherit;border:1px solid #dce6dc;border-radius:5px;background:#fff}
+.document-line-spacing{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:10px;color:#68786e}
+.document-ribbon .document-line-spacing select{padding:5px 7px;font-size:11px;height:29px}
+.document-primary-exports{margin-left:auto;flex-wrap:nowrap;gap:6px;padding:5px 0}
+.document-primary-exports button{white-space:nowrap;font-size:11px;padding:6px 11px}
+/* Wraps onto a second row in narrower windows instead of hiding controls off the right edge. */
+.document-quick-controls{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;min-height:44px;padding:6px 18px;overflow-x:auto;scrollbar-width:thin}
+.document-command-group{display:flex;align-items:center;flex:none;gap:4px}
+.document-quick-controls>.document-command-group{padding-right:9px;border-right:1px solid #e4ebe5}
+.document-ribbon .document-quick-controls [data-command]{min-width:29px;height:29px;padding:5px 7px!important;font-size:13px!important}
+.document-ribbon .document-quick-controls [data-command=undo],.document-ribbon .document-quick-controls [data-command=redo]{font-size:18px!important}
+.document-ribbon .document-quick-controls select{padding:5px 7px;font-size:11px;height:29px}
+.document-ribbon select[aria-label="Paragraph style"]{width:129px}
+.document-ribbon .document-formatting-controls{flex:none;flex-basis:auto;border:0;padding:0;gap:6px 8px;flex-wrap:wrap}
+.document-ribbon .document-formatting-controls label{gap:4px;white-space:nowrap;font-size:10px;color:#68786e}
+.document-ribbon .document-formatting-controls [data-text-font]{width:125px}
+.document-ribbon .document-formatting-controls [data-text-size]{width:82px}
+.document-ribbon .document-formatting-controls [data-clear-text-style]{white-space:nowrap;padding:5px 7px!important}
+.document-ribbon .document-formatting-controls input[type=color]{width:28px;height:28px}
+.document-command-panel{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:5px 18px;min-height:34px;max-height:min(35vh,260px);overflow:auto;background:#f8faf7;border-top:1px solid #edf1eb;font-size:11px}
+.document-command-panel[hidden]{display:none!important}
+.document-command-panel .document-command-group{flex:0 1 auto;flex-wrap:wrap;min-width:0}
+.document-ribbon .document-command-panel button:not(.primary):not(.secondary){padding:5px 9px;font-size:11px}
+.document-ribbon-hint{font-size:10px;color:#718076;white-space:normal;margin-left:auto}
+.document-ribbon .document-copy-exports{justify-content:flex-start;flex-wrap:wrap;margin:0;gap:7px}
+.document-ribbon .document-copy-exports button{font-size:11px}
+.document-ribbon .editor-import-notes{margin:0;padding:0;border:0;background:transparent;width:100%;font-size:11px}
+.document-ribbon .editor-import-notes summary{cursor:pointer;color:#687768;padding:4px 0}
+.document-ribbon .editor-warning{margin:5px 0 0;padding:9px 11px;border:1px solid #eae2cd;border-radius:6px;line-height:1.5}
+.document-ribbon .document-table-controls,.document-ribbon .document-image-controls{padding:0;border:0;flex:none;background:transparent;position:relative}
+.document-ribbon .document-table-controls summary,.document-ribbon .document-image-controls summary{padding:6px 11px;cursor:pointer;background:#fff;border:1px solid #dce6dc;border-radius:5px;font-size:11px;font-weight:500;list-style:none}
+.document-ribbon .document-table-controls summary:after,.document-ribbon .document-image-controls summary:after{content:" ▾";color:#78887a}
+.document-ribbon .document-table-controls[open],.document-ribbon .document-image-controls[open]{flex-basis:100%;padding:8px 10px;border:1px solid #dce6dc;border-radius:7px;background:#fff}
+.document-ribbon .document-table-controls[open] summary,.document-ribbon .document-image-controls[open] summary{border:0;display:inline-block;padding:0 0 4px;font-weight:600}
+.document-ribbon .document-layout-controls{padding:3px 0;background:transparent;border:0;width:100%;font-size:11px}
+.document-ribbon .document-layout-controls>summary{font-weight:600;cursor:pointer}
+.document-ribbon .document-sides-toggle{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.document-ribbon .document-side-margins{display:inline-flex;flex-wrap:wrap;gap:6px}
+.document-ribbon .document-side-margins[hidden]{display:none}
+.document-ribbon .document-side-margins input{width:58px}
+.document-ribbon .document-layout-fields{gap:9px 13px}
+.document-ribbon .document-band-fields{gap:9px 13px}
+.document-ribbon .document-layout-controls p{max-width:1100px;line-height:1.5}
+.document-ribbon .source-view-controls{padding:0;border:0;background:transparent;flex-wrap:nowrap;white-space:nowrap}
+.document-ribbon .source-preview-status:empty{display:none}
+.source-editor-mode .document-ribbon .document-layout-controls select,.source-editor-mode .document-ribbon .source-view-controls select{display:inline-block}
+.source-editor-mode .document-ribbon .document-primary-exports{margin-left:auto}
+.document-ribbon button:focus-visible,.document-ribbon summary:focus-visible,.document-ribbon select:focus-visible,.document-ribbon input:focus-visible{outline:2px solid var(--teal,#347c62);outline-offset:2px}
+.document-ribbon button:disabled{opacity:.45;cursor:default}
+@media(max-width:800px){.document-ribbon-navigation{padding:0 10px;gap:5px}.document-ribbon .document-ribbon-tab{padding:11px 10px!important}.document-quick-controls,.document-command-panel{padding-left:10px;padding-right:10px}.document-primary-exports button{padding:6px 8px}.document-ribbon-hint{width:100%;margin-left:0}.document-name-field{min-width:90px;font-size:0;gap:0}.document-ribbon .document-band-fields textarea{width:180px}}
+.editor-footer .text-statistics-footer-button{min-height:24px;padding:4px 8px;margin:-4px 0}
+
+/* Alignment buttons: three lines drawn to match the alignment they apply. */
+.document-align-buttons { display: inline-flex; gap: 2px; }
+.document-align-button { width: 30px; height: 30px; padding: 0; display: inline-grid; place-items: center; }
+.align-icon { display: grid; gap: 3px; width: 16px; }
+.align-icon i { display: block; height: 2px; background: currentColor; border-radius: 1px; }
+.align-icon i:nth-child(2) { width: 65%; }
+.align-left i:nth-child(2) { justify-self: start; }
+.align-center i:nth-child(2) { justify-self: center; }
+.align-right i:nth-child(2) { justify-self: end; }
+.align-justify i:nth-child(2) { width: 100%; }
+.document-ribbon .document-custom-paper{display:inline-flex;flex-wrap:wrap;gap:6px}
+.document-ribbon .document-custom-paper[hidden]{display:none}
+.document-ribbon .document-custom-paper input{width:64px}
+.document-ribbon .document-insert-button{padding:6px 11px;background:#fff;border:1px solid #dce6dc;border-radius:5px;font-size:11px;font-weight:500;color:inherit;line-height:normal;min-height:0;box-shadow:none}
+/* Short windows with larger interface text: keep the writing area visible by giving the options panel less height (it scrolls). */@media(max-height:760px){body:not([data-ui-scale="1"]) .document-command-panel{max-height:min(18vh,140px)}body:not([data-ui-scale="1"]) .document-ribbon-hint{display:none}}
+
+/* With Save, two exports and Print the row no longer fits a narrow window: the buttons move to their own line instead of being cut off. */.document-ribbon-navigation{flex-wrap:wrap}.document-ribbon-navigation .document-primary-exports{flex-wrap:wrap;justify-content:flex-end}/* Build and View for documents (document-mode.js): View hides the formatting tabs and panels; Save, Export and Print stay. */
+[data-interaction-mode="view"] .document-ribbon-tabs,[data-interaction-mode="view"] .document-ribbon-panels,[data-interaction-mode="view"] .document-quick-controls{display:none}
+.document-mode-switch{display:inline-flex;gap:4px;margin-right:8px}.document-mode-switch button[aria-pressed="true"]{background:var(--mint);border-color:var(--teal);font-weight:600}
+
+.document-area:not(.source-editor-mode) .document-ribbon:not([data-document-tab=home]) .document-quick-controls{display:none}
+
+/* Owner October28: draft names edit in the title, spacing opens beside Home. */
+.document-title [role=button]{cursor:text;min-width:0}
+.document-title [role=button]:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.document-title-input{font:inherit;font-weight:600;min-width:90px;width:min(300px,100%);max-width:100%;box-sizing:border-box}
+.document-spacing-menu{display:flex;align-items:center;padding:4px 8px}
+.document-spacing-options{position:fixed;inset:auto;margin:0;width:290px;max-width:calc(100vw - 16px);box-sizing:border-box;overflow:auto;padding:14px;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;box-shadow:0 8px 24px #183b3526}
+.document-spacing-options [aria-label="Paragraph spacing"]{display:flex;flex-direction:column;align-items:stretch;border:0;gap:9px}
+.document-spacing-options label{display:flex;align-items:center;justify-content:space-between;gap:8px;white-space:normal}
+.document-spacing-options select{max-width:160px}
+.document-spacing-options :focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.file-header .document-title small.document-copy-name-note{display:block!important;max-width:100%;font-size:calc(10px * var(--ui-font-scale,1));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.document-area:not(.source-editor-mode) .document-ribbon[data-unified-home][data-document-tab=home] .document-ribbon-content{height:120px;min-height:120px;max-height:120px;overflow:auto}.document-ribbon[data-unified-home] .document-home-formatting{padding:5px 8px}.document-home-formatting .document-formatting-controls{display:flex;flex-wrap:wrap;align-items:center;gap:4px;border:0;padding:0}.document-home-formatting .document-formatting-controls>label{font-size:0;margin:0;display:flex}.document-home-formatting .document-formatting-controls>label>select{font-size:12px}.document-home-formatting .document-align-buttons{display:flex;gap:4px}.document-home-formatting .document-spacing-menu{padding:0}.document-ribbon[data-unified-home] .document-quick-controls[hidden]{display:none!important}
+
+.document-ribbon[data-unified-home] .document-home-formatting button{min-height:28px;min-width:28px;padding:5px 7px!important;font-size:calc(12px * var(--ui-font-scale,1))!important;border:1px solid var(--line)!important;border-radius:5px;background:#fff!important}
+.document-ribbon[data-unified-home] .document-home-formatting button[aria-pressed=true]{background:var(--mint)!important;border-color:var(--teal)!important}
+.document-home-formatting [data-command=bold]{font-weight:700}.document-home-formatting [data-command=italic]{font-style:italic}.document-home-formatting [data-command=underline]{text-decoration:underline}.document-home-formatting [data-command=strike]{text-decoration:line-through}
+
+.document-ribbon[data-unified-home] .document-home-formatting .pdf-home-format-group{max-width:100%;min-width:0;box-sizing:border-box}
+.document-ribbon[data-unified-home] .document-home-formatting .document-formatting-controls{max-width:100%;min-width:0;flex:0 1 auto}
+.document-ribbon[data-unified-home] .document-home-formatting .document-formatting-controls>label{font-size:0!important}
+.document-ribbon[data-unified-home] .document-home-formatting .document-formatting-controls>label>select{font-size:calc(12px * var(--ui-font-scale,1))!important}
+
+.document-ribbon[data-unified-home] [data-ribbon-panel=home]{max-height:none;overflow:visible;padding:0}
+.document-ribbon[data-unified-home] .document-home-formatting{width:100%;box-sizing:border-box}

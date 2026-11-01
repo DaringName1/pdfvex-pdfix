@@ -1,0 +1,27 @@
+.document-tabs{display:flex;align-items:stretch;gap:2px;padding:4px 14px 0;background:#f4f7f3;border-bottom:1px solid var(--line,#dee8dc);overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;flex:none}
+.document-tab{display:flex;align-items:center;flex:0 0 auto;min-width:150px;max-width:240px;border:1px solid transparent;border-bottom:0;border-radius:7px 7px 0 0;background:transparent}
+.document-tab[data-active="true"]{background:#fff;border-color:var(--line,#dee8dc);margin-bottom:-1px}
+.document-tab-open{display:flex;align-items:center;flex:1;gap:6px;min-width:0;padding:6px 4px 6px 10px;border:0;background:transparent;font-size:12px;color:#4d6056;cursor:pointer}
+.document-tab[data-active="true"] .document-tab-open{color:#173449;font-weight:600}
+.document-tabs .document-tab-open>span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.document-tab-open small{flex:none;font-size:9px;letter-spacing:.04em;color:#78887a;border:1px solid #d6e0d6;border-radius:3px;padding:0 3px}
+.document-tabs .document-tab-open>small{display:block;margin:0}
+.document-tab-close{flex:none;width:24px;height:24px;margin-right:4px;border:0;border-radius:4px;background:transparent;color:#78887a;font-size:15px;line-height:1;cursor:pointer}
+.document-tab-close:hover,.document-tab-open:hover{background:#eaf0ea}
+.document-tab-open:focus-visible,.document-tab-close:focus-visible{outline:2px solid var(--teal,#347c62);outline-offset:1px}
+
+/* Unsaved new documents on Home: each continues its own recovery draft. */
+.unsaved-documents{margin:4px 0 18px}
+.unsaved-documents h2{font-size:14px;margin:0 0 8px}
+.unsaved-document-list{display:flex;flex-wrap:wrap;gap:8px}
+.unsaved-document{display:grid;gap:2px;text-align:left;padding:8px 12px;min-width:180px;max-width:280px}
+.unsaved-document b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.unsaved-document span{font-size:11px;color:var(--muted,#5c6b63)}
+.unsaved-document-item{display:flex;align-items:center;gap:2px}
+.unsaved-document-discard{font-size:11px;padding:4px 6px}
+
+.document-home-tab{flex:0 0 auto;padding:6px 12px;font-weight:600}
+.unsaved-document p{margin:3px 0;font-size:12px;white-space:normal;overflow-wrap:anywhere}
+
+/* Sidebar navigation defaults must not stretch document tabs across the strip. */
+.document-tabs .document-tab-open{width:auto;margin-bottom:0}.document-tabs .document-tab-close{width:24px;margin-bottom:0}

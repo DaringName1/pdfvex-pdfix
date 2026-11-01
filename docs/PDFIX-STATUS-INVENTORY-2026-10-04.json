@@ -1,0 +1,2615 @@
+{
+  "version": 1,
+  "asOf": "2026-10-11",
+  "evidence": "Source audit, compilation and targeted actual SW3 opening/rendering/cancel/reopen/memory/cleanup checks; broad acceptance remains pending",
+  "fullBroadAcceptanceComplete": 0,
+  "rows": [
+    {
+      "id": "S00",
+      "status": "U",
+      "feature": "Security Sandbox",
+      "implemented": "Fixed Windows AppContainer/Job Object code; qpdf and adopted document families have contained routes and pinned builds. Fixed contained DOCX/RTF parsing and DOCX/RTF rich-copy exports integrated October 7; image/OCR/PDF rendering decode still remains. Current runtime acceptance pending. Additional fixed contained bookmark/decorations/Bates, attachment decoding, web destination review, table XLSX and supported batch text routes coded October 7. Fillable-field inspection/creation and document-generated PDF output inspection now use fixed child routes; initial field inspection has source-bound cancellation. Existing form filling and visual placements now use contained inspection/build, inert parent validation, preservation checks and source-bound token-only saving; compiled October 9. Renderer form worker fallback removed. Supported qpdf repair uses bounded contained diagnostics and source/output verification. Supported FDF import/export now use fixed contained routes; editable reorder/Bates workflows chain verified native outputs. Broker file envelope aligned with existing 256 MiB file-comment/36 MiB portfolio contracts; compiled October 9.",
+      "remaining": "Finish other native parser/writer routes; prove ACL/network/process/memory/time/parent-death/cancel/cleanup isolation on Windows; independent security review."
+    },
+    {
+      "id": "M01.01",
+      "status": "H+U",
+      "feature": "Permanent redaction",
+      "implemented": "Clean-image reconstruction was tested; current contained inspection/verification route is newer and untested.",
+      "remaining": "Retest removal/object/pixel/disk proofs and recovery on current route; vector-preserving redaction, forensic/real-file corpus."
+    },
+    {
+      "id": "M01.02",
+      "status": "U",
+      "feature": "Sanitize before sharing",
+      "implemented": "Structural inventory and selective cleanup copy are coded with contained native routes and reviewed outputs.",
+      "remaining": "Execute hidden-content/retention cases; expand unsupported structures, metadata/layer/form/action cases; avoid blanket clean/safe verdict."
+    },
+    {
+      "id": "M01.03",
+      "status": "H+U",
+      "feature": "Password protection/change/removal",
+      "implemented": "AES-256 and owner-authorized removal/change passed older real-file tests; later native sandbox code needs regression.",
+      "remaining": "Current containment/cancel/cleanup checks, wider legacy/public-key/password-normalization corpus and encrypted editing boundaries."
+    },
+    {
+      "id": "M01.04",
+      "status": "U",
+      "feature": "Certificate signature validation",
+      "implemented": "Restricted contained CMS ByteRange integrity and signer identity plus Windows offline base-chain/root-anchor inspection are integrated and compiled October 9. Runtime acceptance pending.",
+      "remaining": "Revocation, trusted timestamps, document EKU/policy, AATL/EUTL, broader signature profiles and cryptographic/security corpus acceptance."
+    },
+    {
+      "id": "M01.05",
+      "status": "H+U",
+      "feature": "Separate signature types",
+      "implemented": "Visual signature workflows tested; newer structural report differentiates certificate signatures and external requests.",
+      "remaining": "Retest current UI and all write warnings; cryptographic validation and online requests remain separate unfinished work."
+    },
+    {
+      "id": "M01.06",
+      "status": "U",
+      "feature": "Safe links and attachments",
+      "implemented": "Source-bound destination review, internal links, attachment inventory and reviewed inert .bin copies are coded. Native attachment inventory/decoding and PDF URI inspection now use fixed contained routes with inert parent validation and awaited cancellation.",
+      "remaining": "Current Windows isolation, bypass, unusual destinations, attachment identity/size, cancellation and exclusive-save acceptance; broader type handling."
+    },
+    {
+      "id": "M01.07",
+      "status": "U",
+      "feature": "Plain-language security report",
+      "implemented": "Encryption/signature/action/attachment/unsupported-structure reporting is coded on contained inspection.",
+      "remaining": "Real-file truthfulness/error/cancel/partial-result and accessibility checks; certificate validity remains unknown."
+    },
+    {
+      "id": "M02.01",
+      "status": "H+U",
+      "feature": "Compression with quality preview",
+      "implemented": "Single-PDF measured compression and page review tested historically; later containment and batch integrations untested.",
+      "remaining": "Current file/filter/image/form/cancel regressions, quality corpus, native resource limits and package operation."
+    },
+    {
+      "id": "M02.02",
+      "status": "H+U",
+      "feature": "Broader conversions",
+      "implemented": "Basic DOCX/TXT and one-image PDF subsets tested; RTF, richer DOCX/PDF, workbook/slide and image/page exports are coded.",
+      "remaining": "Each new conversion needs reopen/preservation/corpus tests; more decoders and faithful document/slide layouts."
+    },
+    {
+      "id": "M02.03",
+      "status": "U",
+      "feature": "Multiple images to PDF",
+      "implemented": "Ordered multi-image collection, per-page setup/crop/tone/order, recovery and preview are coded.",
+      "remaining": "Mixed-image/duplicate/relink/rotate/cancel/recovery/save tests and expanded EXIF/color/metadata behavior."
+    },
+    {
+      "id": "M02.04",
+      "status": "H+U",
+      "feature": "PDF creation from documents/text",
+      "implemented": "Basic document editing/export was tested; richer PDF page setup, bands/images/tables and page breaks are newer code. October 11: tabbed creation commands and selected serif/16pt style coded; local fixture DOCX and reviewed one-page PDF exports saved successfully. Broader layout/fidelity acceptance remains open.",
+      "remaining": "Reopen and layout/fonts/page-break/table/image/header corpus; complex source layout fidelity remains limited."
+    },
+    {
+      "id": "M02.05",
+      "status": "H+U",
+      "feature": "Selected-page PDF/image exports",
+      "implemented": "Ordered range extraction and split copies tested; selected-page PNG/JPEG export is coded.",
+      "remaining": "Image-export current runtime/size/quality/cancel/output-name checks and wider split/export corpus."
+    },
+    {
+      "id": "M02.06",
+      "status": "U",
+      "feature": "Page additions and decorations",
+      "implemented": "Blank/replacement page workflows, numbering/bands/watermarks/stamps and reusable templates are coded. Page decorations and Bates now use the fixed contained writer with exact draft/sequence receipts and sealed copies.",
+      "remaining": "Actual outputs, appearance, source retention, every-page review and recovery tests; more preservation cases."
+    },
+    {
+      "id": "M02.07",
+      "status": "U",
+      "feature": "Metadata tools",
+      "implemented": "Declared metadata inspection/edit/removal and structural sanitation are coded.",
+      "remaining": "Exact retained/removed keys, XMP/encodings/unsupported metadata, cancellation and independent reopening."
+    },
+    {
+      "id": "M02.08",
+      "status": "H",
+      "feature": "Output naming and safe destinations",
+      "implemented": "Exclusive new-copy saving, original/alias/existing-file refusal and destination picking tested historically.",
+      "remaining": "Regression every new writer, clear collision/keep-both UX and folder/name/long-path cases; no silent overwrites."
+    },
+    {
+      "id": "M03.01",
+      "status": "U",
+      "feature": "Paper-size presets",
+      "implemented": "US, ANSI engineering, ARCH and ISO presets coded for supported page/document/print operations.",
+      "remaining": "Physical dimensions/orientation/margins/current UI tests across each operation and large sheets."
+    },
+    {
+      "id": "M03.02",
+      "status": "H+U",
+      "feature": "Page views",
+      "implemented": "Single-page view tested; continuous/facing-page views are coded.",
+      "remaining": "Mode/page order, lazy release, large-file/zoom/selection/cancel and accessibility tests; broader independent spreads."
+    },
+    {
+      "id": "M03.03",
+      "status": "H+U",
+      "feature": "Large-sheet navigation",
+      "implemented": "Basic zoom/fit tested; markup-location zoom, previous-view and drawing navigation coded. October 7: artwork fullscreen and hand/pointer zoom implemented and compiled; current runtime acceptance pending. Zoom-to-region and session Previous/Next view history integrated October 7. Current runtime acceptance pending. October 11: current PDF.js comment/zoom-region geometry fixed; local comment location and PDF-only fullscreen/restore functional cases passed. Native fullscreen visibility prevents calling this a fully hidden test pass.",
+      "remaining": "Broader region zoom/pan, high-DPI/large-sheet responsiveness, position retention, keyboard/accessibility and native-window/hardware edge cases."
+    },
+    {
+      "id": "M03.04",
+      "status": "U",
+      "feature": "Calibrated measurement",
+      "implemented": "Calibration, distance/perimeter/area/count ledger and supported persistent takeoffs are coded.",
+      "remaining": "Known dimensions/UserUnit/rotations/units/math/recovery/save tests; Revu takeoff interoperability."
+    },
+    {
+      "id": "M03.05",
+      "status": "H+U",
+      "feature": "Drawing markups",
+      "implemented": "Five basic PDFix tools tested; line/arrow/cloud/callout and measurement artwork coded.",
+      "remaining": "New appearance/geometry/colors/retention/undo/print tests on real drawings; unsupported markup handling."
+    },
+    {
+      "id": "M03.06",
+      "status": "U",
+      "feature": "PDF layers",
+      "implemented": "Optional-content inventory and temporary visibility controls coded.",
+      "remaining": "Hierarchy/state/artwork/unsupported configuration and view/print tests; no claim of saved layer edits."
+    },
+    {
+      "id": "M03.07",
+      "status": "H+U",
+      "feature": "Drawing revision comparison",
+      "implemented": "Linked two-PDF/text/source-output comparison tested; manually aligned/color overlay is newer code. Reviewed page-match proposals and manually confirmed comparison counterparts integrated October 7. Current runtime acceptance pending.",
+      "remaining": "Overlay alignment/scale/rotation/pan/labels/differences and realistic drawing corpus; no automatic design verdict."
+    },
+    {
+      "id": "M03.08",
+      "status": "H+U",
+      "feature": "Large-format printing",
+      "implemented": "Older bounded raster preparation/OS handoff tested; range/paper/scale/N-up/tile controls coded.",
+      "remaining": "Preview/handoff/cancel/large-sheet memory tests plus actual printer output, overlap/alignment/annotation checks."
+    },
+    {
+      "id": "M03.09",
+      "status": "U",
+      "feature": "Booklet printing",
+      "implemented": "Booklet page planning and reviewed layout/duplex disclosures coded.",
+      "remaining": "Page pairing, blank insertion, binding/duplex/orientation and real printer validation."
+    },
+    {
+      "id": "M03.10",
+      "status": "U",
+      "feature": "Sheet sets",
+      "implemented": "Named ordered sets, navigation, source references and controlled revision-reference review coded.",
+      "remaining": "Changed/missing/relinked sources, selection/recovery/navigation tests; physical revision replacement/comment transfer expansion."
+    },
+    {
+      "id": "M03.11",
+      "status": "U",
+      "feature": "Drawing information",
+      "implemented": "Printed/sheet labels, user-entered title/revision and visible-page details coded.",
+      "remaining": "Source accuracy/ambiguous labels and real-drawing checks; richer reliable embedded-sheet metadata extraction."
+    },
+    {
+      "id": "M03.12",
+      "status": "X",
+      "feature": "CAD boundary",
+      "implemented": "PDF viewing/measurement is scoped separately from CAD model editing.",
+      "remaining": "Keep DWG/CAD editing out of initial release; any future adapter needs its own licensed decoder/corpus."
+    },
+    {
+      "id": "M04.01",
+      "status": "U",
+      "feature": "Create fillable forms",
+      "implemented": "Supported text/check/radio/choice field placement, labels/flags and source-bound recovery coded. Fixed contained inspection/creation and initial-inspection cancellation now coded; no fallback. October 11 batch: Digital text/vector and opt-in local OCR/dark scan-line proposals are integrated in the builder, with editable reviewed selection and existing real output route. Nearby label/type/confidence/order proposals, editable names/tooltips/geometry and explicitly accepted creation order.",
+      "remaining": "Actual field geometry/appearances/values/tab behavior/retention/export/reopen/cancel tests."
+    },
+    {
+      "id": "M04.02",
+      "status": "H+U",
+      "feature": "Form usability",
+      "implemented": "Required/blank guidance and supported existing field values tested; newer field creation coded. Reviewed user-authored declarative field calculations, dependency/cycle checks, explicit inputs/results/rounding review, undo/recovery and write consistency are coded and compiled October 9; source PDF actions remain inert. Native contained fill inspection/build and source/output preservation verification are integrated and compiled; reviewed calculations and recovery retained. Reviewed supported-page custom widget order, numbered overlays, undo/recovery and native PDF 2.0 order verification are integrated and compiled October 9. October 11 batch: OS-protected local profile CRUD/clear, explicit matching/manual mapping/review, protected-field exclusions and one-step-undo application in Fill and Sign. Real encryption/reopen/update/delete/temporary cleanup plus model matching passed.",
+      "remaining": "Tagged/mixed/ambiguous widget navigation and wider fonts, document declarative validation/formatting/legacy calculation compatibility, screen-reader labels and broad real forms; current calculation/precision/recovery/behavior acceptance. Arbitrary PDF scripts stay inactive."
+    },
+    {
+      "id": "M04.03",
+      "status": "H+U",
+      "feature": "Form submission/output",
+      "implemented": "Completed-copy saving and visual signing tested; field-data JSON/CSV/text exports coded. Filled copies now save from a main-retained source-bound seal, with awaited cancellation/departure cleanup; compiled October 9.",
+      "remaining": "Current data exports, withheld password-field content, print/cancel and unsupported-field disclosures; online submission later."
+    },
+    {
+      "id": "M04.04",
+      "status": "H",
+      "feature": "Signature placement suggestions",
+      "implemented": "Current-page selectable label proposals and manually confirmed placement tested historically.",
+      "remaining": "Broader label/OCR/uncertainty/cropped/rotated/date/initial placement corpus; no automatic signing."
+    },
+    {
+      "id": "M04.05",
+      "status": "H+U",
+      "feature": "Reusable assets",
+      "implemented": "Local approved visual signature library tested; reusable drawing styles and stamps/templates coded.",
+      "remaining": "New template/style import/delete/apply/undo/storage/recovery tests; more portable assets and proprietary tools."
+    },
+    {
+      "id": "M04.06",
+      "status": "U",
+      "feature": "Third-party annotations and threads",
+      "implemented": "Standard comment inventory, threads/states/locks, supported plain-comment/reply edits coded.",
+      "remaining": "Foreign/unknown/appearance/provenance preservation and real Revu round trips; broader annotation types/private fields."
+    },
+    {
+      "id": "M04.07",
+      "status": "U",
+      "feature": "Annotation reports and exchange",
+      "implemented": "Reviewed TXT/CSV/JSON reports, summary PDFs and supported XFDF import/export coded. Supported native FDF comments with bounded grammar, chosen-source import, omission review, actual PDF comparison and sealed FDF/PDF saving are integrated and compiled October 9.",
+      "remaining": "Every format/omission/formula/source-seal/import-retention/interop test; Broader FDF/form-data/appearance coverage, BAX/BTX and private data remain unfinished."
+    },
+    {
+      "id": "M05.01",
+      "status": "U",
+      "feature": "Scanner/document-camera capture",
+      "implemented": "Windows WIA flatbed/repeated and simplex feeder capture, bounded pinned native helper, cancellation, durable verified PNG copies and image/PDF page review integration are coded and compiled October 8.",
+      "remaining": "Actual scanner/device/driver and cancellation acceptance; document camera, duplex/TWAIN/vendor-only and broader acquisition compatibility. WIA device normalization is outside document AppContainer."
+    },
+    {
+      "id": "M05.02",
+      "status": "H+U",
+      "feature": "Scan cleanup",
+      "implemented": "Basic still-image rotation/crop/layout tested; deskew/tone/multi-image cleanup and blank-page proposals coded.",
+      "remaining": "Faint-content/blank/undo/skew/geometry/OCR and destructive-change review tests on real scans."
+    },
+    {
+      "id": "M05.03",
+      "status": "U",
+      "feature": "Additional OCR languages",
+      "implemented": "Six bundled local OCR languages (English, Spanish, French, German, Portuguese, Italian), selected-language request/result/output provenance and packaged metadata/notices are coded and compiled October 8.",
+      "remaining": "Recognition quality, fonts/shaping/RTL/CJK, mixed-language/orientation/handwriting expansion and restart recovery."
+    },
+    {
+      "id": "M05.04",
+      "status": "H+U",
+      "feature": "OCR uncertainty review",
+      "implemented": "English correction/source-position/searchable output tested; richer confidence overlays/exports/table OCR coded.",
+      "remaining": "Low-confidence word/line mapping, corrections, poor scans, output and recovery on current code."
+    },
+    {
+      "id": "M05.05",
+      "status": "U",
+      "feature": "Table extraction",
+      "implemented": "Region/grid, selectable words or English OCR, editable cells, paged review and source-bound CSV coded. Source-bound portable table correction drafts integrated October 7. Current runtime acceptance pending. Source-bound literal XLSX export/cancel coded October 7, preserving leading zeros and formula-looking text with child readback. Manual rectangular merge/split corrections with empty covered cells, portable merge ranges, CSV disclosure and XLSX merge readback now coded.",
+      "remaining": "Accuracy/irregular/merged/rotated tables, cancellation/source/recovery and Excel/runtime acceptance."
+    },
+    {
+      "id": "M05.06",
+      "status": "H+U",
+      "feature": "Searchable scan documents",
+      "implemented": "Mixed/text/scan image-preserving searchable copies tested historically; newer cleanup/review integration coded.",
+      "remaining": "Current output geometry/text/pixels/reading order and poor-scan/language corpus; tagging is separate."
+    },
+    {
+      "id": "M05.07",
+      "status": "H+U",
+      "feature": "Clear scan limits",
+      "implemented": "Printed-English, handwriting/quality/reading-order limits documented; newer scan/table UI has updated disclosures.",
+      "remaining": "Review every path for accurate language/score/output limits and user comprehension; broaden quality evidence."
+    },
+    {
+      "id": "M06.01",
+      "status": "H+U",
+      "feature": "Formats, photos and editing fidelity",
+      "implemented": "PDF/basic DOCX/TXT/source and still images have historical subsets; RTF/XLSX/PPTX/Markdown/CSV/richer DOCX code exists. Supported authored formatted header/footer runs export to DOCX/RTF/PDF; supported explicit single-section DOCX bands import; additional already-mapped embedded TrueType simple glyphs can be independently proved for original-resource edits. Supported classic multipage TIFF decoding, reviewed oriented PNG copies and image-workspace import are integrated and compiled October 9. Supported CCITT MH/Group 3/Group 4 TIFF strip decoding is integrated and compiled.",
+      "remaining": "Wider TIFF modes/color/metadata and actual decoding/import acceptance; HEIC/HEIF/legacy Office/iWork decoders; real XML/YAML/CSV/BMP/photo variants, EXIF/color/metadata and layout fidelity."
+    },
+    {
+      "id": "M07.01",
+      "status": "U",
+      "feature": "Search occurrence navigation",
+      "implemented": "In-document counts/next/previous match navigation coded beyond older page-result search.",
+      "remaining": "Exact offsets/highlights/multiple columns/copy restrictions/huge texts, resize/cancel and keyboard tests."
+    },
+    {
+      "id": "M07.02",
+      "status": "U",
+      "feature": "Search selected files",
+      "implemented": "Chosen-source local search, filenames/pages/lines, bounded extraction and hash-checked reopening coded.",
+      "remaining": "Cross-format/cancel/partial-result/source-change/navigation/limits tests; no broad folder scanning."
+    },
+    {
+      "id": "M07.03",
+      "status": "U",
+      "feature": "Quick action finder",
+      "implemented": "Searchable actions/shortcuts and workspace filtering/direct tasks coded.",
+      "remaining": "Keyboard focus, disabled-action reasons, correct routing and every new task at minimum/larger UI scales."
+    },
+    {
+      "id": "M07.04",
+      "status": "U",
+      "feature": "Move pages across PDFs by drag",
+      "implemented": "Adding another PDF to the organizer is supported; direct cross-document page dragging is absent. Chosen-source page drag/copy/reorder with reviewed mappings and undo integrated October 7. Current runtime acceptance pending.",
+      "remaining": "Visible drag preview/source mapping, ordering/cancel/retention and verified output."
+    },
+    {
+      "id": "M07.05",
+      "status": "H+U",
+      "feature": "Page labels, bookmarks and destinations",
+      "implemented": "Source outline/labels/personal pages tested; label jumps, bookmark editing and destination review coded. Bookmark inspection/writing now use fixed contained routes with exact hierarchy/source-bound validation. October 11 batch: Bounded physical-page heading analysis with geometric word spaces, running-header filtering, scored editable hierarchy/page proposals and undoable acceptance in existing outline editor.",
+      "remaining": "Current label ambiguity/internal-link coordinates/bookmark graph/retention/recovery tests."
+    },
+    {
+      "id": "M07.06",
+      "status": "U",
+      "feature": "Batch operations",
+      "implemented": "Selected-PDF compression queue, per-file review/retry/skip/cancel/result and new-folder saves coded. Reviewed source-sealed PDF copy/rename and narrowly supported literal TXT queues coded October 7.",
+      "remaining": "Queue/resource/output/partial/failure/collision acceptance; wider conversions/combine and multi-step batches."
+    },
+    {
+      "id": "M07.07",
+      "status": "U",
+      "feature": "Reusable workflows",
+      "implemented": "Named page-plan recipes and drawing settings; editable native reorder/Bates sequences with sealed review/save; named definitions and exact-source editable draft recovery. Standalone native full-source combination is integrated and compiled October 9. Native multi-source combine can now chain reorder/Bates continuation with final-page/source mappings and sealed saving.",
+      "remaining": "OCR/print/other chained runner stages, combined workflow definitions/recovery, durable interrupted-job resume and current execution/cancel/storage/preservation/source-binding acceptance."
+    },
+    {
+      "id": "M07.08",
+      "status": "H+U",
+      "feature": "Interrupted job recovery",
+      "implemented": "Older known-job cleanup/recovery subsets tested; newer source recipes and batch retry/discard coded.",
+      "remaining": "Abrupt death/partial output/disk-full/cleanup failures across all new services and stages."
+    },
+    {
+      "id": "M07.09",
+      "status": "U",
+      "feature": "Selected-file scope boundaries",
+      "implemented": "Search/batch pick exact sources and disclose no broad folder scanning.",
+      "remaining": "Prove unselected files are never inspected and grants remain scoped through failure/reopen/import."
+    },
+    {
+      "id": "M08.01",
+      "status": "U",
+      "feature": "Accessibility inspection",
+      "implemented": "Source-bound metadata/tag/ParentTree/role/heading/figure/table/link/form audit with page/object evidence, human checks, tag repair routing and sealed evidence export is integrated and compiled October 9. Reviewed existing table header IDs/associations/Scope/spans, list numbering and printable leaf Form semantics are integrated and compiled October 9; broader semantic acceptance remains.",
+      "remaining": "Marked-content coverage, broader semantics, verified standard rule mappings, manual order/focus correctness, assistive technology and PDF/UA/WCAG/508 acceptance."
+    },
+    {
+      "id": "M08.02",
+      "status": "U",
+      "feature": "Guided accessibility repair",
+      "implemented": "Existing tag-tree editing plus eligible initial structure creation, reading order, artifact marking, Figure Alt, language and supported table associations are integrated with undo/redo and exact tree/page output review; compiled October 9. Reviewed existing table header IDs/associations/Scope/spans, list numbering and printable leaf Form semantics are integrated and compiled October 9; broader semantic acceptance remains.",
+      "remaining": "Broader marked-content/nested-form/link/list/table/MCID remediation and recovery; actual semantic, assistive-technology and standards acceptance."
+    },
+    {
+      "id": "M08.03",
+      "status": "U",
+      "feature": "Document health report",
+      "implemented": "Visible geometry, permitted text problems, internal destinations, structure/form-label observations coded.",
+      "remaining": "Embedded/missing fonts, oversized images, broader unsupported/print checks; current partial/cancel/report tests and verified safe fixes."
+    },
+    {
+      "id": "M08.04",
+      "status": "U",
+      "feature": "Trustworthy file details",
+      "implemented": "Snapshot dimensions/rotation/count/size/hash/metadata/permissions/text scope and all-page geometry coded.",
+      "remaining": "Actual diverse-file accuracy, current permission Set handling, partial/cancel/error/export and accessibility tests."
+    },
+    {
+      "id": "M08.05",
+      "status": "H+U",
+      "feature": "Accessible job status",
+      "implemented": "Older workflows have tested statuses/keyboard names; new workflows contain progress/error/cancel announcements.",
+      "remaining": "Screen-reader confirmation of every current job/dialog, errors, focus transitions and cancellation."
+    },
+    {
+      "id": "M08.06",
+      "status": "H+U",
+      "feature": "Scalable interface",
+      "implemented": "Minimum-window/focus/keyboard subsets tested; larger text/contrast/reduced-motion controls coded.",
+      "remaining": "All workflows at large text/high contrast, assistive technology, high DPI and multi-monitor screens."
+    },
+    {
+      "id": "M08.07",
+      "status": "H+U",
+      "feature": "Print preview",
+      "implemented": "Older bounded prepared output tested; full range/paper/layout/tile/booklet preview coded.",
+      "remaining": "Verify exact current preview equals handoff, annotation choices/resolution/clipping/cancel and memory limits."
+    },
+    {
+      "id": "M08.08",
+      "status": "N",
+      "feature": "Physical printer validation",
+      "implemented": "Historical OS handoff used mocked completion; no accepted physical-printer evidence.",
+      "remaining": "Print ordinary and large-sheet/tiled/booklet/form/annotation copies on real printers."
+    },
+    {
+      "id": "M09.01",
+      "status": "N",
+      "feature": "Windows/local/cloud sharing",
+      "implemented": "New-copy export exists; Windows Share handoff and cloud share links are absent.",
+      "remaining": "Local copy handoff; future cloud service/account/destination/permission/consent handling."
+    },
+    {
+      "id": "M09.02",
+      "status": "U",
+      "feature": "Transfer history",
+      "implemented": "Provider request/history/privacy-cleanup code records online context disclosures.",
+      "remaining": "Actual provider/request/error/cancel/log/redaction/cleanup checks; cloud-share transfer history if sharing is added."
+    },
+    {
+      "id": "M09.03",
+      "status": "U",
+      "feature": "Optional AI providers/agents",
+      "implemented": "Explicit connection/context/request review and provider calls coded.",
+      "remaining": "Provider interoperability/timeouts/errors/consent/account-charge/context/source checks; expanded agent runtimes."
+    },
+    {
+      "id": "M09.04",
+      "status": "U",
+      "feature": "Cited answers",
+      "implemented": "Read-only answers and source page/line references/navigation coded.",
+      "remaining": "Exact citation/source offsets, generated-vs-source text, uncertain OCR and malformed-response tests."
+    },
+    {
+      "id": "M09.05",
+      "status": "U",
+      "feature": "Read-only AI and untrusted documents",
+      "implemented": "No automatic file-write/tool route; scoped context and proposed-answer review coded.",
+      "remaining": "Adversarial document/provider injection tests, no implicit grants/actions, privacy and source retention."
+    },
+    {
+      "id": "M09.06",
+      "status": "U",
+      "feature": "Connection controls and secrets",
+      "implemented": "Windows secure-storage connection/model/test/remove controls coded, fail-closed intent.",
+      "remaining": "Real secure-storage unavailable/locked/error/remove cases, request cancellation, endpoint/model validation and no leaked keys."
+    },
+    {
+      "id": "M09.07",
+      "status": "L",
+      "feature": "Hermes integration",
+      "implemented": "Evaluation requirement recorded; generic supported provider routes do not prove Hermes integration.",
+      "remaining": "Identify/verify documented API, capabilities/authentication/privacy; implement a bounded adapter only after evaluation."
+    },
+    {
+      "id": "M09.08",
+      "status": "L",
+      "feature": "Harness integration",
+      "implemented": "Exact product/interface still unidentified; deferred by requirement.",
+      "remaining": "Resolve product/API before adapter design; do not invent integration."
+    },
+    {
+      "id": "M09.09",
+      "status": "U",
+      "feature": "Windows lifecycle",
+      "implemented": "Open-with intake/association metadata, portable development package and install/uninstall scripts coded; old package built only.",
+      "remaining": "Real install/upgrade/uninstall/Open With, signing/icon branding, current package, update/rollback and clean-machine acceptance."
+    },
+    {
+      "id": "M09.10",
+      "status": "U",
+      "feature": "Release readiness",
+      "implemented": "Locked dependencies/notices, bounded source/build inventories and older safety tests exist.",
+      "remaining": "Full security/license/SBOM/provenance, performance/large corpus/accessibility/clean-machine review and scope-specific beta acceptance."
+    },
+    {
+      "id": "M10.01",
+      "status": "L",
+      "feature": "Later candidates",
+      "implemented": "Practical profile-based preflight with source-bound page/font/image/color/transparency/output-intent evidence and report exports is integrated and compiled October 9; existing Bates groundwork is coded. Online services, standards validation/output and broad repair remain later adopted work.",
+      "remaining": "Reviewed validators/services and explicit requirements before adding working claims."
+    },
+    {
+      "id": "M10.02",
+      "status": "X",
+      "feature": "Initial-release exclusions",
+      "implemented": "Bulk signing/payments, portfolios/barcodes, print-shop color/trapping, geospatial/3D, multimedia, presentation generation and CAD editing excluded. Source-bound geospatial CRS/calibration inventory, supported coordinate/path queries and page/layer workspace are integrated and compiled October 9; accuracy remains unknown.",
+      "remaining": "Do not count excluded items as missing beta features unless the user changes scope."
+    },
+    {
+      "id": "B01",
+      "status": "U",
+      "feature": "Revu markup artwork",
+      "implemented": "Standard annotation artwork/metadata handling and unsupported cases coded.",
+      "remaining": "Authorized Revu originals with rotated/cropped/large sheets, missing appearances, flattened marks and uncommon fonts."
+    },
+    {
+      "id": "B02",
+      "status": "H+U",
+      "feature": "Comments/Markups panel",
+      "implemented": "Search/filter/sort/page/reply-state/metadata and row-to-location navigation coded. October 11: automatic inspection, selected-comment actions/reasons and New comment route coded. Standard local Text fixture inspection, navigation and selected-page routing passed; no real Revu compatibility claim.",
+      "remaining": "Real Revu row identity/location/selection, panel resize/collapse, huge inventories and malformed data tests."
+    },
+    {
+      "id": "B03",
+      "status": "H+U",
+      "feature": "Replies, states and locks",
+      "implemented": "Supported relationships/history/read-only flags and preserving additive reply/plain-comment editing coded. October 11: a supported plain Text comment edit and new note saved to reviewed copies; independent reopen confirmed exact page-two text and retained source note on addition. Broader replies/states/private/locked/foreign cases remain pending.",
+      "remaining": "Multi-level/missing-parent/duplicate/private-state/locked/provenance and Revu reopen tests."
+    },
+    {
+      "id": "B04",
+      "status": "U",
+      "feature": "Foreign markup preservation",
+      "implemented": "Declared-object graph and retained-data validation code exists in supported copy writers; preserving reorder added.",
+      "remaining": "Execute unknown/private/appearance/reply/identifier/layer retention tests in every writer and Revu."
+    },
+    {
+      "id": "B05",
+      "status": "U",
+      "feature": "Reports and exchange",
+      "implemented": "TXT/CSV/JSON reports and 11-type standard XFDF export plus supported import coded. Supported native FDF comment import/export integrated and compiled October 9, with explicit mapping omissions and actual prepared PDF review.",
+      "remaining": "Current XFDF/FDF/Revu round trips and omission/appearance/private-field acceptance; wider FDF, BAX and BTX/private adapters remain unfinished."
+    },
+    {
+      "id": "B06",
+      "status": "U",
+      "feature": "Clouds, arrows, callouts",
+      "implemented": "New drawing tools with color/subjects/styles and reviewed copy paths coded.",
+      "remaining": "Artwork/geometry/undo/crop/rotation/retention/print and Revu compatibility tests."
+    },
+    {
+      "id": "B07",
+      "status": "H+U",
+      "feature": "Revision review",
+      "implemented": "Older comparison tested; new aligned/cyan-magenta/transparent overlays coded.",
+      "remaining": "Shifted/scaled/rotated drawing alignment, zoom/pan/labels, large-sheet behavior and human interpretation."
+    },
+    {
+      "id": "B08",
+      "status": "U",
+      "feature": "Sheet sets and revisions",
+      "implemented": "Ordered source-linked sets and explicit new revision reference review coded. October 11 batch: October 11: actual contained same-geometry revision writer and UI connected. Known output pair independently reopened, carried/imported comments/private values and stable source pages verified; originals unchanged. Broader transformed/Revu/large/dependency cases remain.",
+      "remaining": "Real multi-file changes/relink/recovery/navigation tests; physical replacement and comment carry-forward."
+    },
+    {
+      "id": "B09",
+      "status": "H+U",
+      "feature": "Large-sheet layout/navigation",
+      "implemented": "Older generic fullscreen/panes tested; comment jump/zoom/return/review-panel code newer. October 7: artwork fullscreen and hand/pointer zoom implemented and compiled; current runtime acceptance pending. Zoom-region/view history added October 7. Current runtime acceptance pending.",
+      "remaining": "R40 PDF-only fullscreen, large-sheet/high-DPI/view-state retention and collapsed review-panel tests."
+    },
+    {
+      "id": "B10",
+      "status": "U",
+      "feature": "Reusable review tools/stamps",
+      "implemented": "Local style presets, decoration templates and portable review drafts coded.",
+      "remaining": "Create/apply/export/import/delete/recovery/appearance tests; proprietary .btx/tool-set evaluation separate."
+    },
+    {
+      "id": "B11",
+      "status": "U",
+      "feature": "Custom data and quantities",
+      "implemented": "PDFixData structured takeoff metadata/recovery/editing coded.",
+      "remaining": "Bluebeam private/custom columns/quantity decoding/exchange not implemented; evaluate formats and real fixtures."
+    },
+    {
+      "id": "B12",
+      "status": "U",
+      "feature": "Persistent calibrated takeoffs",
+      "implemented": "Distance/perimeter/area/count annotations, totals, recovery and supported update copies coded.",
+      "remaining": "Known quantities, unit/scale/geometry/source proofs, appearance preservation/recovery/real Revu and printed output tests."
+    }
+  ],
+  "legend": {
+    "H": "Historical bounded runtime evidence; current regression pending",
+    "U": "Coded, current runtime acceptance pending",
+    "H+U": "Older tested subset plus newer untested work",
+    "N": "First requested implementation or execution pending",
+    "L": "Deferred API/engine/service evaluation",
+    "X": "Explicit first-release exclusion"
+  },
+  "fullReport": "../PDFIX-COMPLETE-STATUS-2026-10-04.md",
+  "futureReport": "../PDFIX-FUTURE-FEATURES.md",
+  "currentBuildSourceSha256": "e29dff449df886bf1b12005deaf9d95f70c5569159eae7de4de430845c1faf90",
+  "lastCodingUpdate": "2026-10-12",
+  "latestCodingCheckpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md",
+  "latestCompilation": {
+    "modules": 372,
+    "css": "index-BU3WFZja.css",
+    "engineSha256": "8944f27373d8c25e3977994fc06c97737498d4d2941a496815640edca239835b",
+    "engineBytes": 3686025,
+    "scannerSha256": "e3be73da0d126289129b95f785af32c4489839787cc672e6bca9e89d26c364c4",
+    "scannerBytes": 34304,
+    "certificateTrustSha256": "6d92de24adfad498720e8db5feb86feae63337d33f6519994edc1554b2868992",
+    "certificateSigningSha256": "7ca50e37b639952e4d9f4161f2e84392f414a5b228f1cdc2c8775c159f1f14c8",
+    "localSpeechSha256": "40411beec59e35b57b13676a64c0eaf45ef639c651c5f30ed68d7635d7d5d06f",
+    "localSpellingSha256": "29f21c7e042dd2003c35a411a6b7c18fab9d87b34677fd6ad057f8c6baab3e79",
+    "virtualPrinterSha256": "fbfe293da6d0081ea670c7fcd3bde244012be4da681d857cb499641009a6d98c",
+    "sourceChecks": null,
+    "buildExitCode": 0,
+    "sandboxSha256": "0bcc1caa2861c9bb246a8b1cea3ee1e81ec45ea72ae3e2302b2b1e7ce7f29c1b",
+    "sandboxSourceSha256": "588aa4dc3d73623fbdcf71b61f8c09ae5ea2a3691cd3fc46cdcba981d2183dbb",
+    "runtimeAcceptance": "Four targeted declared cases across two receipts: contained preserved request PDF + saved-copy-bound EML; one local Windows storage inspection; fixed context arguments and reviewed two-source snapshot seeding; protected stable-file watch approval/copy/reopen/pause/restart receipt/revoke. First run passed three cases and found a genuine missing-first-consent bug; production storage/recovery target fixes preceded a watched-only rerun. Actual registry install/UI/providers/broad security/corpus/performance acceptance pending.",
+    "renderer": "index-Duh-BdBT.js",
+    "pagedSessionSha256": "f847907cca42aae90bc72340de1faa1615f3548716dd9ff5d01e45899c80cf21",
+    "pagedSessionSourceSha256": "bc749fc5f00c3c755063caab11a70d963ebb5e0d99bf09f01572c68cee405b13",
+    "sourceSnapshotSha256": "e29dff449df886bf1b12005deaf9d95f70c5569159eae7de4de430845c1faf90",
+    "desktopLaunch": {
+      "pid": 257388,
+      "state": "Previous visible desktop session; not restarted during this consolidation",
+      "sw3": "queued Windows open request",
+      "build": "Earlier visible build; new integration build is on disk"
+    },
+    "scannerSourceSha256": "45b171a12383b5a2e9136f0e398cdb497b92ad5689e53be328a79d6b13e8c378",
+    "certificateTrustSourceSha256": "3ae1f24662f99cf76f9d073f5bde4e52a190c0dc9d98707e2dfa134a789d7c96",
+    "certificateTrustBytes": 20992,
+    "certificateSigningSourceSha256": "6d1556e6f6d84d63d253ee1e01e88c8fe8d6e68f40400c60b61ed80790a5b740",
+    "certificateSigningBytes": 23552,
+    "localSpeechSourceSha256": "0089786adad6eda943b8d3fbc1e1d4aefaf85deb2740e2e453641d5a2eed34f3",
+    "localSpeechBytes": 15872,
+    "localSpellingSourceSha256": "26555c3a8f6d4cefc5864f5e8ad265d774ac2bb023cb635720c8553e3743a39c",
+    "localSpellingBytes": 19456,
+    "virtualPrinterSourceSha256": "a9cd8f5a9be6ccdae69ea40361b6cdc6a9f343dd5031bf030fcdd5e610efa256",
+    "virtualPrinterBytes": 19456,
+    "syntaxValidation": "Changed JavaScript modules were syntax-checked; the 11-module/29-call proxy lifecycle audit is documented separately. No new claim about all historical source checks.",
+    "sandboxBytes": 30720,
+    "pagedSessionBytes": 18432
+  },
+  "implementationUpdates": [
+    {
+      "id": "F04",
+      "state": "coded, current acceptance pending",
+      "scope": "Hand/pointer zoom plus zoom-to-region and session Previous/Next view history coded October 7. Synchronized navigation, DPI/monitor/very-large-drawing behavior and current acceptance remain. Source-derived large-PDF queue backpressure, bounded nearby-read coalescing, native RAM/CPU/graphics capacity estimates and adaptive preview/read budgets are coded and compiled October 7. Actual large-file and performance acceptance remain pending."
+    },
+    {
+      "id": "F05",
+      "state": "coded, current acceptance pending",
+      "scope": "Bookmark/range recipes plus actual encoded file-size splitting are integrated and compiled October 9. Budget/one-page refusals are explicit; preservation and current runtime acceptance remain."
+    },
+    {
+      "id": "F07",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Existing chosen-source drag/copy/reorder remains coded. Standalone native full-source combination now supports cross-source page permutation with reviewed mappings and sealed saving. Partial extraction/insertion, duplicate identity policies, broader preservation and current acceptance remain.",
+      "checkpoint": "docs/COMBINE-TIFF-WORKFLOWS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F08",
+      "state": "coded, current acceptance pending",
+      "scope": "Local text/dimension/artwork matching proposals, manual correction, reviewed counterpart mappings and unmatched-page handling coded October 7. High-resolution/sensitivity/alignment expansion and drawing-corpus acceptance remain."
+    },
+    {
+      "id": "F17",
+      "state": "coded, current acceptance pending",
+      "scope": "Reviewed manual rectangular merge/split corrections preserve anchor text and require empty covered cells; portable drafts, CSV disclosure and literal XLSX merge readback are coded. Irregular/rotated extraction accuracy, automatic reconstruction and runtime/Excel acceptance remain."
+    },
+    {
+      "id": "F26",
+      "state": "coded, current acceptance pending",
+      "scope": "Contained DOCX/RTF, bookmarks, decorations/Bates, attachment decoding, web destinations, table XLSX, supported batch PDF text, fillable-field inspection/creation and document-generated PDF output inspection are coded. Initial form inspection supports source-bound cancellation. Other native families, Chromium image/OCR/PDF decode and OS security acceptance remain. Existing fill inspection/writing now uses the fixed contained engine, preservation verification and native token-only saving; compiled October 9."
+    },
+    {
+      "id": "F41",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Multi-file continuous Bates queue is integrated and compiled with selected physical-page ranges, numbering advancement after verified save, paired every-page review, native new folders and identifier report. Durable/global registries, existing-ID/artwork detection, wider limits/fonts and runtime acceptance remain.",
+      "checkpoint": "docs/BATES-COMBINE-TIFF-TAGS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F27",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Existing batch copies/text/compression remain coded. Continuous multi-file native Bates queue/report now integrated and compiled. Wider conversions/workflow batches, durable resume and current runtime acceptance remain.",
+      "checkpoint": "docs/BATES-COMBINE-TIFF-TAGS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F10",
+      "state": "coded, current acceptance pending",
+      "scope": "Supported formatted authored header/footer runs export to DOCX/RTF/PDF; explicit single-section DOCX band imports and additional already-mapped embedded TrueType simple glyph proofs are coded. Broad imports, source font edits/new mappings, shaping/reflow and current corpus acceptance remain."
+    },
+    {
+      "id": "2026-10-08-integrated-batch",
+      "state": "coded subsets integrated and compiled; no new runtime acceptance",
+      "scope": "Windows WIA scanning, six OCR languages, file-backed large-PDF comments, restricted certificate integrity, tag-tree editing and PDF portfolios with explicit PDF artwork preview.",
+      "checkpoint": "docs/INTEGRATED-FEATURES-CODING-2026-10-08.md"
+    },
+    {
+      "id": "2026-10-09-integrated-batch",
+      "state": "coded subsets integrated and compiled; no new runtime acceptance",
+      "scope": "Initial Windows certificate signing, offline base-chain inspection, initial tags/artifacts, geospatial queries, encoded-size splitting and readable-text controls.",
+      "checkpoint": "docs/INTEGRATED-FEATURES-CODING-2026-10-09.md"
+    },
+    {
+      "id": "2026-10-09-preflight-forms-audit",
+      "state": "coded subsets integrated and compiled; runtime/standards acceptance pending",
+      "scope": "Practical preflight profiles, structural accessibility audit, main-retained JSON evidence exports, reviewed declarative form calculations and hidden-artwork allocation reduction.",
+      "checkpoint": "docs/PREFLIGHT-FORMS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F03",
+      "state": "coded, current acceptance pending",
+      "scope": "Single-pointer bounded rectangle selection, page/geometry invalidation, explicit row/two-column/three-column/content order, exact copy preview and direction-aware row grouping integrated and compiled October 9. Rotated or mirrored rectangle geometry is refused where ambiguous. Complex layouts, vertical writing and runtime acceptance remain."
+    },
+    {
+      "id": "2026-10-09-repair-forms-selection",
+      "state": "coded subsets integrated and compiled; no new runtime acceptance",
+      "scope": "Contained existing form fill/visual placements, supported qpdf diagnostics and verified repair-to-copy, rectangle selection lifetime and order previews.",
+      "checkpoint": "docs/REPAIR-FORMS-SELECTION-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F18",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Reviewed custom supported-page widget order, overlays, apply/undo/recovery and source-bound native order retention are integrated and compiled October 9. Broader forms/appearance/source logic and viewer/runtime acceptance remain."
+    },
+    {
+      "id": "F21",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Supported native FDF comment exchange integrated and compiled October 9 with bounded inert import/export, original-preserving copy, disclosed omissions and token-only saving. Wider FDF/form data/appearance coverage, BAX/BTX/private Bluebeam adapters and actual interchange acceptance remain."
+    },
+    {
+      "id": "F28",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Native combination now chains editable preserving reorder/Bates continuation stages in either order, integrated and compiled with mapped final-page review and sealed save. Single-source definitions/draft recovery remain coded. OCR/print/general stages, saved combined definitions, durable in-flight resume and runtime acceptance remain.",
+      "checkpoint": "docs/BATES-COMBINE-TIFF-TAGS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "2026-10-09-forms-fdf-workflows",
+      "state": "coded subsets integrated and compiled; no new runtime acceptance",
+      "scope": "Reviewed custom widget order, supported native FDF comment exchange, editable contained reorder/Bates workflows and native broker envelope alignment.",
+      "checkpoint": "docs/FORMS-FDF-WORKFLOWS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F06",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Standalone contained native full-source combination is integrated and compiled, including supported graph/object preservation, form and destination namespaces, grouped bookmarks, exact-source review and native sealed saving. Partial/duplicate pages, tagged/layered/label/private catalog reconciliation and runtime fidelity acceptance remain.",
+      "checkpoint": "docs/COMBINE-TIFF-WORKFLOWS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F12",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Classic TIFF now includes actual bounded CCITT Modified Huffman/Group 3/Group 4 strip decoding plus previous uncompressed/PackBits/LZW/Deflate modes. Reviewed oriented PNG import is integrated and compiled. BigTIFF/JPEG/tiles/wider colors/depth/profiles, other decoders and runtime correctness/fidelity acceptance remain.",
+      "checkpoint": "docs/BATES-COMBINE-TIFF-TAGS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "2026-10-09-combine-tiff-workflow-library",
+      "state": "coded subsets integrated and compiled; no new runtime acceptance",
+      "scope": "Native full-source PDF combination, supported multipage TIFF page decoding/import, named reorder/Bates workflow definitions and exact-source draft recovery.",
+      "checkpoint": "docs/COMBINE-TIFF-WORKFLOWS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F30",
+      "state": "coded subsets integrated and compiled; current acceptance pending",
+      "scope": "Existing table tag semantics now support authoring header IDs/IDTree, same-table Headers/Scope/spans and bounded consistent grids; ListNumbering and printable leaf Form properties are editable with preserving output and awaited lifecycle. Broader tree manipulation/namespace/class remediation, assistive-technology and standards acceptance remain.",
+      "checkpoint": "docs/BATES-COMBINE-TIFF-TAGS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "2026-10-09-bates-combine-tiff-tags",
+      "state": "coded subsets integrated and compiled; no new runtime acceptance",
+      "scope": "Continuous multi-file Bates, combine/reorder/Bates native continuation, CCITT TIFF decoding and existing table/list/printable-form tag semantics.",
+      "checkpoint": "docs/BATES-COMBINE-TIFF-TAGS-CODING-2026-10-09.md"
+    },
+    {
+      "id": "2026-10-09-free-local-text-print",
+      "state": "integrated coded subsets compiled; no runtime acceptance",
+      "scope": "Local read aloud, spelling, scoped statistics, optional Windows print queue and local-only AI",
+      "checkpoint": "docs/LOCAL-TEXT-PRINT-CODING-2026-10-09.md"
+    },
+    {
+      "id": "2026-10-10-large-pdf-loading",
+      "state": "integrated code compiled; user drawing-file verification pending",
+      "scope": "Bounded range request queue, copied cache, adaptive assembly and read settings, foreground-first rendering, low-memory preview mode, lazy outline and sheet labels",
+      "checkpoint": "docs/LARGE-PDF-LOADING-CODING-2026-10-10.md"
+    },
+    {
+      "id": "2026-10-10-interface-contrast",
+      "state": "integrated styling compiled; visual/accessibility acceptance pending",
+      "scope": "Darker default interface labels, control borders, selected states and focus rings; document artwork and editable content excluded",
+      "checkpoint": "docs/INTERFACE-CONTRAST-CODING-2026-10-10.md"
+    },
+    {
+      "id": "2026-10-10-disk-backed-pdf",
+      "state": "integrated page-at-a-time opening compiled; actual engineering-file acceptance pending",
+      "scope": "Disk-backed fallback replaces full-buffer RAM/1GiB opening refusal; larger page-set fallback, private isolated page extraction, bounded page workers and cancellation",
+      "checkpoint": "docs/DISK-BACKED-PDF-CODING-2026-10-10.md"
+    },
+    {
+      "id": "2026-10-11-paged-sandbox-repair",
+      "state": "integrated and compiled; actual drawing acceptance pending",
+      "checkpoint": "docs/LARGE-PDF-SANDBOX-REPAIR-2026-10-11.md",
+      "implemented": "Explicit writable-page integrity label; session-owned AppContainer lifecycle; bounded stage/Windows diagnostics; memory and runtime loader failure messages"
+    },
+    {
+      "id": "2026-10-11-sandbox-environment-203",
+      "state": "integrated and compiled; actual drawing acceptance pending",
+      "checkpoint": "docs/SANDBOX-EXPLAINED-AND-ERROR-203-2026-10-11.md",
+      "implemented": "Explicit Windows profile/drive allowlist for broker; sorted bounded Unicode child environment with private profile locations; code-203 specific guidance"
+    },
+    {
+      "id": "2026-10-11-sandbox-loader-search",
+      "state": "integrated and compiled; actual drawing acceptance pending",
+      "checkpoint": "docs/SANDBOX-LOADER-REPAIR-2026-10-11.md",
+      "implemented": "Private SetDllDirectory; fixed runtime/System32 PATH; paged runtime working directory; distinct exact Windows loader codes"
+    },
+    {
+      "id": "2026-10-11-large-pdf-defensive-review",
+      "state": "integrated and compiled; runtime acceptance pending",
+      "checkpoint": "docs/LARGE-PDF-DEFENSIVE-REVIEW-2026-10-11.md",
+      "implemented": "Late output watchdog guards; bounded monitor; termination exception containment; latest navigation intent; canceled-request and stale-worker guards; streaming DLL hashes; precise disk budget; reserved diagnostic exit parsing"
+    },
+    {
+      "id": "2026-10-11-sandbox-private-desktop",
+      "state": "integrated and compiled; runtime isolation and actual drawing acceptance pending",
+      "checkpoint": "docs/SANDBOX-PRIVATE-DESKTOP-REPAIR-2026-10-11.md",
+      "implemented": "Private hidden paged desktop; exact package SID object rights; temporary station read-attributes ACE; per-command and cancellation cleanup; desktop stage diagnostics"
+    },
+    {
+      "id": "LARGE-PDF-OPENING-DEEP-DIVE-2026-10-11",
+      "state": "coded and compiled; runtime acceptance pending",
+      "checkpoint": "docs/LARGE-PDF-OPENING-DEEP-DIVE-2026-10-11.md",
+      "scope": "Two-copy disk admission, cooperative staging deadline, exact immutable reads, bounded page queue, source-scoped cancellation, runtime preparation generation guards, cross-broker ACL transaction, fresh RAM routing, stale-render/disposal protection, preserved artwork on text failures, early artwork display, bounded canvas sizing and truthful mode guidance. Persistent parsing, bounded decoded text/vectors, large-source feature routes and measured startup/fidelity/performance/security acceptance remain."
+    },
+    {
+      "id": "2026-10-11-sw3-persistent-reader",
+      "state": "implemented; targeted actual SW3 runtime checks passed; broader acceptance pending",
+      "scope": "Contained DETACHED_PROCESS startup repair; persistent pinned qpdf C-API helper; bounded OPEN/PAGE/CLOSE protocol/cache/recycling; recoverable cancellation; owned output reuse; permitted-tree checks; snapshot marker metadata fix; conservative large-source routing; build/package integration.",
+      "checkpoint": "docs/SW3-PERSISTENT-READER-VERIFICATION-2026-10-11.md",
+      "verification": "Actual 160236608-byte/700-page FAA SW3 source SHA-256 unchanged. Same PID pages 1/350/700; 129/143/121 ms native preparation; cancellation/reopen/cleanup passed; peak parser private memory 33 MiB across 65 pages; recycle at 64; final hidden desktop page readiness 4935/923/906 ms; selectable text present; three independently rendered sampled pages pixel-exact at 144 DPI; no renderer page errors.",
+      "remaining": "Broader file/page corpus, low-memory extremes, renderer total RAM/graphics, Windows clean-machine and isolation/independent security acceptance; large-source search/printing/editing/encrypted/outline/layer/destination support."
+    },
+    {
+      "id": "R49",
+      "state": "coded and scoped functional cases passed; full UI/function acceptance open",
+      "scope": "Familiar document toolbar, source-comment panel/actions and selected-page note route integrated; custom rich-style validation, contained Node startup, current PDF.js corner geometry and owning-task lifecycle repaired. Seven declared functional checks passed; hidden-only aggregate did not pass; real Revu/pen/all-tool gates pending.",
+      "checkpoint": "docs/UI-INTEGRATION-AND-FINAL-SCOPE-2026-10-11.md"
+    },
+    {
+      "id": "F47",
+      "state": "coded; brief source/model checks; full scope remains open",
+      "scope": "Digital text/vector and opt-in local OCR/dark scan-line proposals are integrated in the builder, with editable reviewed selection and existing real output route. Remaining: Wider geometry, faint/skew/handwriting/marked-state and language/layout detection, robust scan cancellation/shared-worker budgets, real builder output/corpus checks.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F49",
+      "state": "coded; brief source/model checks; full scope remains open",
+      "scope": "Nearby label/type/confidence/order proposals, editable names/tooltips/geometry and explicitly accepted creation order. Remaining: Document-aware reading/tab-order semantics, date/signature-widget behaviors, structured accessibility and multilingual/corpus checks.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F48",
+      "state": "coded; narrow runtime storage/model check passed; full scope remains open",
+      "scope": "OS-protected local profile CRUD/clear, explicit matching/manual mapping/review, protected-field exclusions and one-step-undo application in Fill and Sign. Real encryption/reopen/update/delete/temporary cleanup plus model matching passed. Remaining: Full UI and actual filled-PDF output cases, broader labels/choices, corruption/lock/disk-full, profile edit recovery and OS migration/key rotation.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F57",
+      "state": "coded; brief source/model checks; full scope remains open",
+      "scope": "Bounded physical-page heading analysis with geometric word spaces, running-header filtering, scored editable hierarchy/page proposals and undoable acceptance in existing outline editor. Remaining: OCR/column-aware/tag-based proposals, calibrated multilingual quality, extraction cancellation/resource extremes and corpus/actual-output checks.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F22",
+      "state": "coded preserving same-geometry revision subset; focused contained writer/reopen passed; full scope remains open",
+      "scope": "Physical sheet replacement, explicit exact-geometry source-comment retention and donor comments with stable original page IDs, private/appearance graph preservation, original-safe reviewed new-copy save. Source/donor original hashes and independently reopened known-fixture note/private data passed. Transforms, unsupported dependencies, larger pairs, proprietary/locked semantics and actual Revu remain.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "B08",
+      "state": "coded and narrow known-fixture writer passed; full revision/sheet-set/Revu scope remains open",
+      "scope": "Existing preserving page-order workspace launches the real reviewed original/donor/output revision dialog with per-page comment/geometry choices and original identities.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F54",
+      "date": "2026-10-12",
+      "state": "coded subset; one contained EML fixture passed; full conversion/attachment/output/UI acceptance pending",
+      "scope": "Native selected EML snapshot -> contained MIME/header/body/inert HTML parser -> reviewed editable document creation using existing PDF export pipeline; explicit attachment inventory and omissions.",
+      "remaining": "Attachment preservation/extraction, expanded MIME/charset/layout/corpus support, actual editor/PDF export and original/output UI acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F55",
+      "date": "2026-10-12",
+      "state": "coded and compiled; clipboard/UI/runtime acceptance pending",
+      "scope": "Explicit native text/PNG clipboard action with byte/pixel limits; reviewed ordered editable items; document editor handoff with existing page settings and PDF export.",
+      "remaining": "Actual clipboard/render/export and source-integrity cases, richer arrangement/recovery/format support, device/UI/resource acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F58",
+      "date": "2026-10-12",
+      "state": "coded session-only subset; one nonrecursive snapshot/revoke case passed; full indexing/search acceptance pending",
+      "scope": "Explicit recursion/purpose/session PDF folder scope, native picker, fixed Windows attribute checks, bounded async enumeration/progress/partial results, sequential per-file stable snapshot/release and existing search extraction.",
+      "remaining": "Protected persistent index/grants/removal, incremental changed-file handling, larger PDFs/OCR and expanded content search, full extraction containment and hostile-path/device/cloud/corpus/UI acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F61",
+      "date": "2026-10-12",
+      "state": "coded subset; actual contained two-row writer/safe saves/independent reopen passed; full mail merge acceptance pending",
+      "scope": "Fill and sign launches real CSV merge: native snapshot, explicit headers-to-fields mapping, edited/selected rows/names, reviewed PDF preview, sealed queue and contained sequential outputs/new-folder exclusive saves/receipts/progress/cancel.",
+      "remaining": "Durable editable-session/partial-receipt recovery, receipt export/retry, expanded templates/multi-choice/large PDF route and real forms/CSV/UI/cancel/failure acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F63",
+      "date": "2026-10-12",
+      "state": "coded subset; exact SHA match/mismatch/export/clear fixture passed; full workflow/UI/security acceptance pending",
+      "scope": "Workspace/command action streams a native selected PDF SHA-256 with progress/cancel; compares typed or imported expected fingerprints; exclusively exports digest/comparison receipt and clears session state.",
+      "remaining": "Full UI/cancel/locks/cloud/hostile-path cases, receipt history/authenticated formats and opened-source integration.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F59",
+      "date": "2026-10-12",
+      "state": "coded subset; proposal/sanitization and 101 MiB disk-backed copy cases passed; full naming/UI acceptance pending",
+      "scope": "Pages/PDF-tools/command action proposes editable reasoned metadata/current permitted text/date/source names; native destination chooser saves an unchanged exclusive copy. Disk-backed source streaming uses bounded chunks, source/hash/readback verification, progress and cancellation.",
+      "remaining": "Reviewed OCR metadata naming, expanded date/language heuristics, naming recovery, full UI/hostile-path/cloud/lock/disk-full/device and measured large-drawing memory cases.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F64",
+      "date": "2026-10-12",
+      "state": "coded subset; one contained vector-mark preservation/save/reopen case passed; print/UI acceptance pending",
+      "scope": "Pages/PDF-tools/command workspace builds actual crop/bleed/registration mark streams, with units, offsets, selected RGB ink/width, expanded boxes and disclosed retained effective TrimBox materialization; reviews selected pages before exclusive new-copy saving.",
+      "remaining": "Selected nondefault UserUnit support, broader layouts and press/color separation/compliance features, durable recovery, real print/geometry/corpus/security/UI acceptance.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F65",
+      "date": "2026-10-12",
+      "state": "coded subset; five-box/inheritance/unit/rotation preservation/save/reopen fixture passed; full geometry/UI acceptance pending",
+      "scope": "Pages/PDF-tools/command workspace inspects all five explicit/inherited/default page boxes and physical units/rotation; edits selected leaf boxes, compares/reviews source/output and saves a sealed contained preserving copy.",
+      "remaining": "Expanded source/geometry and large-file writer support, durable editor recovery, full crop/rotation/UserUnit/layout/permissions/security/UI/corpus acceptance.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F66",
+      "date": "2026-10-12",
+      "state": "coded subset; CTM/hairline/Form inspection and selected stroke repair/save/reopen fixture passed; full line/UI acceptance pending",
+      "scope": "Pages/PDF-tools/command workspace inspects page and invoked Form strokes with effective physical width bounds and locations; repairs selected supported unique complete page programs, reviews changed pages and saves a contained preserving copy.",
+      "remaining": "Shared/nested Form, pattern, Type3/text, annotation appearance and other unsupported repair semantics; recovery, larger source route and real drawings/press/UI/security/corpus acceptance.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F50",
+      "date": "2026-10-12",
+      "state": "coded subset; argument/snapshot seed fixture passed; packaged Explorer/registry/UI acceptance pending",
+      "scope": "Optional per-user PDF-only fixed open/convert/compress/merge verbs, exact package/own-key identity checks, status/install/remove and pending-file review workspace; safe reviewed immutable sources routed to reader/images/compression and preserving combination.",
+      "remaining": "Actual packaged registry install/remove/repair/localized Explorer/selection/path/security/UI/deployment cases, Unicode package paths, more conversion targets and large transform route.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F53",
+      "date": "2026-10-12",
+      "state": "coded availability/opening subset; one local Windows metadata fixture passed; real provider/UI acceptance pending",
+      "scope": "Native selected synchronized-file review, short-lived token/identity recheck, explicit provider-download approval, central FileStore availability hook and immutable source snapshot; useful offline/lock/permission/network messages; existing-source aliases stay unchanged.",
+      "remaining": "Actual Drive/OneDrive/Dropbox placeholders, provider hydration progress/timeouts/cancel, reparse-specific adapters, conflicts/remote versions and cloud/alias/lock/hostile-path/UI/security/device acceptance.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F60",
+      "date": "2026-10-12",
+      "state": "coded copy/text recipe subset; protected approval/stable exact-copy/save/reopen/pause/restart/revoke fixture passed; full workflow acceptance pending",
+      "scope": "Connected persistent explicit source/output folder, recursion/run-mode/recipe grant, baseline/stable discovery, sequential approved copy or contained literal-text queue, loop/version/lock guards, exclusive output receipts, pause/revoke and reviewed recovery/reconcile/export.",
+      "remaining": "Broader recipe composition/conversion/compression/forms, disk-backed sources, cloud readiness, richer cleanup/conflict policies and actual text/cancel/crash/disk-full/path/security/UI/corpus/performance acceptance.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F62",
+      "date": "2026-10-12",
+      "state": "coded placement-note/email subset; contained request/EML writer/save/reopen/source integrity fixture passed; full preparation/UI acceptance pending",
+      "scope": "Connected recipient/message and signing/date/initial placement editing, contained explicit printable annotation appearances preserving unrelated artwork/comments, changed-page preview/review/new-copy save and actual saved-name/hash-bound local EML draft without automated sending.",
+      "remaining": "Durable request recovery, expanded sources/layouts/recipients and interactive signing-field support, actual email-client handling and appearance/geometry/permissions/security/UI/corpus acceptance.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    }
+  ],
+  "plannedFeatureCatalog": "PDFIX-ALL-PLANNED-FEATURES.md",
+  "acrobatScopeExtension": {
+    "requirement": "R41",
+    "adopted": "2026-10-07",
+    "source": "docs/ACROBAT-COMPARISON-USER-INPUT-2026-10-07.txt",
+    "sourceSha256": "5ec5f0de8b5069140e3f8a411e39cc47b8c6c9af2fe7d1b8f8d0aeb762d2edb6",
+    "plan": "ACROBAT-COMPETITIVE-PLAN.md",
+    "categories": 10,
+    "workPackages": 25,
+    "additiveFeatureCount": false,
+    "overlaps": "R/M/B/F targets; initial-release exclusions retain staging while covered specialist capabilities become adopted later scope",
+    "targets": [
+      {
+        "id": "A01",
+        "state": "Restricted integrity/identity and offline Windows base-chain trust integrated and compiled; revocation/timestamp/policy and runtime acceptance remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A02",
+        "state": "Initial Windows RSA certificate approval signing, exact signed preview and exclusive output copy integrated and compiled; broader sources/certification/multiple signatures and provider acceptance remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A03",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A04",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A05",
+        "state": "Practical profile inspection and source-bound export integrated and compiled; commercial-grade coverage, reviewed repairs, standards/corpus acceptance remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A06",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A07",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A08",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A09",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A10",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A11",
+        "state": "Existing tree editing and eligible initial tagging/artifacts integrated and compiled; broader semantics/recovery and standards acceptance remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A12",
+        "state": "Source-specific structural audit, manual checks and evidence exports integrated and compiled; standards mapping, semantic/assistive-technology and runtime acceptance remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A13",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A14",
+        "state": "User-authored reviewed declarative math and inert field/widget action inventory integrated and compiled; broader declarative/isolated source-logic compatibility remains.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A15",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A16",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A17",
+        "state": "Collection creation/navigation/extraction and embedded PDF artwork preview coded and compiled; broader formats/layouts remain. Runtime acceptance pending.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A18",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A19",
+        "state": "Supported geospatial inventory, calibrated coordinates/distances and page/layer workspace integrated and compiled; wider CRS/accuracy/corpus work remains.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A20",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A21",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A22",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A23",
+        "state": "planned expansion; no new implementation or acceptance from intake",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A24",
+        "state": "Desktop readable-text controls and column proposals integrated and compiled; mobile platform and semantic/corpus work remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      },
+      {
+        "id": "A25",
+        "state": "Bounded contained diagnostics and supported verified qpdf repair-to-copy integrated and compiled, including access when a retained PDF fails in the viewer. Incomplete independent baselines refuse repair. Broader damaged-file recovery, giant-file behavior, preservation/security/performance corpus and runtime acceptance remain.",
+        "plan": "ACROBAT-COMPETITIVE-PLAN.md"
+      }
+    ]
+  },
+  "lastPlanningUpdate": "2026-10-11",
+  "latestPlanningCheckpoint": "FINAL-IMPLEMENTATION-PLAN.md",
+  "freeAppRequirement": {
+    "id": "R46",
+    "adopted": "2026-10-09",
+    "rule": "Free app; no required paid API/subscription, paid feature unlock, purchase/upgrade links or remote provider for the requested new tools. Use free local components and record unsupported targets honestly.",
+    "implemented": "No payment links found; paid/online AI connections and API-key entry disabled; requested new tools use installed local Windows components."
+  },
+  "requestedFeatureAdditions": [
+    {
+      "id": "F43",
+      "requirement": "R42",
+      "feature": "Virtual PDF printer",
+      "implemented": "Optional native PDFix queue install/remove/status and printed-PDF review import using installed free Windows PDF driver.",
+      "remaining": "Automatic capture, spool/job recovery, signing/installer lifecycle and print fidelity/runtime acceptance.",
+      "status": "U",
+      "state": "integrated coded subset; compilation only; runtime acceptance pending",
+      "adopted": "2026-10-09",
+      "plan": "READING-WRITING-PRINT-PLAN.md",
+      "checkpoint": "docs/LOCAL-TEXT-PRINT-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F44",
+      "requirement": "R43",
+      "feature": "Read aloud",
+      "implemented": "Local voice/rate controls, bounded source batches and continuation, play/pause/resume/stop, editor/PDF scopes and progress.",
+      "remaining": "Semantic/tagged order, additional voice platforms, exact PDF word geometry, scanned/OCR corpus and runtime acceptance.",
+      "status": "U",
+      "state": "integrated coded subset; compilation only; runtime acceptance pending",
+      "adopted": "2026-10-09",
+      "plan": "READING-WRITING-PRINT-PLAN.md",
+      "checkpoint": "docs/LOCAL-TEXT-PRINT-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F45",
+      "requirement": "R44",
+      "feature": "Word count and document statistics",
+      "implemented": "Locale-aware words/characters/paragraph statistics and editor/PDF scoped cancellable counting; omissions declared.",
+      "remaining": "Broader content fidelity and counting-rule corpus; physical editable-document pagination and runtime acceptance.",
+      "status": "U",
+      "state": "integrated coded subset; compilation only; runtime acceptance pending",
+      "adopted": "2026-10-09",
+      "plan": "READING-WRITING-PRINT-PLAN.md",
+      "checkpoint": "docs/LOCAL-TEXT-PRINT-CODING-2026-10-09.md"
+    },
+    {
+      "id": "F46",
+      "requirement": "R45",
+      "feature": "Spell-checking",
+      "implemented": "Local spelling review/suggestions/language/ignore/personal dictionaries, document underlines/approved Undo replacements, read-only PDF page links.",
+      "remaining": "Form/comment and supported original PDF text-edit replacement integration, mixed-language corpus and runtime acceptance.",
+      "status": "U",
+      "state": "integrated coded subset; compilation only; runtime acceptance pending",
+      "adopted": "2026-10-09",
+      "plan": "READING-WRITING-PRINT-PLAN.md",
+      "checkpoint": "docs/LOCAL-TEXT-PRINT-CODING-2026-10-09.md"
+    }
+  ],
+  "releasePriorities": {
+    "adopted": "2026-10-09",
+    "plan": "docs/RELIABILITY-PERFORMANCE-USABILITY-GATES.md",
+    "state": "pending executed acceptance",
+    "priorities": [
+      "Original/output integrity and crash containment",
+      "Responsive large-document navigation with measured hardware budgets",
+      "Separate uncluttered Drawing, Document and Pages workspaces"
+    ]
+  },
+  "latestTargetedRuntimeCheck": {
+    "id": "2026-10-11-sw3-continuous-scroll",
+    "state": "implemented; targeted actual SW3 scrolling passed; broader acceptance pending",
+    "scope": "Bounded large-source continuous/facing views, default continuous scrolling, cancellation and nearby text cache; measurement-close view reset fixed.",
+    "checkpoint": "docs/SW3-SCROLLING-FIX-2026-10-11.md",
+    "verification": "Current build hidden actual 700-page SW3: wheel 1/2 and 350/351 forward/back; jumps 350/700; page 350 selectable text 2682 characters; 1 live canvas/919512 pixels at sample; Page/Continuous switching; Home; zero renderer errors.",
+    "remaining": "Broader file/page corpus, low-memory extremes, renderer total RAM/graphics, Windows clean-machine and isolation/independent security acceptance; large-source search/printing/editing/encrypted/outline/layer/destination support. Rapid-scroll extremes and total application RAM remain unmeasured.",
+    "report": "tmp/sw3-scrolling-28321a92-ac48-4b0e-b269-a8ed6ea543fe/report.json",
+    "sourceSnapshotSha256": "491864eba11484cdf8cfb27b8fa999f0b12398042634a7e45406b04651be12c4"
+  },
+  "latestScopeIntake": {
+    "date": "2026-10-11",
+    "requirementIds": [
+      "R47",
+      "R48",
+      "R49",
+      "R50"
+    ],
+    "featureIds": [
+      "F47",
+      "F48",
+      "F49",
+      "F50",
+      "F51",
+      "F52",
+      "F53",
+      "F54",
+      "F55",
+      "F56",
+      "F57",
+      "F58",
+      "F59",
+      "F60",
+      "F61",
+      "F62",
+      "F63",
+      "F64",
+      "F65",
+      "F66",
+      "F67"
+    ],
+    "scope": "Preserve every earlier plan; 20 free additions plus digital-pen PDF drawing, familiar document toolbar, drawing comments and full UI/function checking.",
+    "plan": "FINAL-IMPLEMENTATION-PLAN.md",
+    "state": "Full scope adopted; coding and actual acceptance remain separately tracked."
+  },
+  "adoptedFeatureAdditions": [
+    {
+      "id": "F47",
+      "userPriority": 1,
+      "feature": "Automatic form-field detection",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded; syntax/model evidence only; broader acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Digital text/vector and opt-in local OCR/dark scan-line proposals are integrated in the builder, with editable reviewed selection and existing real output route.",
+      "remaining": "Wider geometry, faint/skew/handwriting/marked-state and language/layout detection, robust scan cancellation/shared-worker budgets, real builder output/corpus checks.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F48",
+      "userPriority": 2,
+      "feature": "Smart form autofill",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded; focused storage/model checks passed; broader target/UI/output acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "OS-protected local profile CRUD/clear, explicit matching/manual mapping/review, protected-field exclusions and one-step-undo application in Fill and Sign. Real encryption/reopen/update/delete/temporary cleanup plus model matching passed.",
+      "remaining": "Full UI and actual filled-PDF output cases, broader labels/choices, corruption/lock/disk-full, profile edit recovery and OS migration/key rotation.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F49",
+      "userPriority": 3,
+      "feature": "Automatic form-field labeling",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded; syntax/model evidence only; broader acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Nearby label/type/confidence/order proposals, editable names/tooltips/geometry and explicitly accepted creation order.",
+      "remaining": "Document-aware reading/tab-order semantics, date/signature-widget behaviors, structured accessibility and multilingual/corpus checks.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F50",
+      "userPriority": 4,
+      "feature": "Windows right-click PDF tools",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; argument/snapshot seed fixture passed; packaged Explorer/registry/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Optional per-user PDF-only fixed open/convert/compress/merge verbs, exact package/own-key identity checks, status/install/remove and pending-file review workspace; safe reviewed immutable sources routed to reader/images/compression and preserving combination.",
+      "remaining": "Actual packaged registry install/remove/repair/localized Explorer/selection/path/security/UI/deployment cases, Unicode package paths, more conversion targets and large transform route.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F51",
+      "userPriority": 5,
+      "feature": "Microsoft Word, Excel, and PowerPoint shortcuts",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "planned; expanded target not newly implemented or tested",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence."
+    },
+    {
+      "id": "F52",
+      "userPriority": 6,
+      "feature": "Microsoft Edge browser extension",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "planned; expanded target not newly implemented or tested",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence."
+    },
+    {
+      "id": "F53",
+      "userPriority": 7,
+      "feature": "Cloud-folder compatibility",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded availability/opening subset; one local Windows metadata fixture passed; real provider/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Native selected synchronized-file review, short-lived token/identity recheck, explicit provider-download approval, central FileStore availability hook and immutable source snapshot; useful offline/lock/permission/network messages; existing-source aliases stay unchanged.",
+      "remaining": "Actual Drive/OneDrive/Dropbox placeholders, provider hydration progress/timeouts/cancel, reparse-specific adapters, conflicts/remote versions and cloud/alias/lock/hostile-path/UI/security/device acceptance.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F54",
+      "userPriority": 8,
+      "feature": "Email-to-PDF conversion",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; one contained EML fixture passed; full conversion/attachment/output/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Native selected EML snapshot -> contained MIME/header/body/inert HTML parser -> reviewed editable document creation using existing PDF export pipeline; explicit attachment inventory and omissions.",
+      "remaining": "Attachment preservation/extraction, expanded MIME/charset/layout/corpus support, actual editor/PDF export and original/output UI acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F55",
+      "userPriority": 9,
+      "feature": "PDF from clipboard",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded and compiled; clipboard/UI/runtime acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Explicit native text/PNG clipboard action with byte/pixel limits; reviewed ordered editable items; document editor handoff with existing page settings and PDF export.",
+      "remaining": "Actual clipboard/render/export and source-integrity cases, richer arrangement/recovery/format support, device/UI/resource acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F56",
+      "userPriority": 10,
+      "feature": "Offline PDF translation",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "planned; expanded target not newly implemented or tested",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence."
+    },
+    {
+      "id": "F57",
+      "userPriority": 11,
+      "feature": "Automatic bookmark generation",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded; syntax/model evidence only; broader acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Bounded physical-page heading analysis with geometric word spaces, running-header filtering, scored editable hierarchy/page proposals and undoable acceptance in existing outline editor.",
+      "remaining": "OCR/column-aware/tag-based proposals, calibrated multilingual quality, extraction cancellation/resource extremes and corpus/actual-output checks.",
+      "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md"
+    },
+    {
+      "id": "F58",
+      "userPriority": 12,
+      "feature": "Search across PDF folders",
+      "adopted": "2026-10-11",
+      "requirement": "R47/R48",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded session-only subset; one nonrecursive snapshot/revoke case passed; full indexing/search acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Explicit recursion/purpose/session PDF folder scope, native picker, fixed Windows attribute checks, bounded async enumeration/progress/partial results, sequential per-file stable snapshot/release and existing search extraction.",
+      "remaining": "Protected persistent index/grants/removal, incremental changed-file handling, larger PDFs/OCR and expanded content search, full extraction containment and hostile-path/device/cloud/corpus/UI acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F59",
+      "userPriority": 13,
+      "feature": "Smart file naming",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; proposal/sanitization and 101 MiB disk-backed copy cases passed; full naming/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Pages/PDF-tools/command action proposes editable reasoned metadata/current permitted text/date/source names; native destination chooser saves an unchanged exclusive copy. Disk-backed source streaming uses bounded chunks, source/hash/readback verification, progress and cancellation.",
+      "remaining": "Reviewed OCR metadata naming, expanded date/language heuristics, naming recovery, full UI/hostile-path/cloud/lock/disk-full/device and measured large-drawing memory cases.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F60",
+      "userPriority": 14,
+      "feature": "Watched-folder automation",
+      "adopted": "2026-10-11",
+      "requirement": "R47/R48",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded copy/text recipe subset; protected approval/stable exact-copy/save/reopen/pause/restart/revoke fixture passed; full workflow acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Connected persistent explicit source/output folder, recursion/run-mode/recipe grant, baseline/stable discovery, sequential approved copy or contained literal-text queue, loop/version/lock guards, exclusive output receipts, pause/revoke and reviewed recovery/reconcile/export.",
+      "remaining": "Broader recipe composition/conversion/compression/forms, disk-backed sources, cloud readiness, richer cleanup/conflict policies and actual text/cancel/crash/disk-full/path/security/UI/corpus/performance acceptance.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F61",
+      "userPriority": 15,
+      "feature": "CSV mail merge",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; actual contained two-row writer/safe saves/independent reopen passed; full mail merge acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Fill and sign launches real CSV merge: native snapshot, explicit headers-to-fields mapping, edited/selected rows/names, reviewed PDF preview, sealed queue and contained sequential outputs/new-folder exclusive saves/receipts/progress/cancel.",
+      "remaining": "Durable editable-session/partial-receipt recovery, receipt export/retry, expanded templates/multi-choice/large PDF route and real forms/CSV/UI/cancel/failure acceptance.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F62",
+      "userPriority": 16,
+      "feature": "Signature request preparation",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded placement-note/email subset; contained request/EML writer/save/reopen/source integrity fixture passed; full preparation/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Connected recipient/message and signing/date/initial placement editing, contained explicit printable annotation appearances preserving unrelated artwork/comments, changed-page preview/review/new-copy save and actual saved-name/hash-bound local EML draft without automated sending.",
+      "remaining": "Durable request recovery, expanded sources/layouts/recipients and interactive signing-field support, actual email-client handling and appearance/geometry/permissions/security/UI/corpus acceptance.",
+      "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F63",
+      "userPriority": 17,
+      "feature": "PDF fingerprint verification",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; exact SHA match/mismatch/export/clear fixture passed; full workflow/UI/security acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Workspace/command action streams a native selected PDF SHA-256 with progress/cancel; compares typed or imported expected fingerprints; exclusively exports digest/comparison receipt and clears session state.",
+      "remaining": "Full UI/cancel/locks/cloud/hostile-path cases, receipt history/authenticated formats and opened-source integration.",
+      "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F64",
+      "userPriority": 18,
+      "feature": "Print-production marks",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; one contained vector-mark preservation/save/reopen case passed; print/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Pages/PDF-tools/command workspace builds actual crop/bleed/registration mark streams, with units, offsets, selected RGB ink/width, expanded boxes and disclosed retained effective TrimBox materialization; reviews selected pages before exclusive new-copy saving.",
+      "remaining": "Selected nondefault UserUnit support, broader layouts and press/color separation/compliance features, durable recovery, real print/geometry/corpus/security/UI acceptance.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F65",
+      "userPriority": 19,
+      "feature": "Detailed PDF page-box editor",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; five-box/inheritance/unit/rotation preservation/save/reopen fixture passed; full geometry/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Pages/PDF-tools/command workspace inspects all five explicit/inherited/default page boxes and physical units/rotation; edits selected leaf boxes, compares/reviews source/output and saves a sealed contained preserving copy.",
+      "remaining": "Expanded source/geometry and large-file writer support, durable editor recovery, full crop/rotation/UserUnit/layout/permissions/security/UI/corpus acceptance.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F66",
+      "userPriority": 20,
+      "feature": "Thin-line inspection and repair",
+      "adopted": "2026-10-11",
+      "requirement": "R47",
+      "plan": "FREE-ACROBAT-ADDITIONS-PLAN.md",
+      "status": "coded subset; CTM/hairline/Form inspection and selected stroke repair/save/reopen fixture passed; full line/UI acceptance pending",
+      "existingOverlap": "See per-item mapping in canonical plan; existing narrower implementation retains prior evidence.",
+      "implemented": "Pages/PDF-tools/command workspace inspects page and invoked Form strokes with effective physical width bounds and locations; repairs selected supported unique complete page programs, reviews changed pages and saves a contained preserving copy.",
+      "remaining": "Shared/nested Form, pattern, Type3/text, annotation appearance and other unsupported repair semantics; recovery, larger source route and real drawings/press/UI/security/corpus acceptance.",
+      "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md"
+    },
+    {
+      "id": "F67",
+      "feature": "Digital-pen handwriting and drawing on PDFs",
+      "requirement": "R50",
+      "adopted": "2026-10-11",
+      "plan": "FINAL-IMPLEMENTATION-PLAN.md",
+      "status": "planned expansion; existing basic Ink is partial groundwork; pen hardware/output acceptance pending"
+    }
+  ],
+  "finalScopeLedger": "docs/FINAL-SCOPE-LEDGER-2026-10-11.json",
+  "finalRemainingWorkRegister": "docs/FINAL-REMAINING-WORK-2026-10-11.md",
+  "uiIntegrationUpdate": {
+    "date": "2026-10-11",
+    "requirements": [
+      "R49",
+      "R50"
+    ],
+    "checkpoints": [
+      "docs/DOCUMENT-TOOLBAR-CODING-2026-10-11.md",
+      "docs/DRAWING-COMMENTS-UI-CODING-2026-10-11.md"
+    ],
+    "coded": "Tabbed creation toolbar and selected-page New comment route; improved source-comment actions/reasons; compact expanded panels, rich-style validation, contained Node startup, current PDF.js coordinate conversion and owning-task cleanup repair.",
+    "runtime": "All seven declared functional cases passed, including actual DOCX/PDF save and independently reopened eligible/new page-two comments. Zero renderer/native-engine errors; source unchanged. Aggregate hidden-only report did not pass because native fullscreen made the temporary test window visible. Hidden actual SW3 scrolling passed. Real Revu, stylus and broader matrix remain open.",
+    "allFeaturesVerified": false
+  },
+  "latestUiFunctionCheck": {
+    "date": "2026-10-11",
+    "report": "tmp/ui-check-d7aad532-de00-4589-bdff-09b3c15a963b/report.json",
+    "functionalPass": true,
+    "aggregatePass": false,
+    "hidden": false,
+    "checks": [
+      {
+        "name": "main screens and task-room keyboard/search",
+        "pass": true
+      },
+      {
+        "name": "document creation, toolbar tabs and formatting",
+        "pass": true
+      },
+      {
+        "name": "actual DOCX and PDF creation/save",
+        "pass": true
+      },
+      {
+        "name": "minimum window, large interface text and contrast",
+        "pass": true
+      },
+      {
+        "name": "PDF viewer page navigation, fullscreen and restored controls",
+        "pass": true
+      },
+      {
+        "name": "drawing comments inspection, selection and eligible edit output",
+        "pass": true
+      },
+      {
+        "name": "new comment uses selected page, real note placement and saved annotation",
+        "pass": true
+      }
+    ],
+    "rendererErrors": [],
+    "engineErrors": [],
+    "originalUnchanged": true,
+    "independentOutputReport": "tmp/ui-check-d7aad532-de00-4589-bdff-09b3c15a963b/independent-output-check.json",
+    "scope": "Known local fixture; document creation/style/export; main screens/rooms/layout/keyboard; viewer fullscreen restore; supported plain-comment edit and note addition. No real Revu or full app acceptance.",
+    "remaining": "Avoid native OS fullscreen in hidden-only automation or perform a separately authorized visible native-window check; wider command/output/error/accessibility/security/corpus/hardware matrix still open."
+  },
+  "implementationPhasePolicy": {
+    "source": "Active user goal",
+    "scope": "All earlier/current/future adopted implementation remains required.",
+    "priority": "Biggest coding gaps first; no new plan.",
+    "testing": "Very limited targeted checks per active goal; broad UI/security/corpus/hardware/performance acceptance deferred.",
+    "allFeaturesVerified": false
+  },
+  "latestFeatureBatchCheck": {
+    "date": "2026-10-11",
+    "checkpoint": "docs/FEATURE-BATCH-FORMS-REVISIONS-2026-10-11.md",
+    "report": "tmp/form-revision-batch-966033a4-5608-47b5-aa7c-68e2f78f6a05/report.json",
+    "sourceSnapshotSha256": "70d15cf6c98ac48277cadc761cd7095585f698ad80be79c2b57d9259861ed8a6",
+    "state": "342-module production build passed; three declared focused checks passed",
+    "checks": [
+      {
+        "name": "Profile matching and protected-field exclusion",
+        "pass": true
+      },
+      {
+        "name": "Real OS-protected profile create/reopen/update/delete",
+        "pass": true
+      },
+      {
+        "name": "Contained sheet replacement, carried/imported notes, stable pages and unchanged originals",
+        "pass": true
+      }
+    ],
+    "profileChecks": {
+      "clearedEncryptedTemporaryFiles": true,
+      "realOsProtection": true,
+      "plaintextAbsent": true,
+      "reopened": true,
+      "credentialLabelsRefused": true,
+      "updated": true,
+      "removed": true,
+      "hidden": true
+    },
+    "originalsUnchanged": true,
+    "containment": {
+      "fallback": false,
+      "active": false,
+      "latest": "completed",
+      "processWideJobs": 0
+    },
+    "remaining": "Broader UI/form output, scan/Revu/heading corpus, transformed revision alignment, unsupported dependencies, large-source bounds, storage/OS edge cases and full adopted implementation remain open."
+  },
+  "latestFreeWorkflowBatchCheck": {
+    "date": "2026-10-12",
+    "checkpoint": "docs/FREE-WORKFLOW-BATCH-2026-10-12.md",
+    "report": "tmp/free-workflow-batch-058de36a-340a-43d1-961b-43734bb1c305/report.json",
+    "checks": [
+      {
+        "name": "Contained preview and two-row exclusive saves, qpdf structural check, independent reopen, original PDF/CSV unchanged",
+        "pass": true,
+        "rows": 2,
+        "fallback": false
+      },
+      {
+        "name": "Contained EML header/body/attachment inventory, original unchanged",
+        "pass": true,
+        "fallback": false
+      },
+      {
+        "name": "Streaming exact-file SHA-256 match/mismatch/export/clear",
+        "pass": true
+      },
+      {
+        "name": "Session-only nonrecursive folder discovery, stable snapshot, bounded release and revoke",
+        "pass": true
+      }
+    ],
+    "sourceSnapshotSha256": "f113bb967464758005c4b2607345afc9841c58c541e872d331f7d7f3720b6f1a",
+    "containment": {
+      "mailMerge": {
+        "packaged": true,
+        "packageStatusCheckedAt": "2026-10-12T22:55:40.895Z",
+        "packageStatusCacheMs": 2500,
+        "packageStatusSnapshot": [
+          {
+            "name": "broker-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 278,
+            "mtimeMs": 1791845636950.8557,
+            "ctimeMs": 1791845636950.8557,
+            "dev": 2288023810,
+            "ino": 16044073672691772
+          },
+          {
+            "name": "broker",
+            "exists": true,
+            "plain": true,
+            "bytes": 30720,
+            "mtimeMs": 1791845636708.8567,
+            "ctimeMs": 1791845636708.8567,
+            "dev": 2288023810,
+            "ino": 16888498602823748
+          },
+          {
+            "name": "engine-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 398,
+            "mtimeMs": 1791845645165.5603,
+            "ctimeMs": 1791845645165.5603,
+            "dev": 2288023810,
+            "ino": 9570149208398168
+          },
+          {
+            "name": "node-runtime",
+            "exists": true,
+            "plain": true,
+            "bytes": 86973768,
+            "mtimeMs": 1791845645075.559,
+            "ctimeMs": 1791845645075.559,
+            "dev": 2288023810,
+            "ino": 9570149208398100
+          },
+          {
+            "name": "engine-code",
+            "exists": true,
+            "plain": true,
+            "bytes": 3593689,
+            "mtimeMs": 1791845644059.86,
+            "ctimeMs": 1791845644059.86,
+            "dev": 2288023810,
+            "ino": 14073748835768524
+          }
+        ],
+        "policy": "Windows AppContainer + Job Object; fixed document engine",
+        "network": "Zero capability SIDs required",
+        "input": "Read-only input, request and runtime; only precreated output files writable",
+        "memoryMiB": 512,
+        "nodeHeapMiB": 256,
+        "processLimit": 1,
+        "seconds": 115,
+        "latest": "completed",
+        "fallback": false,
+        "verification": "Runtime isolation, packaged-engine adoption and security review pending",
+        "active": false,
+        "closed": false,
+        "cleanupFailure": false,
+        "operations": [
+          "tiff-inspect",
+          "tiff-page",
+          "combine-inspect",
+          "combine-build",
+          "workflow-source-inspect",
+          "fdf-export",
+          "fdf-import-inspect",
+          "fdf-import-build",
+          "repair-inspect",
+          "repair-verify",
+          "form-fill-inspect",
+          "form-fill-build",
+          "preflight-inspect",
+          "accessibility-audit-inspect",
+          "geospatial-inspect",
+          "geospatial-query",
+          "certificate-sign-inspect",
+          "certificate-sign-prepare",
+          "certificate-sign-finalize",
+          "tags-inspect",
+          "tags-build",
+          "portfolio-inspect",
+          "portfolio-build",
+          "portfolio-select",
+          "certificate-inspect",
+          "review-inventory-file",
+          "review-inventory",
+          "review-edit",
+          "takeoff-write",
+          "takeoff-recovery",
+          "xfdf-export",
+          "workbook-read",
+          "workbook-write",
+          "presentation-read",
+          "presentation-write",
+          "email-message-read",
+          "document-table-grids",
+          "security-inspect",
+          "sanitize-inspect",
+          "sanitize-build",
+          "xfdf-import-inspect",
+          "xfdf-import-build",
+          "redaction-inspect",
+          "redaction-verify",
+          "page-order-inspect",
+          "page-order-build",
+          "page-revision-inspect",
+          "page-revision-build",
+          "rich-docx-read",
+          "rich-rtf-read",
+          "rich-docx-write",
+          "rich-rtf-write",
+          "link-resolve",
+          "attachment-inspect",
+          "attachment-select",
+          "table-xlsx-write",
+          "decoration-build",
+          "bookmark-inspect",
+          "bookmark-build",
+          "batch-pdf-text",
+          "form-inspect",
+          "form-create",
+          "document-output-inspect"
+        ],
+        "processWideJobs": 0,
+        "processWideJobLimit": 2,
+        "fileSourceMiB": 256,
+        "fileSourceOperations": [
+          "review-inventory-file"
+        ],
+        "resultMiB": 32,
+        "requestMiB": 2,
+        "xfdfImportRequestMiB": 12,
+        "portfolioBuildRequestMiB": 36,
+        "formFillBuildRequestMiB": 3,
+        "family": "CSV mail merge"
+      },
+      "email": {
+        "packaged": true,
+        "packageStatusCheckedAt": "2026-10-12T22:55:40.895Z",
+        "packageStatusCacheMs": 2500,
+        "packageStatusSnapshot": [
+          {
+            "name": "broker-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 278,
+            "mtimeMs": 1791845636950.8557,
+            "ctimeMs": 1791845636950.8557,
+            "dev": 2288023810,
+            "ino": 16044073672691772
+          },
+          {
+            "name": "broker",
+            "exists": true,
+            "plain": true,
+            "bytes": 30720,
+            "mtimeMs": 1791845636708.8567,
+            "ctimeMs": 1791845636708.8567,
+            "dev": 2288023810,
+            "ino": 16888498602823748
+          },
+          {
+            "name": "engine-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 398,
+            "mtimeMs": 1791845645165.5603,
+            "ctimeMs": 1791845645165.5603,
+            "dev": 2288023810,
+            "ino": 9570149208398168
+          },
+          {
+            "name": "node-runtime",
+            "exists": true,
+            "plain": true,
+            "bytes": 86973768,
+            "mtimeMs": 1791845645075.559,
+            "ctimeMs": 1791845645075.559,
+            "dev": 2288023810,
+            "ino": 9570149208398100
+          },
+          {
+            "name": "engine-code",
+            "exists": true,
+            "plain": true,
+            "bytes": 3593689,
+            "mtimeMs": 1791845644059.86,
+            "ctimeMs": 1791845644059.86,
+            "dev": 2288023810,
+            "ino": 14073748835768524
+          }
+        ],
+        "policy": "Windows AppContainer + Job Object; fixed document engine",
+        "network": "Zero capability SIDs required",
+        "input": "Read-only input, request and runtime; only precreated output files writable",
+        "memoryMiB": 512,
+        "nodeHeapMiB": 256,
+        "processLimit": 1,
+        "seconds": 115,
+        "latest": "completed",
+        "fallback": false,
+        "verification": "Runtime isolation, packaged-engine adoption and security review pending",
+        "active": false,
+        "closed": false,
+        "cleanupFailure": false,
+        "operations": [
+          "tiff-inspect",
+          "tiff-page",
+          "combine-inspect",
+          "combine-build",
+          "workflow-source-inspect",
+          "fdf-export",
+          "fdf-import-inspect",
+          "fdf-import-build",
+          "repair-inspect",
+          "repair-verify",
+          "form-fill-inspect",
+          "form-fill-build",
+          "preflight-inspect",
+          "accessibility-audit-inspect",
+          "geospatial-inspect",
+          "geospatial-query",
+          "certificate-sign-inspect",
+          "certificate-sign-prepare",
+          "certificate-sign-finalize",
+          "tags-inspect",
+          "tags-build",
+          "portfolio-inspect",
+          "portfolio-build",
+          "portfolio-select",
+          "certificate-inspect",
+          "review-inventory-file",
+          "review-inventory",
+          "review-edit",
+          "takeoff-write",
+          "takeoff-recovery",
+          "xfdf-export",
+          "workbook-read",
+          "workbook-write",
+          "presentation-read",
+          "presentation-write",
+          "email-message-read",
+          "document-table-grids",
+          "security-inspect",
+          "sanitize-inspect",
+          "sanitize-build",
+          "xfdf-import-inspect",
+          "xfdf-import-build",
+          "redaction-inspect",
+          "redaction-verify",
+          "page-order-inspect",
+          "page-order-build",
+          "page-revision-inspect",
+          "page-revision-build",
+          "rich-docx-read",
+          "rich-rtf-read",
+          "rich-docx-write",
+          "rich-rtf-write",
+          "link-resolve",
+          "attachment-inspect",
+          "attachment-select",
+          "table-xlsx-write",
+          "decoration-build",
+          "bookmark-inspect",
+          "bookmark-build",
+          "batch-pdf-text",
+          "form-inspect",
+          "form-create",
+          "document-output-inspect"
+        ],
+        "processWideJobs": 0,
+        "processWideJobLimit": 2,
+        "fileSourceMiB": 256,
+        "fileSourceOperations": [
+          "review-inventory-file"
+        ],
+        "resultMiB": 32,
+        "requestMiB": 2,
+        "xfdfImportRequestMiB": 12,
+        "portfolioBuildRequestMiB": 36,
+        "formFillBuildRequestMiB": 3,
+        "family": "Email message processing"
+      }
+    },
+    "initialCheck": "Initial targeted run generated/saved/reopened both form outputs but then failed because the check incorrectly expected status.latest to be an object; corrected to the existing documented string/fallback fields and reran once.",
+    "uiRuntimeAcceptance": false,
+    "allFeaturesVerified": false,
+    "visibleDesktopRestarted": false
+  },
+  "latestPrepressBatchCheck": {
+    "date": "2026-10-12",
+    "checkpoint": "docs/PREPRESS-AND-NAMING-BATCH-2026-10-12.md",
+    "report": "tmp/prepress-batch-51ed0ef4-268c-49e7-91ec-2a710755a9cc/report.json",
+    "checks": [
+      {
+        "name": "All five page boxes, inherited geometry, units/rotation, preserving save/reopen and comments/original unchanged",
+        "pass": true
+      },
+      {
+        "name": "Actual crop/bleed/registration vector streams, asymmetric registration bounds, default TrimBox retention and preserving save/reopen",
+        "pass": true
+      },
+      {
+        "name": "Anisotropic physical width and hairline detection, inspect-only Form disclosure, selected preserving repairs/save/reopen",
+        "pass": true
+      },
+      {
+        "name": "Reasoned title/date/copy proposals and Windows device/path-safe names",
+        "pass": true
+      },
+      {
+        "name": "101 MiB disk-backed exact-copy streaming, <=1 MiB chunks, cancel cleanup, exclusive collision, original/hash equality and independent reopen",
+        "pass": true
+      }
+    ],
+    "sourceSnapshotSha256": "f518e499e12815e2a6d0b8a1070877274c3732f15c76a885012c84b1eb816d2d",
+    "containment": [
+      {
+        "packaged": true,
+        "packageStatusCheckedAt": "2026-10-12T23:14:06.374Z",
+        "packageStatusCacheMs": 2500,
+        "packageStatusSnapshot": [
+          {
+            "name": "broker-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 278,
+            "mtimeMs": 1791846830350.793,
+            "ctimeMs": 1791846830350.793,
+            "dev": 2288023810,
+            "ino": 53480245575201780
+          },
+          {
+            "name": "broker",
+            "exists": true,
+            "plain": true,
+            "bytes": 30720,
+            "mtimeMs": 1791846830138.7903,
+            "ctimeMs": 1791846830138.7903,
+            "dev": 2288023810,
+            "ino": 32369622321904064
+          },
+          {
+            "name": "engine-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 398,
+            "mtimeMs": 1791846835173.0164,
+            "ctimeMs": 1791846835173.0164,
+            "dev": 2288023810,
+            "ino": 20547673300080144
+          },
+          {
+            "name": "node-runtime",
+            "exists": true,
+            "plain": true,
+            "bytes": 86973768,
+            "mtimeMs": 1791846835089.0068,
+            "ctimeMs": 1791846835089.0068,
+            "dev": 2288023810,
+            "ino": 173107110677255680
+          },
+          {
+            "name": "engine-code",
+            "exists": true,
+            "plain": true,
+            "bytes": 3669866,
+            "mtimeMs": 1791846834340.9746,
+            "ctimeMs": 1791846834340.9746,
+            "dev": 2288023810,
+            "ino": 56857945295754700
+          }
+        ],
+        "policy": "Windows AppContainer + Job Object; fixed document engine",
+        "network": "Zero capability SIDs required",
+        "input": "Read-only input, request and runtime; only precreated output files writable",
+        "memoryMiB": 512,
+        "nodeHeapMiB": 256,
+        "processLimit": 1,
+        "seconds": 115,
+        "latest": "completed",
+        "fallback": false,
+        "verification": "Runtime isolation, packaged-engine adoption and security review pending",
+        "active": false,
+        "closed": false,
+        "cleanupFailure": false,
+        "operations": [
+          "tiff-inspect",
+          "tiff-page",
+          "combine-inspect",
+          "combine-build",
+          "workflow-source-inspect",
+          "fdf-export",
+          "fdf-import-inspect",
+          "fdf-import-build",
+          "repair-inspect",
+          "repair-verify",
+          "form-fill-inspect",
+          "form-fill-build",
+          "preflight-inspect",
+          "accessibility-audit-inspect",
+          "geospatial-inspect",
+          "geospatial-query",
+          "certificate-sign-inspect",
+          "certificate-sign-prepare",
+          "certificate-sign-finalize",
+          "tags-inspect",
+          "tags-build",
+          "portfolio-inspect",
+          "portfolio-build",
+          "portfolio-select",
+          "certificate-inspect",
+          "review-inventory-file",
+          "review-inventory",
+          "review-edit",
+          "takeoff-write",
+          "takeoff-recovery",
+          "xfdf-export",
+          "workbook-read",
+          "workbook-write",
+          "presentation-read",
+          "presentation-write",
+          "email-message-read",
+          "document-table-grids",
+          "security-inspect",
+          "sanitize-inspect",
+          "sanitize-build",
+          "xfdf-import-inspect",
+          "xfdf-import-build",
+          "redaction-inspect",
+          "redaction-verify",
+          "page-order-inspect",
+          "page-order-build",
+          "page-revision-inspect",
+          "page-revision-build",
+          "page-box-inspect",
+          "page-box-build",
+          "print-marks-build",
+          "thin-line-inspect",
+          "thin-line-build",
+          "rich-docx-read",
+          "rich-rtf-read",
+          "rich-docx-write",
+          "rich-rtf-write",
+          "link-resolve",
+          "attachment-inspect",
+          "attachment-select",
+          "table-xlsx-write",
+          "decoration-build",
+          "bookmark-inspect",
+          "bookmark-build",
+          "batch-pdf-text",
+          "form-inspect",
+          "form-create",
+          "document-output-inspect"
+        ],
+        "processWideJobs": 0,
+        "processWideJobLimit": 2,
+        "fileSourceMiB": 256,
+        "fileSourceOperations": [
+          "review-inventory-file"
+        ],
+        "resultMiB": 32,
+        "requestMiB": 2,
+        "xfdfImportRequestMiB": 12,
+        "portfolioBuildRequestMiB": 36,
+        "formFillBuildRequestMiB": 3,
+        "family": "Preserving PDF page-box editing"
+      },
+      {
+        "packaged": true,
+        "packageStatusCheckedAt": "2026-10-12T23:14:09.355Z",
+        "packageStatusCacheMs": 2500,
+        "packageStatusSnapshot": [
+          {
+            "name": "broker-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 278,
+            "mtimeMs": 1791846830350.793,
+            "ctimeMs": 1791846830350.793,
+            "dev": 2288023810,
+            "ino": 53480245575201780
+          },
+          {
+            "name": "broker",
+            "exists": true,
+            "plain": true,
+            "bytes": 30720,
+            "mtimeMs": 1791846830138.7903,
+            "ctimeMs": 1791846830138.7903,
+            "dev": 2288023810,
+            "ino": 32369622321904064
+          },
+          {
+            "name": "engine-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 398,
+            "mtimeMs": 1791846835173.0164,
+            "ctimeMs": 1791846835173.0164,
+            "dev": 2288023810,
+            "ino": 20547673300080144
+          },
+          {
+            "name": "node-runtime",
+            "exists": true,
+            "plain": true,
+            "bytes": 86973768,
+            "mtimeMs": 1791846835089.0068,
+            "ctimeMs": 1791846835089.0068,
+            "dev": 2288023810,
+            "ino": 173107110677255680
+          },
+          {
+            "name": "engine-code",
+            "exists": true,
+            "plain": true,
+            "bytes": 3669866,
+            "mtimeMs": 1791846834340.9746,
+            "ctimeMs": 1791846834340.9746,
+            "dev": 2288023810,
+            "ino": 56857945295754700
+          }
+        ],
+        "policy": "Windows AppContainer + Job Object; fixed document engine",
+        "network": "Zero capability SIDs required",
+        "input": "Read-only input, request and runtime; only precreated output files writable",
+        "memoryMiB": 512,
+        "nodeHeapMiB": 256,
+        "processLimit": 1,
+        "seconds": 115,
+        "latest": "completed",
+        "fallback": false,
+        "verification": "Runtime isolation, packaged-engine adoption and security review pending",
+        "active": false,
+        "closed": false,
+        "cleanupFailure": false,
+        "operations": [
+          "tiff-inspect",
+          "tiff-page",
+          "combine-inspect",
+          "combine-build",
+          "workflow-source-inspect",
+          "fdf-export",
+          "fdf-import-inspect",
+          "fdf-import-build",
+          "repair-inspect",
+          "repair-verify",
+          "form-fill-inspect",
+          "form-fill-build",
+          "preflight-inspect",
+          "accessibility-audit-inspect",
+          "geospatial-inspect",
+          "geospatial-query",
+          "certificate-sign-inspect",
+          "certificate-sign-prepare",
+          "certificate-sign-finalize",
+          "tags-inspect",
+          "tags-build",
+          "portfolio-inspect",
+          "portfolio-build",
+          "portfolio-select",
+          "certificate-inspect",
+          "review-inventory-file",
+          "review-inventory",
+          "review-edit",
+          "takeoff-write",
+          "takeoff-recovery",
+          "xfdf-export",
+          "workbook-read",
+          "workbook-write",
+          "presentation-read",
+          "presentation-write",
+          "email-message-read",
+          "document-table-grids",
+          "security-inspect",
+          "sanitize-inspect",
+          "sanitize-build",
+          "xfdf-import-inspect",
+          "xfdf-import-build",
+          "redaction-inspect",
+          "redaction-verify",
+          "page-order-inspect",
+          "page-order-build",
+          "page-revision-inspect",
+          "page-revision-build",
+          "page-box-inspect",
+          "page-box-build",
+          "print-marks-build",
+          "thin-line-inspect",
+          "thin-line-build",
+          "rich-docx-read",
+          "rich-rtf-read",
+          "rich-docx-write",
+          "rich-rtf-write",
+          "link-resolve",
+          "attachment-inspect",
+          "attachment-select",
+          "table-xlsx-write",
+          "decoration-build",
+          "bookmark-inspect",
+          "bookmark-build",
+          "batch-pdf-text",
+          "form-inspect",
+          "form-create",
+          "document-output-inspect"
+        ],
+        "processWideJobs": 0,
+        "processWideJobLimit": 2,
+        "fileSourceMiB": 256,
+        "fileSourceOperations": [
+          "review-inventory-file"
+        ],
+        "resultMiB": 32,
+        "requestMiB": 2,
+        "xfdfImportRequestMiB": 12,
+        "portfolioBuildRequestMiB": 36,
+        "formFillBuildRequestMiB": 3,
+        "family": "PDF print production marks"
+      },
+      {
+        "packaged": true,
+        "packageStatusCheckedAt": "2026-10-12T23:14:14.305Z",
+        "packageStatusCacheMs": 2500,
+        "packageStatusSnapshot": [
+          {
+            "name": "broker-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 278,
+            "mtimeMs": 1791846830350.793,
+            "ctimeMs": 1791846830350.793,
+            "dev": 2288023810,
+            "ino": 53480245575201780
+          },
+          {
+            "name": "broker",
+            "exists": true,
+            "plain": true,
+            "bytes": 30720,
+            "mtimeMs": 1791846830138.7903,
+            "ctimeMs": 1791846830138.7903,
+            "dev": 2288023810,
+            "ino": 32369622321904064
+          },
+          {
+            "name": "engine-manifest",
+            "exists": true,
+            "plain": true,
+            "bytes": 398,
+            "mtimeMs": 1791846835173.0164,
+            "ctimeMs": 1791846835173.0164,
+            "dev": 2288023810,
+            "ino": 20547673300080144
+          },
+          {
+            "name": "node-runtime",
+            "exists": true,
+            "plain": true,
+            "bytes": 86973768,
+            "mtimeMs": 1791846835089.0068,
+            "ctimeMs": 1791846835089.0068,
+            "dev": 2288023810,
+            "ino": 173107110677255680
+          },
+          {
+            "name": "engine-code",
+            "exists": true,
+            "plain": true,
+            "bytes": 3669866,
+            "mtimeMs": 1791846834340.9746,
+            "ctimeMs": 1791846834340.9746,
+            "dev": 2288023810,
+            "ino": 56857945295754700
+          }
+        ],
+        "policy": "Windows AppContainer + Job Object; fixed document engine",
+        "network": "Zero capability SIDs required",
+        "input": "Read-only input, request and runtime; only precreated output files writable",
+        "memoryMiB": 512,
+        "nodeHeapMiB": 256,
+        "processLimit": 1,
+        "seconds": 115,
+        "latest": "completed",
+        "fallback": false,
+        "verification": "Runtime isolation, packaged-engine adoption and security review pending",
+        "active": false,
+        "closed": false,
+        "cleanupFailure": false,
+        "operations": [
+          "tiff-inspect",
+          "tiff-page",
+          "combine-inspect",
+          "combine-build",
+          "workflow-source-inspect",
+          "fdf-export",
+          "fdf-import-inspect",
+          "fdf-import-build",
+          "repair-inspect",
+          "repair-verify",
+          "form-fill-inspect",
+          "form-fill-build",
+          "preflight-inspect",
+          "accessibility-audit-inspect",
+          "geospatial-inspect",
+          "geospatial-query",
+          "certificate-sign-inspect",
+          "certificate-sign-prepare",
+          "certificate-sign-finalize",
+          "tags-inspect",
+          "tags-build",
+          "portfolio-inspect",
+          "portfolio-build",
+          "portfolio-select",
+          "certificate-inspect",
+          "review-inventory-file",
+          "review-inventory",
+          "review-edit",
+          "takeoff-write",
+          "takeoff-recovery",
+          "xfdf-export",
+          "workbook-read",
+          "workbook-write",
+          "presentation-read",
+          "presentation-write",
+          "email-message-read",
+          "document-table-grids",
+          "security-inspect",
+          "sanitize-inspect",
+          "sanitize-build",
+          "xfdf-import-inspect",
+          "xfdf-import-build",
+          "redaction-inspect",
+          "redaction-verify",
+          "page-order-inspect",
+          "page-order-build",
+          "page-revision-inspect",
+          "page-revision-build",
+          "page-box-inspect",
+          "page-box-build",
+          "print-marks-build",
+          "thin-line-inspect",
+          "thin-line-build",
+          "rich-docx-read",
+          "rich-rtf-read",
+          "rich-docx-write",
+          "rich-rtf-write",
+          "link-resolve",
+          "attachment-inspect",
+          "attachment-select",
+          "table-xlsx-write",
+          "decoration-build",
+          "bookmark-inspect",
+          "bookmark-build",
+          "batch-pdf-text",
+          "form-inspect",
+          "form-create",
+          "document-output-inspect"
+        ],
+        "processWideJobs": 0,
+        "processWideJobLimit": 2,
+        "fileSourceMiB": 256,
+        "fileSourceOperations": [
+          "review-inventory-file"
+        ],
+        "resultMiB": 32,
+        "requestMiB": 2,
+        "xfdfImportRequestMiB": 12,
+        "portfolioBuildRequestMiB": 36,
+        "formFillBuildRequestMiB": 3,
+        "family": "PDF thin-line inspection and repair"
+      }
+    ],
+    "initialCheck": "First contained run passed the page-box writer but failed the print-mark scan because lookupMaybe lacked a type. Fixed that production defect, effective default TrimBox behavior and conventional mark alignment/asymmetric registration bounds before the focused rerun.",
+    "uiRuntimeAcceptance": false,
+    "allFeaturesVerified": false,
+    "visibleDesktopRestarted": false
+  },
+  "latestRequestWorkflowBatchCheck": {
+    "date": "2026-10-12",
+    "checkpoint": "docs/REQUEST-WINDOWS-AND-WATCH-BATCH-2026-10-12.md",
+    "firstReceipt": "tmp/request-workflow-batch-cf7a5066-88dc-4472-9c98-4960365bc2e9/report.json",
+    "affectedRerun": "tmp/request-workflow-batch-470702ee-bb0e-4981-adc6-3c0975e27bd3/report.json",
+    "checks": [
+      {
+        "name": "Contained three-location preserving request writer, rotated UserUnit page, original/comment retention, new-copy qpdf check/reopen and saved-copy-bound EML",
+        "pass": true
+      },
+      {
+        "name": "One native Windows local-file availability inspection, no content hydration or provider claims",
+        "pass": true
+      },
+      {
+        "name": "Context fixed-argument rejection, exact selected-file review/snapshots and two-input immutable combine seeding; registry/UI untested",
+        "pass": true
+      },
+      {
+        "name": "Real protected persistent folder approval, 15-second stable discovery, deliberate exact-copy save/reopen, pause/restart receipt retention and revoke/original integrity",
+        "pass": true
+      }
+    ],
+    "sourceSnapshotSha256": "e29dff449df886bf1b12005deaf9d95f70c5569159eae7de4de430845c1faf90",
+    "signatureContainment": {
+      "packaged": true,
+      "packageStatusCheckedAt": "2026-10-13T04:48:02.841Z",
+      "packageStatusCacheMs": 2500,
+      "packageStatusSnapshot": [
+        {
+          "name": "broker-manifest",
+          "exists": true,
+          "plain": true,
+          "bytes": 278,
+          "mtimeMs": 1791866774272.083,
+          "ctimeMs": 1791866774272.083,
+          "dev": 2288023810,
+          "ino": 54043195528623090
+        },
+        {
+          "name": "broker",
+          "exists": true,
+          "plain": true,
+          "bytes": 30720,
+          "mtimeMs": 1791866774065.0823,
+          "ctimeMs": 1791866774065.0823,
+          "dev": 2288023810,
+          "ino": 593912200859662600
+        },
+        {
+          "name": "engine-manifest",
+          "exists": true,
+          "plain": true,
+          "bytes": 398,
+          "mtimeMs": 1791866782671.2285,
+          "ctimeMs": 1791866782671.2285,
+          "dev": 2288023810,
+          "ino": 173951535607387650
+        },
+        {
+          "name": "node-runtime",
+          "exists": true,
+          "plain": true,
+          "bytes": 86973768,
+          "mtimeMs": 1791866782588.23,
+          "ctimeMs": 1791866782588.23,
+          "dev": 2288023810,
+          "ino": 57983845202597330
+        },
+        {
+          "name": "engine-code",
+          "exists": true,
+          "plain": true,
+          "bytes": 3686025,
+          "mtimeMs": 1791866780795.1624,
+          "ctimeMs": 1791866780795.1624,
+          "dev": 2288023810,
+          "ino": 12666373952181870
+        }
+      ],
+      "policy": "Windows AppContainer + Job Object; fixed document engine",
+      "network": "Zero capability SIDs required",
+      "input": "Read-only input, request and runtime; only precreated output files writable",
+      "memoryMiB": 512,
+      "nodeHeapMiB": 256,
+      "processLimit": 1,
+      "seconds": 115,
+      "latest": "completed",
+      "fallback": false,
+      "verification": "Runtime isolation, packaged-engine adoption and security review pending",
+      "active": false,
+      "closed": false,
+      "cleanupFailure": false,
+      "operations": [
+        "tiff-inspect",
+        "tiff-page",
+        "combine-inspect",
+        "combine-build",
+        "workflow-source-inspect",
+        "fdf-export",
+        "fdf-import-inspect",
+        "fdf-import-build",
+        "repair-inspect",
+        "repair-verify",
+        "form-fill-inspect",
+        "form-fill-build",
+        "preflight-inspect",
+        "accessibility-audit-inspect",
+        "geospatial-inspect",
+        "geospatial-query",
+        "certificate-sign-inspect",
+        "certificate-sign-prepare",
+        "certificate-sign-finalize",
+        "tags-inspect",
+        "tags-build",
+        "portfolio-inspect",
+        "portfolio-build",
+        "portfolio-select",
+        "certificate-inspect",
+        "review-inventory-file",
+        "review-inventory",
+        "review-edit",
+        "takeoff-write",
+        "takeoff-recovery",
+        "xfdf-export",
+        "workbook-read",
+        "workbook-write",
+        "presentation-read",
+        "presentation-write",
+        "email-message-read",
+        "document-table-grids",
+        "security-inspect",
+        "sanitize-inspect",
+        "sanitize-build",
+        "xfdf-import-inspect",
+        "xfdf-import-build",
+        "redaction-inspect",
+        "redaction-verify",
+        "page-order-inspect",
+        "page-order-build",
+        "page-revision-inspect",
+        "page-revision-build",
+        "page-box-inspect",
+        "page-box-build",
+        "signature-request-build",
+        "print-marks-build",
+        "thin-line-inspect",
+        "thin-line-build",
+        "rich-docx-read",
+        "rich-rtf-read",
+        "rich-docx-write",
+        "rich-rtf-write",
+        "link-resolve",
+        "attachment-inspect",
+        "attachment-select",
+        "table-xlsx-write",
+        "decoration-build",
+        "bookmark-inspect",
+        "bookmark-build",
+        "batch-pdf-text",
+        "form-inspect",
+        "form-create",
+        "document-output-inspect"
+      ],
+      "processWideJobs": 0,
+      "processWideJobLimit": 2,
+      "fileSourceMiB": 256,
+      "fileSourceOperations": [
+        "review-inventory-file"
+      ],
+      "resultMiB": 32,
+      "requestMiB": 2,
+      "xfdfImportRequestMiB": 12,
+      "portfolioBuildRequestMiB": 36,
+      "formFillBuildRequestMiB": 3,
+      "family": "signature request preparation"
+    },
+    "initialFailure": "Error: Protected watched-folder manager unavailable: Linked, reparse, offline or cloud-placeholder paths are excluded from folder search. Choose an ordinary local folder.\n    at assert (C:\\Users\\andre\\My Drive\\projects\\pdf app\\scripts\\check-request-workflow-batch.cjs:6:87)\n    at C:\\Users\\andre\\My Drive\\projects\\pdf app\\scripts\\check-request-workflow-batch.cjs:12:346\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+    "uiRuntimeAcceptance": false,
+    "registryModified": false,
+    "allFeaturesVerified": false,
+    "visibleDesktopRestarted": false,
+    "subagents": "Three substantial coding assignments hit account usage limits after saving modules; root finished remaining UI/integration/lifecycle fixes. More delegated coding requires available usage."
+  }
+}

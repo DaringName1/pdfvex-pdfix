@@ -1,0 +1,38 @@
+.reader-job-tools{flex:0 0 auto;min-width:0;padding:6px 10px;border-bottom:1px solid var(--line);background:#fff;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.reader-job-tabs{display:flex;flex-wrap:wrap;gap:3px;min-width:0;flex:1 1 480px}.reader-job-tabs button{border:0;border-bottom:3px solid transparent;background:transparent;padding:7px 9px;font:inherit;font-size:12px;color:var(--ink,#183b35)}.reader-job-tabs button[aria-selected=true]{border-color:var(--teal);background:#edf5ef;font-weight:700}.reader-job-tools button:focus-visible,.reader-tool-search input:focus-visible{outline:3px solid #4185a7;outline-offset:2px}.reader-tool-search{font-size:0;flex:0 1 170px;min-width:110px}.reader-tool-search input{font-size:12px;width:100%;min-width:0;padding:6px;border:1px solid var(--line);border-radius:5px}.reader-job-buttons{flex:1 0 100%;min-width:0}.reader-tool-buttons{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.reader-tool-buttons button{font-size:12px;white-space:normal;max-width:100%;padding:6px 9px}.reader-job-tools [hidden],.reader-tool-options[hidden],.reader-group-options[hidden]{display:none!important}.reader-tool-options{flex:0 0 185px;width:185px;overflow:auto;min-height:0;border-left:1px solid var(--line);padding:10px;background:#f8faf6}.reader-tool-options h3{font-size:13px;margin:0 0 12px}.reader-tool-options label{display:flex;flex-direction:column;gap:5px;font-size:12px;margin-bottom:12px}.reader-tool-options select{width:100%;min-width:0}.reader-tool-options label:has(input[type=checkbox]){flex-direction:row}.reader-one-place .reader-view-options[hidden]{display:none!important}.reader-one-place .reader-tools .text-button{border:1px solid var(--line);border-radius:5px;padding:6px 10px}.reader-one-place .reader-job-tools .pdf-view-history{display:flex;gap:4px;flex-wrap:wrap}.reader-one-place .reader-job-tools .reader-pane-controls{display:flex;gap:4px}.reader-one-place .page-stage{min-width:0}@media(max-width:850px){.reader-job-tabs{flex-basis:100%}.reader-job-tabs button{padding:5px 7px}.reader-tool-search{flex-basis:100%}.reader-tool-options{flex-basis:145px;width:145px;padding:7px}}body[data-ui-scale="1.5"] .reader-job-tabs button{white-space:normal}
+
+/* Keep the document usable when text is enlarged in a short window. */
+.reader-job-tools{max-height:44vh;overflow:auto}.reader-job-buttons{max-height:20vh;overflow:auto}.reader-tool-buttons .text-button{border:1px solid var(--line)}
+.reader-one-place[data-tool-group] .reader-job-buttons{height:96px;min-height:96px;max-height:96px;overflow:auto;box-sizing:border-box}
+
+@media(max-width:850px){body[data-ui-scale="1.5"] .reader-job-tools{max-height:32vh}body[data-ui-scale="1.5"] .reader-job-buttons{max-height:13vh}}
+.reader-preview-options .view-options-panel{max-height:min(55vh,360px);overflow:auto;overscroll-behavior:contain}
+.reader-home-quick{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.reader-home-quick button{min-height:44px;padding:8px;font-size:14px;line-height:1.2}.reader-view-more>summary{display:list-item;cursor:pointer;padding:7px 10px;border:1px solid var(--line);border-radius:5px;font-size:12px}.reader-view-more[open]{flex-basis:100%}.reader-view-more>[role=group]{display:flex;flex-wrap:wrap;gap:5px;padding:8px 0}.reader-view-more summary:focus-visible{outline:3px solid #4185a7;outline-offset:2px}@media(max-width:850px){.reader-home-quick{gap:4px}.reader-home-quick button{font-size:12px;min-height:40px;padding:5px}}
+.reader-home-quick button{border:1px solid var(--line);border-radius:7px;font-weight:600;color:var(--ink,#183b35)}
+.reader-one-place[data-tool-group=Home] .reader-job-tools,.reader-one-place[data-tool-group=View] .reader-job-tools:has(.reader-view-more:not([open])){max-height:none;overflow:visible}
+.reader-one-place[data-tool-group=Home] .reader-job-buttons,.reader-one-place[data-tool-group=View] .reader-job-buttons:has(.reader-view-more:not([open])){max-height:none;overflow:visible}
+
+/* A single scroll area keeps Comment tools and group labels together. */
+.reader-one-place[data-tool-group=Comment] .reader-job-buttons{max-height:none;overflow:visible}.reader-one-place[data-tool-group=Comment] .reader-job-tools{max-height:44vh}.reader-one-place[data-tool-group=Comment] .reader-job-tabs{position:sticky;top:0;background:#fff;z-index:1}
+
+/* The mode switch uses the existing button style and stays separate from fullscreen. */
+.reader-mode-switch{display:flex;gap:4px;align-items:center;flex:none}.reader-mode-switch [aria-pressed=true]{background:var(--accent,#087d68);color:white}
+.reader-one-place[data-interaction-mode=view] .reader-tool-options,.reader-one-place[data-interaction-mode=view] .markup-inline,.reader-one-place[data-interaction-mode=view] .markup-inline-text{display:none!important}
+.reader-one-place[data-interaction-mode=view] .markup-layer{pointer-events:none!important}
+
+.reader-one-place[data-interaction-mode=view] .reader-job-tabs,.reader-one-place[data-interaction-mode=view] .reader-tool-search,.reader-one-place[data-interaction-mode=view] [data-action=tags],.reader-one-place[data-interaction-mode=view] [data-action=spell-check]{display:none!important}
+.reader-one-place[data-interaction-mode=view] .reader-tool-buttons>label{display:flex;gap:6px;align-items:center;min-width:0}.reader-one-place[data-interaction-mode=view] .reader-tool-buttons select{max-width:100%;min-width:0}
+
+.reader-one-place .reader-mode-switch button[aria-pressed=true]{font-weight:700;border-color:var(--teal,#087d68);box-shadow:inset 0 -3px 0 var(--teal,#087d68)}
+
+.reader-mode-hint{margin:0;padding:6px 10px;font-size:12px;color:var(--ink);background:var(--surface,#fff)}.reader-mode-hint[hidden]{display:none!important}
+
+.reader-text-methods{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px;min-width:0}.reader-text-methods [role=radiogroup]{display:flex;flex-wrap:wrap;gap:5px}.reader-text-methods [role=radio]{white-space:normal;max-width:100%}.reader-text-methods [aria-checked=true]{border-color:var(--teal);font-weight:700;background:#edf5ef}.reader-text-methods button:focus-visible{outline:3px solid #4185a7;outline-offset:2px}.reader-text-methods p{font-size:12px;overflow-wrap:anywhere}.reader-text-methods[hidden]{display:none!important}
+
+/* The header owns global tool search; this is the local toolbar filter. */
+@media(max-width:850px){.reader-job-tabs{flex:1 1 0}.reader-tool-search{flex:0 0 34px;min-width:34px;align-self:flex-start}.reader-tool-search input{min-height:32px;box-sizing:border-box;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23426756' stroke-width='1.8'%3E%3Ccircle cx='10' cy='10' r='6'/%3E%3Cpath d='m15 15 6 6'/%3E%3C/svg%3E");background-size:18px;background-position:center;background-repeat:no-repeat}.reader-tool-search input::placeholder{color:transparent}.reader-tool-search:focus-within,.reader-tool-search:has(input:not(:placeholder-shown)){flex-basis:170px}.reader-tool-search:focus-within input,.reader-tool-search input:not(:placeholder-shown){background-image:none}.reader-tool-search:focus-within input::placeholder{color:var(--muted)}}
+
+/* Home has two compact formatting rows; keep their group captions visible. */
+.reader-one-place[data-tool-group=Home] .reader-job-buttons{height:120px;min-height:120px;max-height:120px;overflow:auto}
+
+/* In a short window, keep space for the document and focused tool controls. */
+@media(max-height:650px){.reader-one-place:not([data-tool-group=Home]):has(.reader-options-panel:not([hidden])) .reader-job-buttons{height:64px;min-height:64px;max-height:64px;overflow:auto}}

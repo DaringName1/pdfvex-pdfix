@@ -1,0 +1,14 @@
+.form-mail-merge-workspace{width:min(1100px,94vw);max-height:94vh;overflow:auto;color:var(--ink,#193449)}
+.form-mail-merge-workspace .mail-merge-policy{font-size:.85rem;line-height:1.5;max-width:1000px}
+.mail-merge-mappings,.mail-merge-editor{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;padding:12px 0}
+.mail-merge-mappings label,.mail-merge-editor label{display:flex;flex-direction:column;gap:5px}
+.mail-merge-editor textarea{resize:vertical;min-height:48px}
+.mail-merge-rows{max-height:270px;overflow:auto;margin:12px 0;border:1px solid #d6dfe4;border-radius:8px}
+.mail-merge-rows table{border-collapse:collapse;width:100%;text-align:left}
+.mail-merge-rows th,.mail-merge-rows td{padding:7px 10px;border-bottom:1px solid #e3e9ec}
+.mail-merge-rows input:not([type=checkbox]){width:100%;min-width:200px}
+.mail-merge-review-list{font-size:.85rem;max-height:210px;overflow:auto;margin:12px 0}
+.mail-merge-preview{height:550px;margin:12px 0;border:1px solid #d6dfe4}
+.mail-merge-output>label{display:block;padding:12px 0;line-height:1.5}
+.mail-merge-results{font-size:.85rem;max-height:260px;overflow:auto;overflow-wrap:anywhere}
+.mail-merge-results small{display:block;color:#466273}

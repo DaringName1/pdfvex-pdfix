@@ -1,0 +1,4 @@
+const {parentPort,workerData}=require('node:worker_threads');
+const {readPresentation,writePresentation}=require('./presentation-codec.cjs');
+const {readWorkbook,writeWorkbook}=require('./workbook-codec.cjs');
+try{if(workerData.action==='read-presentation'){parentPort.postMessage({value:readPresentation(workerData.bytes).model});}else if(workerData.action==='write-presentation'){const bytes=Uint8Array.from(writePresentation(workerData.bytes,workerData.draft));parentPort.postMessage({value:bytes},[bytes.buffer]);}else if(workerData.action==='read'){parentPort.postMessage({value:readWorkbook(workerData.bytes).model});}else if(workerData.action==='write'){const bytes=Uint8Array.from(writeWorkbook(workerData.bytes,workerData.draft));parentPort.postMessage({value:bytes},[bytes.buffer]);}else throw new Error('Unknown workbook operation.');}catch(error){parentPort.postMessage({error:error.message});}

@@ -1,0 +1,70 @@
+[
+ {
+  "file": "A-home",
+  "about": "Home (keep as it is)"
+ },
+ {
+  "file": "B-quick-edit",
+  "about": "Quick edit: PDFs open here; the one mode button shown open; click anywhere to type, drag to move"
+ },
+ {
+  "file": "C-view",
+  "about": "View: just looking"
+ },
+ {
+  "file": "D-build-edit-text",
+  "about": "Build, Edit tab, Text tool with its options panel"
+ },
+ {
+  "file": "G-side-panel-highlight",
+  "about": "Side panel: the same layout for every tool (Highlight); Save as my default"
+ },
+ {
+  "file": "H1-docs-style-toolbar-build",
+  "about": "Google Docs-style toolbar: Build, Comment tab, Highlight picked"
+ },
+ {
+  "file": "H2-docs-style-toolbar-quick-edit",
+  "about": "Google Docs-style toolbar: Quick edit, Sign group open"
+ },
+ {
+  "file": "E-word-editor",
+  "about": "Word document editor (keeps every tool)"
+ },
+ {
+  "file": "F1-build-home-tab",
+  "about": "Build: Home tab"
+ },
+ {
+  "file": "F2-build-view-tab",
+  "about": "Build: View tab"
+ },
+ {
+  "file": "F3-build-comment-tab",
+  "about": "Build: Comment tab"
+ },
+ {
+  "file": "F4-build-edit-tab",
+  "about": "Build: Edit tab"
+ },
+ {
+  "file": "F5-build-fill-sign-tab",
+  "about": "Build: Fill & Sign tab"
+ },
+ {
+  "file": "F6-build-pages-tab",
+  "about": "Build: Pages tab"
+ },
+ {
+  "file": "F7-build-protect-tab",
+  "about": "Build: Protect tab"
+ },
+ {
+  "file": "F8-build-measure-tab",
+  "about": "Build: Measure tab"
+ },
+ {
+  "file": "F9-build-export-tab",
+  "about": "Build: Export tab"
+ }
+]

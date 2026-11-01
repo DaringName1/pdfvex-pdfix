@@ -1,0 +1,21 @@
+export const MEASUREMENT_UNITS=Object.freeze({mm:{name:'millimeters',mm:1},cm:{name:'centimeters',mm:10},m:{name:'meters',mm:1000},in:{name:'inches',mm:25.4},ft:{name:'feet',mm:304.8},yd:{name:'yards',mm:914.4}});
+export const MAX_MEASUREMENT_POINTS=128;
+export function pointDistance(a,b){return Math.hypot(a[0]-b[0],a[1]-b[1]);}
+const cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
+function intersect(a,b,c,d){
+ const eps=1e-7,c1=cross(a,b,c),c2=cross(a,b,d),c3=cross(c,d,a),c4=cross(c,d,b);
+ const on=(p,x,y)=>Math.abs(cross(x,y,p))<=eps&&p[0]>=Math.min(x[0],y[0])-eps&&p[0]<=Math.max(x[0],y[0])+eps&&p[1]>=Math.min(x[1],y[1])-eps&&p[1]<=Math.max(x[1],y[1])+eps;
+ return c1*c2<0&&c3*c4<0||on(c,a,b)||on(d,a,b)||on(a,c,d)||on(b,c,d);
+}
+export function measurePath(points,{closed=false,area=false}={}){
+ if(!Array.isArray(points)||points.length>MAX_MEASUREMENT_POINTS||points.some(p=>!Array.isArray(p)||p.length!==2||p.some(v=>!Number.isFinite(v)||Math.abs(v)>1e7)))throw new Error('Choose supported points inside this PDF page.');
+ if(points.length<(closed||area?3:2))throw new Error(closed||area?'Place at least three points.':'Place at least two points.');
+ let length=0,signedArea=0;const count=closed||area?points.length:points.length-1;
+ for(let i=0;i<count;i++){const a=points[i],b=points[(i+1)%points.length];if(pointDistance(a,b)<1e-7)throw new Error('Remove repeated neighboring points.');length+=pointDistance(a,b);signedArea+=(a[0]-points[0][0])*(b[1]-points[0][1])-(b[0]-points[0][0])*(a[1]-points[0][1]);}
+ if(closed||area){
+  for(let i=0;i<count;i++){const previous=points[(i+count-1)%count],current=points[i],next=points[(i+1)%count];if(Math.abs(cross(previous,current,next))<1e-7&&(previous[0]-current[0])*(next[0]-current[0])+(previous[1]-current[1])*(next[1]-current[1])>0)throw new Error('The boundary retraces an edge. Undo points and trace a simple boundary.');}
+  for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){if(j===i+1||i===0&&j===count-1)continue;if(intersect(points[i],points[(i+1)%count],points[j],points[(j+1)%count]))throw new Error('This boundary crosses or overlaps itself. Undo points and trace a simple boundary.');}
+  if(Math.abs(signedArea)<1e-7)throw new Error('The boundary must enclose an area.');
+ }
+ return {length,area:closed||area?Math.abs(signedArea)/2:0};
+}

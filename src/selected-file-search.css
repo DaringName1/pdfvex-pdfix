@@ -1,0 +1,7 @@
+.selected-file-search{width:min(960px,calc(100vw - 40px));max-height:calc(100vh - 40px);overflow:auto;padding:24px;color:var(--ink,#183341)}
+.selected-file-search .search-file-controls,.selected-file-search form,.search-batch-paging{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0}
+.selected-file-search form>label:first-child{flex:1;min-width:240px;display:grid;gap:6px}.selected-file-search input[type=search]{width:100%;padding:10px}.selected-file-search input[type=checkbox]{accent-color:#009c80}
+.search-source-list{display:grid;gap:6px;max-height:200px;overflow:auto}.search-source-list label{display:flex;gap:10px;padding:8px;border:1px solid #dde5e4;border-radius:8px;align-items:center}.search-source-list span{flex:1;overflow-wrap:anywhere}.search-source-list small{white-space:nowrap}
+.search-file-reports{font-size:.85rem;line-height:1.55;overflow-wrap:anywhere}.search-batch-results article{border-top:1px solid #dbe4e2;padding:16px 0}.search-batch-results article b{overflow-wrap:anywhere}.search-batch-results article p{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0}.search-batch-paging{justify-content:space-between}.search-batch-status{padding:12px;background:#edf7f3;border-radius:8px}
+
+.search-batch-paging[hidden]{display:none}

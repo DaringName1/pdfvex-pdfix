@@ -1,0 +1,5 @@
+.takeoff-recovery-review{width:min(1120px,95vw);max-height:94vh;overflow:auto;border:1px solid var(--border,#cbd7de);border-radius:16px;padding:22px;color:var(--ink,#173247);background:var(--surface,#fff)}
+.takeoff-recovery-review canvas{display:block;max-width:100%;height:auto;margin:14px auto;background:white;border:1px solid #d2dce2}
+.takeoff-recovery-details{max-height:260px;overflow:auto;background:var(--canvas,#f1f5f7);padding:12px;border-radius:10px}
+.takeoff-recovery-details p{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+.takeoff-recovery-review label{display:block;margin:15px 0}.takeoff-recovery-status{font-weight:600}.takeoff-recovery-review::backdrop{background:#10233488}
