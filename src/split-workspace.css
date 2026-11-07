@@ -2,3 +2,6 @@
 .split-workspace [hidden]{display:none!important}
 .split-bookmark-review{flex:none;max-height:160px;overflow:auto;border:1px solid #dce5da;border-radius:6px;padding:8px;font-size:12px;line-height:1.45;margin:4px 0}.split-bookmark-review summary{cursor:pointer;overflow-wrap:anywhere}.split-bookmark-parts{display:grid;gap:5px;margin-top:7px}.split-bookmark-parts p{margin:5px 0 10px;overflow-wrap:anywhere;font-size:11px;color:#566450}.split-bookmark-notes{font-size:11px}.split-bookmark-notes ul{padding-left:20px}.bookmark-setting select{max-width:240px}
 @media(max-width:850px){.split-workspace{padding:14px}.split-settings{gap:7px;margin-top:8px}.split-policy{font-size:10px}.split-save{gap:7px}.split-save input[type=text]{width:150px}.split-reviewed{flex:1}.split-plan-info{font-size:11px}.split-part-toolbar{gap:6px}.split-part-toolbar select{max-width:310px}.split-size{margin-left:0}.split-reader .pdf-message{padding:5px 10px}}
+
+/* On the main page in place of Organize pages (owner, Oct 30). */
+.split-workspace.split-inline{width:auto;max-width:none;max-height:none;flex:1 1 auto;min-width:0;overflow:auto;padding:16px;border:0;border-radius:0}

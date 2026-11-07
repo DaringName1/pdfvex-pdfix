@@ -12,7 +12,7 @@ export function installOutputRibbons(panels){
   ['Check',['Security report','Document health report','Certificate signatures','Repair PDF to a copy']]
  ];
  const pictures={
-  'Edit a text document copy':'<path d="M5 2h10l4 4v16H5ZM8 10h8m-8 4h8m-8 4h5"/>',
+  'PDF to Word':'<path d="M5 2h10l4 4v16H5ZM8 10h8m-8 4h8m-8 4h5"/>',
   'PDF to images':'<rect x="3" y="3" width="18" height="18"/><circle cx="8" cy="8" r="2"/><path d="m3 18 6-6 4 4 4-7 4 9"/>',
   'Extract a table':'<path d="M3 3h18v18H3Zm0 6h18M9 3v18m6-18v18M3 15h18"/>',
   'Compress a PDF':'<path d="M5 2h10l4 4v16H5ZM8 10l4 3 4-3m-4-4v7m-4 5 4-3 4 3m-4-3v6"/>',

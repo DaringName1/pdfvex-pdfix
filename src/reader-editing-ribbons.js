@@ -6,7 +6,7 @@ import './reader-editing-ribbons.css';
 export function installEditingRibbons(panels){
  const configurations=[
   ['Edit',[
-   ['Text',['Add text','Edit PDF text and images','Make a scan searchable','Edit a text document copy']],
+   ['Text',['Add text','Edit PDF text and images','Make a scan searchable','PDF to Word']],
    ['Select and link',['Review page links']]
   ]],
   ['Fill & Sign',[
@@ -22,7 +22,7 @@ export function installEditingRibbons(panels){
   ]]
  ];
  const icons={
-  'Edit a text document copy':'<path d="M5 2h10l4 4v16H5ZM8 10h8m-8 4h8m-8 4h5"/>',
+  'PDF to Word':'<path d="M5 2h10l4 4v16H5ZM8 10h8m-8 4h8m-8 4h5"/>',
   'Inspect and repair thin lines':'<path d="M3 5h18M3 12h18m-18 7h18"/>',
   'Edit PDF text and images':'<path d="M3 4h18M12 4v16M8 20h8m9-10 3 3-7 7h-3v-3Z"/>',
   'Make a scan searchable':'<path d="M4 9V3h6m4 0h6v6m0 6v6h-6m-4 0H4v-6M7 10h10M7 14h7"/>',

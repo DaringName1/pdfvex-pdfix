@@ -17,7 +17,7 @@ function validFormFillToken(token){if(typeof token!=='string'||!/^[0-9a-f]{8}-[0
 function validFormFillSource(id,source){return validSecuritySource(id,source);}
 function validFormFillInspection(info,sourceSha256){
  bounded(info);
- shape(info,['pages','fields','tabOrderPages','pageCount','hasCalculations','values','sourceSha256']);if(!/^[a-f0-9]{64}$/.test(sourceSha256)||info.sourceSha256!==sourceSha256||!Number.isInteger(info.pageCount)||info.pageCount<1||info.pageCount>500||typeof info.hasCalculations!=='boolean')fail();list(info.pages,500);list(info.fields,500);list(info.values,500);if(info.pages.length!==info.pageCount)fail();
+ shape(info,['pages','fields','tabOrderPages','pageCount','hasCalculations','values','sourceSha256'],['usageRightsRemoved']);if(info.usageRightsRemoved!==undefined&&typeof info.usageRightsRemoved!=='boolean')fail();if(!/^[a-f0-9]{64}$/.test(sourceSha256)||info.sourceSha256!==sourceSha256||!Number.isInteger(info.pageCount)||info.pageCount<1||info.pageCount>500||typeof info.hasCalculations!=='boolean')fail();list(info.pages,500);list(info.fields,500);list(info.values,500);if(info.pages.length!==info.pageCount)fail();
  for(const page of info.pages){shape(page,['box','rotation']);rectangle(page.box);if(![0,90,180,270].includes(page.rotation))fail();}
  const names=new Set();let locations=0,actions=0;
  for(const field of info.fields){

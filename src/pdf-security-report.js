@@ -1,3 +1,4 @@
+import {ReaderPageToolHost} from './pdf-reader-page-tool-host.js';
 import './pdf-security-report.css';
 const rowLabels = [
   ['javascript','JavaScript-bearing dictionaries'], ['additionalActions','Additional-action dictionaries'], ['openActions','Document/open-action entries'],
@@ -19,19 +20,26 @@ function reportText(file, report) {
     'Visual signatures, typed names and initials are not certificate signatures. Certificate presence does not establish identity, validity or trust. Absence from this inventory does not establish that a PDF is safe.'
   ].join('\n\n');
 }
-export function showPdfSecurityReport(file,{announce=()=>{}}={}) {
+export function showPdfSecurityReport(file,{announce=()=>{},hostReader=null}={}) {
+  // Beside the open PDF (owner, Oct 30): a side panel instead of a pop-up when a PDF is open.
+  const inline=!!hostReader?.hasToolStrip&&!!hostReader.paper?.isConnected;
+  const returnFocus=document.activeElement;let host=null;
   if(file?.ext!=='pdf'||typeof file.id!=='string'){announce('Open a PDF to inspect its security information.',true);return null;}
-  const dialog=element('dialog',undefined,'pdf-security-report');dialog.setAttribute('aria-labelledby','pdf-security-report-heading');
+  const dialog=element(inline?'section':'dialog',undefined,'pdf-security-report'+(inline?' security-inline':''));dialog.setAttribute('aria-labelledby','pdf-security-report-heading');
   const heading=element('h2','PDF security report');heading.id='pdf-security-report-heading';
   const title=element('p',file.name,'security-file-name');
   const status=element('p','Reading structural information from the opened source snapshot…','security-report-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');
   const body=element('div',undefined,'security-report-body');
   const actions=element('div',undefined,'security-report-actions'),save=element('button','Save report as text','secondary'),close=element('button','Close','primary');save.type=close.type='button';save.disabled=true;
-  actions.append(save,close);dialog.append(heading,title,status,body,actions);document.body.append(dialog);
+  actions.append(save,close);// Beside the PDF the panel needs the standard title bar (with ×) so the shared side panel adds its scrolling body and bottom bar.
+  let top=heading;if(inline){top=element('div',undefined,'dialog-header');const x=element('button','×','icon-button');x.type='button';x.setAttribute('aria-label','Close security report');x.onclick=()=>finish();top.append(heading,x);}
+  dialog.append(top,title,status,body,actions);if(inline){host=new ReaderPageToolHost(hostReader,{panel:dialog,label:'PDF security report',allowQuick:true,onEscape:()=>finish()});
+  // Beside the PDF the report can be longer than the panel: Save stays visible in the panel's bottom bar (like Compress), and the bar's Cancel closes it, so the extra Close is hidden.
+  if(host.options?.footer){host.options.footer.append(save);close.hidden=true;}}else document.body.append(dialog);
   let closed=false,report=null;
-  close.onclick=()=>dialog.close();
-  dialog.addEventListener('close',()=>{closed=true;window.pdfix.cancelPdfSecurity?.(file.id).catch(()=>{});dialog.remove();},{once:true});
-  dialog.showModal();
+  close.onclick=()=>inline?finish():dialog.close();
+  const finish=()=>{if(closed)return;closed=true;const restore=inline&&dialog.contains(document.activeElement);window.pdfix.cancelPdfSecurity?.(file.id).catch(()=>{});host?.dispose();dialog.remove();if(restore&&returnFocus?.isConnected)returnFocus.focus({preventScroll:true});};if(!inline)dialog.addEventListener('close',finish,{once:true});
+  if(!inline)dialog.showModal();
   const paragraph=(text,className)=>body.append(element('p',text,className));
   window.pdfix.readPdfSecurity(file.id).then(value=>{
     if(closed)return;report=value;

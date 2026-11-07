@@ -1,82 +1,34 @@
-# PDFix beta: a guide for testers
+# PDFVEX / PDFix Beta 3 tester guide
 
-**Draft, October 22, 2026.** Before the October 30 beta, update section 4 to match the new toolbar once it is built
-(rules: [UI-RULES-2026-10-22.md](UI-RULES-2026-10-22.md)) and check every step on a real install. Give testers this guide
-together with the install folder (model: `releases/PDFix-for-Dad-2026-10-22`). Written for people who are not technical:
-keep it that way.
+PDFVEX is the new name for PDFix. Beta 3 still shows PDFix inside the app; the name changes there in Update 3.
 
----
+Allow about 15 minutes. Use a synthetic sample PDF and a spare or test PC if possible. Keep important documents out of the test.
 
-## 1. What PDFix is
+## Get the installer
 
-PDFix is a free program for Windows for opening, marking up, signing and editing PDFs and Word documents. Everything
-stays on your computer: nothing is uploaded, and there are no accounts or ads.
+1. Download the Beta 3 Setup executable and its published SHA-256 checksum from [PDFix Windows releases](https://github.com/DaringName1/pdfvex-pdfix/releases), once available.
+2. Open PowerShell in the download folder and run the command below with the actual installer filename. Compare all 64 characters in the displayed hash with the published checksum. Stop if they differ.
 
-This is a **test version (beta)**. It can have mistakes. **Keep a copy of anything important** before you work on it.
-PDFix never changes your original file unless you choose to save over it.
+   ```powershell
+   Get-FileHash -Algorithm SHA256 -LiteralPath '.\PDFix-Setup-YYYY-MM-DD-COMMIT.exe'
+   ```
 
-## 2. Install
+3. Open the verified installer if you trust the download source. The installer is unsigned. If Windows SmartScreen shows **Windows protected your PC**, **More info → Run anyway** is available where Windows policy permits. Open **PDFix** from Start after setup finishes.
 
-1. Unzip the folder you were sent (right-click it, **Extract All**).
-2. Open the folder and double-click **Install PDFix**.
-3. If a blue box says **"Windows protected your PC"**, click **More info**, then **Run anyway**. This shows because PDFix
-   is new and not signed yet.
-4. Wait until the window says **Done**, then press any key.
-5. Open PDFix from the **PDFix** icon on your desktop, or type PDFix in the Start menu.
+## Try an everyday PDF job
 
-An older PDFix already on the computer is fine; the new one installs next to it.
+1. From **Home**, open a synthetic PDF. In **Quick edit**, find a word, highlight it, add a comment and draw a short line. Try Undo and Redo.
+2. Choose **Save a copy** and give it a new name. Open both files. Confirm the copy has your edits and the original still looks as it did before.
+3. From **Home**, choose **Fill and sign** and open a synthetic form. Type an answer, such as “Málaga”, in a field. Go Home and pick that same PDF with **Fill and sign**. Confirm the panel reopens and your answer is still there. Save a filled copy and reopen it.
+4. Try **Sign** with a made-up name. Click where it should appear, follow the prompt, and check the saved copy. This is a visible signature for the test.
+5. Open **Print** and look at the page preview, then close it. Open another tool and check that the original PDF is still open.
 
-**To remove PDFix:** double-click **Uninstall PDFix** in the same folder. Your documents are kept.
+If you are checking an update from Beta 1, use the approved Beta 3 installer over the existing test installation. Check that a recent synthetic file, a test signature, a changed setting, and an unsaved draft are still available. Report which ones you checked.
 
-## 3. Open a file
+## Report what happened
 
-- On Home, click **Open a file**, or drag a file onto the PDFix window.
-- PDFs open in **Quick edit**, where you can sign, fill in and mark up. The button at the top left shows the mode you are in:
-  - **Quick edit**: sign, fill, highlight, add notes.
-  - **View**: just look.
-  - **Build**: change the PDF itself (text, pages, protect, measure, export).
-- Word documents open in the document editor.
+Include the PDFix version from **Settings**, your Windows version, the exact steps, what you expected, and what you saw after reopening the saved copy. Use [GitHub Issues](https://github.com/DaringName1/pdfvex-pdfix/issues) for ordinary problems and the [private reporting instructions](../SECURITY.md) for vulnerabilities.
 
-## 4. Things to try (about 20 minutes)
+**Never upload personal, medical, financial, or confidential documents.** Use synthetic examples. Screenshots must show the real app with synthetic documents only. Check reports and screenshots for names, file paths, and recent-file entries before sharing.
 
-Do as many as you like. Each one: does it work the way you expected, without hunting for it?
-
-1. Open a PDF. Highlight a few words. Add a note.
-2. Sign a PDF: pick **Sign**, click where the signature goes.
-3. Fill in a form, then **Save a copy** and open the copy again.
-4. In **Build**, change a word on the page.
-5. Move, rotate or delete a page (**Pages** tab).
-6. Measure a distance on a drawing (**Measure** tab).
-7. Protect a PDF with a password, then open it with the password.
-8. Turn a PDF into a Word document (**Export** tab).
-9. Write a short Word document, add a picture, save it, and open it again.
-10. Close PDFix without saving, open it again: is your unsaved work offered back?
-
-## 5. If something goes wrong
-
-Please tell us, even if it seems small. Send to the person who gave you PDFix:
-
-1. **What you were doing** ("I clicked Sign and then…").
-2. **What you expected** and **what happened instead**.
-3. **A picture of the screen**: press **Windows key + Shift + S** to take one, or take a photo with your phone.
-4. If it was about one file and the file is not private, the file too. **Never send a private or client file.**
-
-Things that are already known and being fixed:
-- Some very large scanned drawings open as a **blank white page**.
-- Windows warns that PDFix is not signed (step 2.3 above).
-
-## 6. Privacy
-
-- PDFix works offline. Your files never leave your computer unless you send them yourself.
-- PDFix has no account, no ads and no tracking.
-- Optional features that use the internet or an AI program only work if you turn them on yourself.
-
----
-
-## For the team: before sending this guide
-
-- [ ] Section 3 and 4 match the built app (mode button, tabs, tool names in [UI-LAYOUT-PLAN-2026-10-22.md](UI-LAYOUT-PLAN-2026-10-22.md)).
-- [ ] Every step was done on a fresh install on the spare PC.
-- [ ] The known-problems list is current ([KNOWN-ISSUES-2026-10-13.md](KNOWN-ISSUES-2026-10-13.md), SHARED-PLAN).
-- [ ] The owner has decided how reports are sent (email, GitHub, or a form) and section 5 says so.
-- [ ] The install folder's READ ME FIRST.txt says the same as section 2.
+See the [release notes](release/RELEASE-NOTES-0.1.0-beta.3.md) and [known issues](../KNOWN-ISSUES.md).

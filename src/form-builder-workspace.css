@@ -4,3 +4,7 @@
 /* Lay the embedded reader out as a column, like Fill and sign, so its page area fills the box instead of collapsing to a strip. */.form-builder-reader,.form-builder-preview{display:flex;flex-direction:column;min-width:0}
 
 /* The page viewer fits the window height and the Preview/Save bar stays pinned at the bottom, so it is never cut off on a laptop screen. */.form-builder-reader,.form-builder-preview{height:min(650px,max(360px,calc(95vh - 300px)))}.form-builder-editor{max-height:min(650px,max(360px,calc(95vh - 300px)))}.form-builder-workspace>.form-builder-actions{position:sticky;bottom:-24px;z-index:20;margin-bottom:0;padding:10px 0;background:white;border-top:1px solid var(--line)}
+/* On the main PDF (owner, Oct 30): settings live in the side panel beside the page. */
+.form-builder-inline{width:auto;max-width:none;max-height:none;padding:12px;border:0;border-radius:0}
+.form-builder-inline .form-builder-columns{display:block}
+.form-builder-inline .form-builder-rect{grid-template-columns:1fr 1fr}

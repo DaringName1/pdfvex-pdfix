@@ -1,3 +1,4 @@
+import {ReaderPageToolHost} from './pdf-reader-page-tool-host.js';
 import {PermissionFlag} from 'pdfjs-dist';
 import {inspectPdfHealth} from './pdf-health-inspection.js';
 import './pdf-file-details.css';
@@ -39,18 +40,18 @@ function metadataFields(value){
 }
 export class PdfFileDetails{
   constructor(reader){this.reader=reader;this.generation=0;this.disposed=false;}
-  current(generation=this.generation){return !this.disposed&&!this.reader.disposed&&!!this.dialog?.open&&generation===this.generation&&this.reader.doc===this.document&&this.reader.file===this.source&&this.reader.pageNumber===this.page;}
+  current(generation=this.generation){return !this.disposed&&!this.reader.disposed&&(this.inline?!!this.dialog?.isConnected:!!this.dialog?.open)&&generation===this.generation&&this.reader.doc===this.document&&this.reader.file===this.source&&this.reader.pageNumber===this.page;}
   open({health=false}={}){
     if(this.disposed||this.reader.disposed||!this.reader.doc)return null;
     this.close();this.document=this.reader.doc;this.source=this.reader.file;this.page=this.reader.pageNumber;this.trigger=document.activeElement;
-    const dialog=make('dialog',undefined,'pdf-file-details');this.dialog=dialog;
+    this.inline=!!this.reader?.hasToolStrip&&!!this.reader.paper?.isConnected;const dialog=make(this.inline?'section':'dialog',undefined,'pdf-file-details'+(this.inline?' file-details-inline':''));this.dialog=dialog;
     const heading=make('h2',health?'PDF document health report':'PDF file details');heading.id='pdf-details-'+crypto.randomUUID();dialog.setAttribute('aria-labelledby',heading.id);
     this.status=make('p','Reading details from the opened snapshot...','pdf-details-status');this.status.setAttribute('role','status');this.status.setAttribute('aria-live','polite');
     this.body=make('div',undefined,'pdf-details-body');
     const actions=make('div',undefined,'pdf-details-actions');this.refresh=make('button','Refresh','secondary');this.scan=make('button','Check all page sizes','secondary');this.cancelScan=make('button','Cancel page-size check','secondary');this.cancelScan.hidden=true;this.health=make('button','Run document health report','secondary');this.cancelHealth=make('button','Cancel health inspection','secondary');this.cancelHealth.hidden=true;this.save=make('button','Save details as JSON','secondary');const close=make('button','Close','primary');
     for(const button of [this.refresh,this.scan,this.cancelScan,this.health,this.cancelHealth,this.save,close])button.type='button';this.save.disabled=this.scan.disabled=this.health.disabled=true;
     close.onclick=()=>this.close();this.refresh.onclick=()=>this.load();this.scan.onclick=()=>this.checkGeometry();this.cancelScan.onclick=()=>this.geometryController?.abort();this.health.onclick=()=>this.checkHealth();this.cancelHealth.onclick=()=>this.healthController?.abort();this.save.onclick=()=>this.export();
-    actions.append(this.refresh,this.scan,this.cancelScan,this.health,this.cancelHealth,this.save,close);dialog.append(heading,this.status,this.body,actions);document.body.append(dialog);dialog.addEventListener('close',()=>{if(this.dialog===dialog)this.close();},{once:true});dialog.showModal();close.focus();this.load().then(()=>{if(health&&this.current()&&this.report)this.checkHealth();});return dialog;
+    actions.append(this.refresh,this.scan,this.cancelScan,this.health,this.cancelHealth,this.save,close);dialog.append(heading,this.status,this.body,actions);if(this.inline)this.host=new ReaderPageToolHost(this.reader,{panel:dialog,label:'File details',allowQuick:true,onEscape:()=>this.close()});else{document.body.append(dialog);dialog.addEventListener('close',()=>{if(this.dialog===dialog)this.close();},{once:true});dialog.showModal();}close.focus();this.load().then(()=>{if(health&&this.current()&&this.report)this.checkHealth();});return dialog;
   }
   row(list,label,value){const term=make('dt',label),description=make('dd',value);list.append(term,description);}
   async load(){
@@ -165,6 +166,6 @@ export class PdfFileDetails{
     finally{if(this.current(generation))this.save.disabled=false;}
   }
   pageChanged(){if(this.dialog&&(this.reader.pageNumber!==this.page||this.reader.doc!==this.document||this.reader.file!==this.source||this.reader.disposed))this.close();}
-  close(){this.generation++;this.controller?.abort();this.controller=null;this.geometryController?.abort();this.geometryController=null;this.healthController?.abort();this.healthController=null;const dialog=this.dialog;this.dialog=null;if(dialog){if(dialog.open)dialog.close();dialog.remove();if(this.trigger?.isConnected&&!this.reader.disposed)this.trigger.focus();}this.report=null;}
+  close(){this.generation++;this.controller?.abort();this.controller=null;this.geometryController?.abort();this.geometryController=null;this.healthController?.abort();this.healthController=null;const dialog=this.dialog;this.dialog=null;if(dialog){if(this.inline){this.host?.dispose();this.host=null;}else if(dialog.open)dialog.close();dialog.remove();if(this.trigger?.isConnected&&!this.reader.disposed)this.trigger.focus();}this.report=null;}
   dispose(){this.disposed=true;this.close();}
 }

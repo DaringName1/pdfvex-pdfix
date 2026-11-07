@@ -1,6 +1,0 @@
-interface:
-  display_name: "PDFix build delivery"
-  short_description: "Deliver the exact PDFix UI build without version mixups"
-  default_prompt: "Use $pdfix-build-delivery to build or identify the requested PDFix installer from its exact commit."
-policy:
-  allow_implicit_invocation: true

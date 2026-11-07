@@ -10,7 +10,7 @@ const unsafe=()=>new FileError('SEARCH_SCOPE','Linked, reparse, offline or cloud
 // Node's lstat does not expose every Windows reparse tag. A fixed, non-parser
 // broker checks GetFileAttributes, including cloud recall flags, without loading
 // document content. User paths travel only as JSON stdin, never as script text.
-const SCRIPT=`$ErrorActionPreference='Stop'; while($null -ne ($line=[Console]::ReadLine())) { try { $r=ConvertFrom-Json -InputObject $line; $items=@(); foreach($p in $r.paths) { try { $drive=New-Object IO.DriveInfo ([IO.Path]::GetPathRoot([string]$p)); if($drive.DriveType -eq [IO.DriveType]::Network) { $items+=-1 } else { $items+=([int][IO.File]::GetAttributes([string]$p)) } } catch { $items+=-1 } }; [Console]::WriteLine((ConvertTo-Json -Compress -InputObject @{attributes=$items})) } catch { [Console]::WriteLine('{"error":true}') } }`;
+const SCRIPT=`$ErrorActionPreference='Stop'; [Console]::InputEncoding=New-Object System.Text.UTF8Encoding $false; while($null -ne ($line=[Console]::ReadLine())) { try { $r=ConvertFrom-Json -InputObject $line; $items=@(); foreach($p in $r.paths) { try { $drive=New-Object IO.DriveInfo ([IO.Path]::GetPathRoot([string]$p)); if($drive.DriveType -eq [IO.DriveType]::Network) { $items+=-1 } else { $items+=([int][IO.File]::GetAttributes([string]$p)) } } catch { $items+=-1 } }; [Console]::WriteLine((ConvertTo-Json -Compress -InputObject @{attributes=$items})) } catch { [Console]::WriteLine('{"error":true}') } }`;
 class PathAttributes{
  constructor(){this.queue=Promise.resolve();this.closed=false;}
  async read(paths){

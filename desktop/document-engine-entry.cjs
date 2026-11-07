@@ -3,7 +3,7 @@
 const fs=require('node:fs/promises'),path=require('node:path'),{createHash}=require('node:crypto');
 const MAX_SOURCE=100*1024*1024,MAX_FILE_SOURCE=256*1024*1024,MAX_REQUEST=36*1024*1024,MAX_RESULT=32*1024*1024;
 const LIMITS=require('./document-limits.cjs'),WORD=new Set(LIMITS.WORD_OPERATIONS);
-const requestLimit=operation=>WORD.has(operation)?LIMITS.WORD_REQUEST_BYTES:operation==='form-fill-build'?3*1024*1024:operation==='portfolio-build'?MAX_REQUEST:IMPORT_OPERATIONS.has(operation)?12*1024*1024:2*1024*1024;
+const requestLimit=operation=>WORD.has(operation)?LIMITS.WORD_REQUEST_BYTES:['form-fill-build','restricted-edit-build'].includes(operation)?3*1024*1024:operation==='portfolio-build'?MAX_REQUEST:IMPORT_OPERATIONS.has(operation)?12*1024*1024:2*1024*1024;
 const FILE_SOURCE_OPERATIONS=new Set(['review-inventory-file']);
 const IMPORT_OPERATIONS=new Set(['xfdf-import-inspect','xfdf-import-build','fdf-import-inspect','fdf-import-build']);
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -61,7 +61,11 @@ const {inspect:inspectRepair,verify:verifyRepair}=require('./pdf-repair-codec.cj
 const {inspect:inspectAccessibilityAudit}=require('./pdf-accessibility-audit-codec.cjs');
 const {inspect:inspectTags,write:writeTags}=require('./pdf-tags-codec.cjs');
 const {inspect:inspectPortfolio,build:buildPortfolio,select:selectPortfolio}=require('./pdf-portfolio-codec.cjs');
+const restrictedEdit=require('./restricted-edit-codec.cjs');
 const operations=Object.freeze({
+ 'restricted-edit-inspect':(bytes,o)=>restrictedEdit.inspect(bytes,o),
+ 'restricted-edit-build':(bytes,o)=>restrictedEdit.build(bytes,o),
+ 'restricted-edit-preserve':(bytes,o)=>{if(Object.keys(o).length)throw Error('Retention inspection has no caller options.');return restrictedEdit.preserve(bytes);},
  'page-box-inspect':(bytes,o)=>{if(Object.keys(o).length)throw new Error('Page-box inspection has no options.');return inspectPageBoxes(bytes);},
  'page-box-build':(bytes,o)=>{if(Object.keys(o).join(',')!=='draft')throw new Error('Page-box editing requires only its reviewed draft.');return writePageBoxes(bytes,o.draft);},
  'signature-request-build':(bytes,o)=>{if(Object.keys(o).join(',')!=='draft')throw new Error('Signing request preparation requires only its reviewed draft.');return buildSignatureRequest(bytes,o.draft);},

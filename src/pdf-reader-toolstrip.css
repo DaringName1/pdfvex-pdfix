@@ -36,3 +36,4 @@
 
 /* In a short window, keep space for the document and focused tool controls. */
 @media(max-height:650px){.reader-one-place:not([data-tool-group=Home]):has(.reader-options-panel:not([hidden])) .reader-job-buttons{height:64px;min-height:64px;max-height:64px;overflow:auto}}
+@media(max-height:650px){.reader-one-place[data-tool-group=View][data-interaction-mode=build] .reader-job-buttons{height:62px;min-height:62px;max-height:62px;overflow:auto}}

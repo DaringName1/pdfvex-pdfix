@@ -1,33 +1,9 @@
-# Security policy
+# Security reporting — PDFVEX / PDFix
 
-PDFix opens files from people you may not know, so security reports are welcome and taken seriously.
+PDFVEX is the new name for PDFix. Beta 3 still shows PDFix inside the app; the name changes there in Update 3.
 
-## Reporting a problem privately
+Please report vulnerabilities privately. Open the **Security** tab in [the public repository](https://github.com/DaringName1/pdfvex-pdfix) and choose **Report a vulnerability** when available. Keep the details out of public issues. If the option is unavailable, check with a maintainer for a private reporting route before sharing details.
 
-**Please do not report security problems in a public issue.** Use GitHub's private reporting instead:
-open this repository's **Security** tab and choose **Report a vulnerability**. Only the maintainers can see the report.
+Include the PDFix version, Windows version, what happened, and how to reproduce it. Use a small synthetic file if a file is needed. **Never upload personal, medical, financial, or confidential documents**, even in a private report. If you only have a private example, describe the problem without sharing the file.
 
-Include, if you can:
-- the PDFix version (shown in Settings) and your Windows version;
-- what happens and what you expected;
-- the smallest file that shows the problem. **Never send a private, client or personal document.** If the problem only
-  happens with such a file, describe it instead and we will try to build a harmless file that shows the same thing.
-
-We aim to reply within 7 days. Fixes are released on GitHub Releases and described in [CHANGELOG.md](CHANGELOG.md).
-
-## What PDFix is designed to do
-
-- Work offline. PDFix does not upload your documents, has no account and no tracking. It blocks network requests
-  from documents and asks before opening any web link from a PDF in your browser.
-- Open risky file formats inside a restricted Windows sandbox with no network access.
-- Never change your original file unless you choose to save over it, and keep the previous version when you do.
-- Refuse to modify digitally signed or certified PDFs rather than silently break their signatures.
-
-## Supported versions
-
-Only the newest beta release receives fixes during the beta.
-
-## Not covered
-
-- Problems that need someone to already control your Windows account or computer.
-- Missing features or wrong-looking output that is not a security risk: please open a normal issue.
+For ordinary bugs or feature requests, use the [public issue tracker](https://github.com/DaringName1/pdfvex-pdfix/issues). See [Privacy](PRIVACY.md) for guidance on sharing screenshots and logs.

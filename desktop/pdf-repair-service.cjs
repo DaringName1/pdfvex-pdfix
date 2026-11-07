@@ -23,11 +23,12 @@ class PdfRepairService{
    if(!await this.sandbox.cleanup(folder))return false;for(const name of FILES)await fs.unlink(path.join(folder,name)).catch(e=>{if(e.code!=='ENOENT')throw e;});await fs.rmdir(folder);return true;
   }catch{return false;}
  }
- async command(job,args,{strict=false,output=false,query=false}={}){
+ async command(job,args,{strict=false,output=false,query=false,diagnosticLimit=65536}={}){
+  if(!Number.isInteger(diagnosticLimit)||diagnosticLimit<65536||diagnosticLimit>4*1024*1024)throw failure('LIMIT','Invalid native diagnostic limit.');
   this.check(job);const child=await this.sandbox.launch(job,args);job.child=child;job.observed=false;
   let stopReason=null,stopTimer,diagnostics=0,stdout=[],stderr=[];
   const stop=reason=>{stopReason??=reason;child.kill();stopTimer??=setTimeout(()=>{job.unsafe=true;this.disposed=true;},5000);};job.stop=()=>stop(failure('CANCELED','Repair canceled. No copy was saved.'));
-  const capture=list=>chunk=>{diagnostics+=chunk.length;if(diagnostics>65536)stop(failure('LIMIT','The PDF exceeded the 64 KiB repair diagnostic budget.'));else list.push(chunk);};child.stdout.on('data',capture(stdout));child.stderr.on('data',capture(stderr));for(const stream of [child.stdout,child.stderr])stream.on('error',()=>stop(failure('PIPE','Repair diagnostics could not be observed.')));
+  const capture=list=>chunk=>{diagnostics+=chunk.length;if(diagnostics>diagnosticLimit)stop(failure('LIMIT','The PDF exceeded the 64 KiB repair diagnostic budget.'));else list.push(chunk);};child.stdout.on('data',capture(stdout));child.stderr.on('data',capture(stderr));for(const stream of [child.stdout,child.stderr])stream.on('error',()=>stop(failure('PIPE','Repair diagnostics could not be observed.')));
   const timer=setTimeout(()=>stop(failure('TIMEOUT','Repair exceeded its two-minute stage limit.')),120000);
   const monitor=output?setInterval(()=>fs.lstat(path.join(job.folder,'output.pdf')).then(s=>{if(!s.isFile()||s.isSymbolicLink()||s.size>V.MAX_BYTES)stop(failure('LIMIT','The rebuilt output exceeds the 100 MiB limit.'));}).catch(()=>{}),100):null;
   if(job.canceled)job.stop();let exit;
@@ -37,7 +38,7 @@ class PdfRepairService{
    exit=await Promise.race([job.brokerExit,new Promise((_,reject)=>{job.exitTimer=setTimeout(()=>{job.unsafe=true;this.disposed=true;reject(failure('SANDBOX','Repair broker termination was not observed. Repair stays closed and staging is retained.'));},126000);})]);
    job.observed=true;if(exit.launchError)throw failure('SANDBOX','The contained repair engine could not start.');this.check(job);if(stopReason)throw stopReason;const blocked=sandboxExit(exit.code);if(blocked)throw failure('SANDBOX',blocked);
    if(query&&exit.code!==0&&exit.code!==3||strict&&exit.code!==0||!query&&!strict&&![0,2,3].includes(exit.code))throw failure('VERIFY','The rebuilt PDF did not pass a strict qpdf reopen with recovery disabled.');
-   const clean=value=>Buffer.concat(value).toString('utf8').replaceAll(job.folder,'[repair staging]').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\u202a-\u202e\u2066-\u2069]/g,' ').slice(0,65536);
+   const clean=value=>Buffer.concat(value).toString('utf8').replaceAll(job.folder,'[repair staging]').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f\u202a-\u202e\u2066-\u2069]/g,' ').slice(0,diagnosticLimit);
    return {code:exit.code,stdout:clean(stdout),stderr:clean(stderr)};
   }finally{clearTimeout(timer);clearInterval(monitor);clearTimeout(stopTimer);clearTimeout(job.exitTimer);job.stop=null;if(job.observed)job.child=null;}
  }

@@ -1,3 +1,4 @@
+import {ReaderToolProofHost} from './reader-tool-proof-host.js';
 import {rememberPdfDialogFocus} from './pdf-dialog-focus.js';
 import {destroyPdfDocument} from './pdf-document-lifecycle.js';
 import * as pdfjs from 'pdfjs-dist';
@@ -13,7 +14,7 @@ export class PdfComparison {
     this.version = 0; this.queue = Promise.resolve(); this.tasks = new Set(); this.renderTasks = new Set(); this.cancelledTasks = new WeakSet(); this.labelWaits=new Set();
   }
   async open() {
-    this.dialog = this.element('dialog', undefined, 'pdf-comparison');
+    this.inline=!!this.hostReader?.hasToolStrip&&!!this.hostReader.paper?.isConnected;this.dialog = this.element(this.inline?'section':'dialog', undefined, 'pdf-comparison');
     this.dialog.innerHTML = `<div class="dialog-header"><div><h2>Compare PDFs</h2><p class="subtitle">Review page artwork and selectable text. Both files stay unchanged.</p></div><button class="icon-button" aria-label="Close PDF comparison" title="Close PDF comparison">×</button></div>
       <div class="comparison-controls"><label><input type="checkbox" data-linked ${this.linked?'checked':''}> Follow matched pairs</label><label><input type="checkbox" data-scroll checked> Link scrolling</label><button class="secondary compact" data-fit>Fit page</button><button class="secondary compact" data-zoom-out aria-label="Zoom out comparison">−</button><button class="secondary compact" data-zoom-in aria-label="Zoom in comparison">+</button><label><input type="checkbox" data-difference> Show visual changes</label><button class="secondary compact" data-check>Check all page pairs</button><button class="secondary compact" data-cancel hidden>Cancel check</button></div>
       <p class="comparison-status" role="status" aria-live="polite">Opening the comparison locally…</p><p class="comparison-alignment">${this.plan ? 'Linked pages follow your output page order, including combined and duplicated pages.' : 'Use Page matching to pair corresponding pages before checking all pages.'}</p>
@@ -21,8 +22,8 @@ export class PdfComparison {
       <details class="comparison-text"><summary>Text changes <span class="comparison-text-count"></span></summary><p class="comparison-text-note"></p><div class="comparison-text-content" tabindex="0" aria-label="Page text changes"></div></details>
       <details class="comparison-report" hidden><summary>Page check results</summary><p class="comparison-report-note"></p><div class="comparison-report-list"></div></details>
       <p class="comparison-policy">Pink shows artwork changes at review resolution. Text uses PDF extraction order and can differ on complex layouts. This review does not verify metadata, attachments, links, permissions or interactive form behavior.</p>`;
-    document.body.append(this.dialog); rememberPdfDialogFocus(this.dialog);this.dialog.showModal();
-    this.dialog.querySelector('[aria-label="Close PDF comparison"]').onclick = () => this.dialog.close();
+    if(!this.inline){document.body.append(this.dialog);rememberPdfDialogFocus(this.dialog);this.dialog.showModal();}
+    this.dialog.querySelector('[aria-label="Close PDF comparison"]').onclick = () => this.close();
     this.dialog.addEventListener('close', () => this.dispose());
     this.left = this.dialog.querySelector('[data-side=left]'); this.right = this.dialog.querySelector('[data-side=right]');
     this.status = this.dialog.querySelector('.comparison-status');
@@ -66,6 +67,7 @@ export class PdfComparison {
     if (select) { this.sources.forEach((source,index) => { const option = this.element('option',source.name); option.value = index; select.append(option); }); select.onchange = e => { this.leftSource = Number(e.target.value); this.leftPage = 1; this.schedule(); }; }
     this.resize = new ResizeObserver(() => { const geometry=[this.left,this.right].map(p=>{const stage=p.querySelector('.comparison-stage');return `${stage.clientWidth},${stage.clientHeight}`;}).join('|');if(geometry===this.resizeGeometry)return;this.resizeGeometry=geometry;clearTimeout(this.resizeTimer);if(this.ready&&!this.checking&&!this.matchingBusy){this.dialog.dataset.ready='false';this.controls(true);this.resizeTimer=setTimeout(()=>this.schedule(),150);} });
     this.resize.observe(this.left.querySelector('.comparison-stage')); this.resize.observe(this.right.querySelector('.comparison-stage'));
+    if(this.inline){this.proof=this.element('div',undefined,'comparison-main-proof');this.proof.append(this.dialog.querySelector('.comparison-pages'),this.overlay.root);this.dialog.querySelector('.comparison-controls').after(this.overlay.controls);this.host=new ReaderToolProofHost(this.hostReader,{panel:this.dialog,proof:this.proof,workspace:this,label:'Compare PDFs',onEscape:()=>this.close()});this.host.showProof(true);}
     this.controls(true);
     try {
       await this.load(this.output); if (this.closed) return;
@@ -107,7 +109,7 @@ export class PdfComparison {
     const row = this.matching?.mapping(this.rightPage-1); if (row) { this.leftSource = row.source; this.leftPage = row.index+1; }
   }
   controls(disabled) {
-    this.dialog.querySelectorAll('button,input,select').forEach(control => { if (control.getAttribute('aria-label') !== 'Close PDF comparison' && !control.hasAttribute('data-cancel') && !control.hasAttribute('data-match-cancel')) control.disabled = disabled; });
+    [...this.dialog.querySelectorAll('button,input,select'),...(this.proof?.querySelectorAll('button,input,select')||[])].forEach(control => { if (control.getAttribute('aria-label') !== 'Close PDF comparison' && !control.hasAttribute('data-cancel') && !control.hasAttribute('data-match-cancel')) control.disabled = disabled; });
     if (!disabled) {
       for (const [pane, source, number] of [[this.left,this.sources[this.leftSource],this.leftPage],[this.right,this.output,this.rightPage]]) { pane.querySelector('[data-prev]').disabled = !source.doc || number <= 1; pane.querySelector('[data-next]').disabled = !source.doc || number >= source.doc.numPages; pane.querySelector('input').disabled = !source.doc; }
       if ((this.pageMapping || this.plan) && this.linked) this.left.querySelectorAll('input,select,[data-prev],[data-next]').forEach(control => control.disabled = true);
@@ -262,12 +264,14 @@ export class PdfComparison {
     } catch (error) { if (!this.closed) this.status.textContent = this.cancelCheck ? 'Page check canceled. Results below are partial.' : error.message; }
     finally { if (!this.closed) { report.querySelector('.comparison-report-note').textContent = this.status.textContent; this.checking = false; this.dialog.querySelector('[data-cancel]').hidden = true; this.controls(false); } }
   }
+  close(){if(this.inline)this.dispose();else this.dialog.close();}
+  async prepareDeparture(){this.close();}
   dispose() {
     if (this.closed) return; this.closed = true; this.version++; this.cancelCheck = true;
     clearTimeout(this.resizeTimer); clearTimeout(this.scrollTimer); for(const finish of this.labelWaits)finish();this.labelWaits.clear();this.resize?.disconnect();this.matching?.dispose();this.overlay?.dispose();
     for (const task of this.renderTasks) task.cancel(); for (const task of this.tasks) task.destroy();
-    this.passwordDialog?.close(); this.passwordDialog?.remove(); if (this.dialog.open) this.dialog.close(); this.dialog.remove();
-    this.dialog.querySelectorAll('canvas').forEach(canvas => { canvas.width = canvas.height = 0; });
-    this.sources = []; this.output = null;
+    this.passwordDialog?.close(); this.passwordDialog?.remove(); if (!this.inline&&this.dialog.open) this.dialog.close(); this.dialog.remove();
+    (this.proof??this.dialog).querySelectorAll('canvas').forEach(canvas => { canvas.width = canvas.height = 0; });
+    this.host?.dispose();this.sources = []; this.output = null;
   }
 }

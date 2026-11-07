@@ -1,0 +1,9 @@
+.reader-tool-proof-frame{padding:10px;gap:8px;overflow:hidden;background:var(--surface-alt,#eef2ef)}
+.reader-tool-proof-frame>button{flex:none;align-self:flex-start}
+.reader-tool-proof-content{flex:1 1 0;min-width:0;min-height:0;overflow:auto;max-height:none!important}
+.reader-tool-proof-content[hidden]{display:none!important}
+.reader-tool-proof-content canvas{max-width:100%;height:auto}
+.reader-page-tool-options .print-layout,.reader-page-tool-options .print-settings-panel{display:contents}
+.reader-page-tool-options.pdf-print-workspace{max-height:none;max-width:46%;width:var(--options-width,290px)}
+.reader-page-tool-options.pdf-print-workspace .print-actions{flex-wrap:wrap}
+.reader-tool-proof-frame .print-previews{display:grid;align-content:start;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px;padding:8px}

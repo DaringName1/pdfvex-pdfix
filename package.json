@@ -1,6 +1,7 @@
 {
   "name": "pdfix-document-workspace",
   "version": "0.1.0",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "description": "A local Windows-first document workspace",
   "main": "desktop/main.cjs",
@@ -38,6 +39,5 @@
   },
   "engines": {
     "node": ">=22.13.0"
-  },
-  "license": "GPL-3.0-or-later"
+  }
 }

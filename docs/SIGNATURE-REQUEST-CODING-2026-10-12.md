@@ -1,9 +1,0 @@
-# Signature request preparation — October 12, 2026
-
-F62 is connected to a reviewed PDF workspace, command finder and Documents room. Users enter a recipient/message and add, edit or remove signature/date/initial locations by physical page and percent of the rotated visible crop. A source preview shows placement. The contained codec adds printable Square placement-note annotations with explicit appearance streams, preserves existing comments, copies selected-page annotation arrays, and retains unrelated object identities/payloads and page geometry. Selected changed pages must be reviewed before exclusive PDF saving.
-
-These are signing instructions, not interactive fields or completed visual/certificate signatures. A separate editable `.eml` draft is enabled only after saving the prepared PDF. Its body names the actual saved PDF and SHA-256, lists the reviewed locations and instructs the user to attach the PDF and send the message themselves. There is no attachment, automatic sending, identity verification or hosted tracking. Header/body encoding is bounded; renderer-supplied filenames cannot stand in for a successful native PDF save receipt.
-
-Source/draft/output seals, contained execution, independent native reopen/preservation checks and qpdf structural verification precede new-copy publication. The current route supports eligible unrestricted unsigned PDFs under 100 MiB/500 pages and up to 100 locations. Cleanup waits for native cancellation and owned preview destruction; the owning editor/measurement close guard is retained.
-
-Remaining: durable request-session recovery, wider PDFs/fonts/layouts and interactive signing-field support, expanded recipient workflows, actual email-client behavior, preview appearance/placement across real sources, UI/security/permission/large-file/corpus acceptance. Generated native PDF+EML fixture evidence is recorded separately in the integration checkpoint and does not prove these broader targets.

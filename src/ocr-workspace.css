@@ -4,3 +4,7 @@
 @media(max-width:900px){.ocr-review-columns{grid-template-columns:1fr}.ocr-scan{max-width:560px}.ocr-lines{max-height:350px}}
 
 .ocr-lines .ocr-uncertain{border-left:3px solid #ab6500;padding-left:9px;color:#704300}.ocr-confidence-note{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* Beside the open PDF (owner, Oct 30). */
+.ocr-workspace.ocr-inline{width:auto;max-width:none;max-height:none;padding:12px;border:0;border-radius:0}
+.ocr-inline-result{display:flex;flex-direction:column;gap:12px;overflow:auto;padding:12px;min-height:0}

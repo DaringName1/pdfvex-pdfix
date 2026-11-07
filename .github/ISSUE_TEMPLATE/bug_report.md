@@ -1,20 +1,25 @@
 ---
 name: Bug report
-about: Something in PDFix does not work as expected
+about: Something in PDFVEX / PDFix does not work as expected
 labels: bug
 ---
 
-<!-- Security problem? Do not post it here. Use the Security tab → "Report a vulnerability" (see SECURITY.md). -->
-<!-- NEVER attach private, client or personal documents. If the problem needs such a file, describe it instead. -->
+PDFVEX is the new name for PDFix. Beta 3 still shows PDFix inside the app; the name changes there in Update 3.
 
-**PDFix version** (Settings) and **Windows version**:
+**This issue is public. Never upload personal, medical, financial, or confidential documents.** Use a synthetic file or describe the problem without an attachment. Check screenshots, logs, and problem reports for private details.
 
-**What you did** (step by step):
+For vulnerabilities, use the repository’s **Security** tab to report privately.
+
+**PDFVEX / PDFix version** (Settings), **Windows version**, and **tool used**
+
+**What you did**
 1.
 2.
 
-**What you expected:**
+**What you expected**
 
-**What happened instead:**
+**What happened instead**
 
-**Screenshot** (Windows key + Shift + S), with any private content covered:
+**Could you reopen the saved copy?** (if relevant)
+
+**Optional synthetic sample or real-app screenshot using only synthetic documents**

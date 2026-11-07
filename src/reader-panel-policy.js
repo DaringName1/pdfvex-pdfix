@@ -16,8 +16,10 @@ export function installReaderPanelPolicy(reader){
   if(!event.clipboardData||![selection.anchorNode,selection.focusNode].every(node=>reader.layer.contains(node)||reader.readable.contains(node)))return;
   event.clipboardData.setData('text/plain',selection.toString());event.preventDefault();reader.announce('Copied.');
  },{signal:events.signal});
- root.addEventListener('keydown',event=>{
-  if(event.key!=='Escape'||event.defaultPrevented||event.isComposing||root.ownerDocument.querySelector('dialog[open],[popover]:popover-open:not(#toast)')||event.target.closest('[role=menu],.reader-inspector')||event.target.closest('[data-pdf-reader-root]')!==root)return;
+ root.ownerDocument.addEventListener('keydown',event=>{
+  if(event.key!=='Escape'||event.defaultPrevented||event.isComposing||!root.isConnected||!root.checkVisibility()||root.ownerDocument.querySelector('dialog[open],[popover]:popover-open:not(#toast)')||event.target.closest?.('[role=menu],.reader-inspector'))return;
+  const focusedReader=event.target.closest?.('[data-pdf-reader-root]');
+  if(focusedReader!==root&&event.target!==root.ownerDocument.body&&!event.target.closest?.('.file-header'))return;
   const panel=panels().at(-1);if(!panel)return;
   // The tool owns Escape inside its fields/artwork (including unsaved-table guards).
   // This fallback is for focus left on the ribbon or document header.

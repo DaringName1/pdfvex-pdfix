@@ -5,3 +5,8 @@
 
 /* Enlarged field labels must not widen the scrollable settings column. */
 .geometry-settings fieldset{min-width:0}.geometry-settings label{flex-wrap:wrap}.geometry-settings select{min-width:0;max-width:100%}.geometry-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+.reader-page-tool-options.page-geometry-editor{height:auto;max-height:none;overflow:hidden}
+.reader-page-tool-options .geometry-layout{display:block}
+.reader-page-tool-options .geometry-settings{overflow:visible}
+.reader-tool-proof-frame .geometry-preview{overflow:auto;justify-content:flex-start}
+.reader-tool-proof-frame .geometry-paper,.reader-tool-proof-frame .geometry-paper canvas{max-height:none}

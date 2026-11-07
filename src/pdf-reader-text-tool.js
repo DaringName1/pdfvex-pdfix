@@ -1,3 +1,4 @@
+import {assertPdfEditPermission,mayEditPdf} from './pdf-edit-permissions.js';
 export const TEXT_METHODS=Object.freeze([
   {id:'click-to-type',name:'Click to type',description:'Click a spot and type on the page.'},
   {id:'edit-existing',name:'Edit existing',description:'Click existing words and change them.'},
@@ -52,6 +53,7 @@ export class PdfReaderTextTool {
   registerMethod(id,activate){return this.registry.register(id,activate);}
   refresh(){const available=TEXT_METHODS.filter(method=>this.registry.providers.has(method.id)),tabId=available.some(method=>method.id===this.registry.activeId)?this.registry.activeId:available[0]?.id;for(const method of TEXT_METHODS){const button=this.buttons.get(method.id);if(!button)continue;button.disabled=this.registry.busy||!this.registry.providers.has(method.id);button.tabIndex=method.id===tabId?0:-1;button.setAttribute('aria-checked',String(method.id===this.registry.activeId));button.title=!this.registry.providers.has(method.id)?'This method is not connected for this document yet.':this.registry.busy?'Wait for the Text method to open.':method.description;}}
   async open(id){
+    assertPdfEditPermission(this.reader,'content');if(this.reader.hasRestrictions&&id==='edit-existing'&&!mayEditPdf(this.reader,'fullContent'))throw Error('This PDF allows added text notes or form answers, but not changing its original text.');
     if(this.reader.interactionMode!=='quick'||id!=='text-box')this.reader.setInteractionMode?.('build');const session=await this.registry.open(id,{reader:this.reader});
     session.optionsRoot.prepend(this.root);this.root.hidden=this.reader.interactionMode==='view';this.status.textContent=methodById(id).description;session.onModeChange?.(this.reader.interactionMode);return session;
   }

@@ -5,4 +5,4 @@
 @media(max-width:580px){.saved-copy-receipt{display:flex}.saved-copy-receipt>div:last-child{flex-wrap:wrap}}
 .saved-copy-receipt[data-copy-state=error]{background:#fff3ed;border-color:#c99580;color:#69341f}
 /* Preserve writing space on short windows; every receipt choice stays scrollable. */
-@media(max-height:650px){.saved-copy-receipt{max-height:14vh}}
+@media(max-height:650px){.saved-copy-receipt{max-height:44px}}

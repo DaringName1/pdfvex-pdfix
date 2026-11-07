@@ -360,7 +360,7 @@ internal static class SandboxLauncher {
         if(profile==JobProfile.Session)return PagedFilesWithinLimit(folder,true);
         // A watchdog rather than a disk quota. Reparse points and unexpected nesting stop the job.
         long bytes=0;int files=0;
-        string[] permitted={"input.pdf","output.pdf","source-clear.pdf","output-clear.pdf",".pdfix-job.json",".pdfix-password-job.json",".pdfix-sandbox.json"};
+        string[] permitted={"input.pdf","output.pdf","source-clear.pdf","edited-clear.pdf","output-clear.pdf",".pdfix-job.json",".pdfix-password-job.json",".pdfix-sandbox.json"};
         foreach(string file in Directory.EnumerateFiles(folder)) {
             NoReparse(file);string name=Path.GetFileName(file);long length=new FileInfo(file).Length;
             if(!permitted.Contains(name)||length>(name.EndsWith(".pdf")?100L*1024*1024:512))return false;

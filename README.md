@@ -1,59 +1,58 @@
-# PDFix for Windows — Beta 1
+# PDFVEX / PDFix for Windows
 
-**A free, private PDF and document app for Windows 10 and 11 (64-bit).** Read, mark up, fill and sign, organize,
-convert and protect PDFs, and write Word-style documents. Everything runs on your PC: no account, no uploads, no
-tracking, no ads.
+PDFVEX is the new name for PDFix. Beta 3 still shows PDFix inside the app; the name changes there in Update 3.
 
-> **This is a test version (beta).** Keep a copy of important files, and please tell us what goes wrong.
+**Read, mark up, fill and sign PDFs on your Windows PC.** PDFix is free and open source. Everyday PDF work can be done offline.
 
-## Download and install
+**Windows 10 and 11, 64-bit.** Beta 3 combines Updates 1 and 2. Beta 2 was skipped. Use the release page to see which builds are available.
 
-1. Go to **[Releases](../../releases)** and download `PDFix-Setup-….exe` (and `SHA256SUMS.txt` if you want to check
-   the download: in PowerShell run `Get-FileHash .\PDFix-Setup-….exe`).
-2. Double-click it. Windows may say **"Windows protected your PC"** because the beta is not code-signed yet: choose
-   **More info → Run anyway**.
-3. To remove it: Windows Settings → Apps → PDFix → Uninstall. Your documents are kept.
+[Downloads and SHA-256 checksums](https://github.com/DaringName1/pdfvex-pdfix/releases) · [Beta 3 notes](docs/release/RELEASE-NOTES-0.1.0-beta.3.md) · [Tester guide](docs/BETA-TESTER-GUIDE.md) · [Known issues](KNOWN-ISSUES.md)
 
-PDFix installs just for you (no administrator rights needed) and never changes your original files unless you choose
-to save over them.
+En español: [Notas de la versión](docs/release/RELEASE-NOTES-0.1.0-beta.3.es.md) · [Guía de pruebas](docs/BETA-TESTER-GUIDE.es.md)
 
-## What to try first (10 minutes)
+## Download and verify
 
-1. **Open a PDF** from Home. It opens in Quick edit.
-2. **Highlight** a line (drag along the words) and **Comment** (click the page, type, press Enter).
-3. **Type on page**, **Fill form** and **Sign**.
-4. **Save a copy** (Ctrl+S). Your original is never changed.
-5. **Close PDFix without saving**, open it again and open the same PDF: your unsaved work is offered back.
-6. On **Home**, choose **New document**, write a few lines and save it as Word or PDF.
-7. **Find** (Ctrl+F), **Undo / Redo** (Ctrl+Z / Ctrl+Y) and **Print** (Ctrl+P).
+1. Download the Windows Setup executable and its SHA-256 checksum from the same release.
+2. Open PowerShell in the download folder. Replace the example filename with the exact one you downloaded:
 
-## Known problems in Beta 1 (fixed first in the next update)
+   ```powershell
+   Get-FileHash -Algorithm SHA256 -LiteralPath '.\PDFix-Setup-YYYY-MM-DD-COMMIT.exe'
+   ```
 
-See the release notes on the [Releases](../../releases) page for the full, current list. In short:
+   Compare all 64 characters under `Hash` with the checksum on the release page. If they differ, delete the download and download it again from Releases.
+3. The installer is **unsigned**. Windows SmartScreen may show **Windows protected your PC**. If you trust the source and the checksum matches, **More info → Run anyway** lets you continue where Windows policy permits. A matching checksum checks the downloaded bytes against the posted copy.
 
-- Some tools still open in their own window instead of beside your PDF (Combine, Password, Page numbers,
-  PDF to pictures, Make searchable, Split, Clean up and others). They move onto the main page in the next update.
-- **Fill and sign started from Home** opens in its own window with a two-step save. Started from an open PDF it works
-  on the page.
-- The installer is not code-signed yet (Windows shows a warning the first time).
-- The interface text size setting may not be kept on some PCs.
+## What works in Beta 3
 
-## Reporting problems
+- Open and search PDFs, highlight passages, draw, add comments, type on a page, and place a visual signature.
+- Fill supported PDF fields and save a new copy. Start from **Fill and sign** on Home or from an open PDF. Supported Adobe Reader-extended forms include the English and Spanish IRS W-9, W-4 and 1040. Some copies lose Adobe Reader’s extra rights while keeping regular form fields.
+- Fill or comment on PDFs that open without a password and allow the selected edit. The checked copy keeps the original encryption and permissions. See [known limits](KNOWN-ISSUES.md).
+- Work beside the PDF in tools such as **Print**, **Combine PDFs**, **Bookmarks**, and **Review blank pages**.
+- Enter English and Spanish in supported PDF editing tools. PDFix explains when entered characters are unsupported. **Make searchable** recognizes printed English and Spanish scans.
+- Get clearer messages for many damaged files and pages the reader cannot display. Some protected, damaged files still show a technical message. **Save a copy** keeps the original file intact.
 
-Open an [issue](../../issues) and describe what you did, what you expected and what happened. Use **Settings →
-Save a problem report** in PDFix and attach it if you can. **Never attach private documents.** Security problems:
-see [SECURITY.md](SECURITY.md).
+A highlight drag may occasionally fail to register. If no highlight appears, drag again. This is planned for Update 3.
 
-## Licence
+Start with a sample or a copy of a document you can share. Open it, try **Comment** or **Fill form**, and choose **Save a copy**. Reopen the result to check it before relying on it.
 
-PDFix is free software under the **GNU General Public License, version 3 or (at your option) any later version**
-(GPL-3.0-or-later). See [LICENSE](LICENSE). Third-party components keep their own licences; see
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+![Fill and sign beside a synthetic workshop form](docs/release/screenshots/fill-and-sign.png)
+
+[More screenshots from the candidate](docs/release/screenshots/README.md)
+
+## Coming later
+
+- Make highlight dragging more reliable and improve preview sizing.
+- Keep existing comments, links and bookmarks when Organize rotates or removes pages.
+- Show the PDFVEX name inside the app.
+- Improve the message when a protected PDF forbids changes.
+- Continue compatibility checks with other PDF viewers and a wider range of forms.
+
+## Get help or contribute
+
+Use [Issues](https://github.com/DaringName1/pdfvex-pdfix/issues) for bugs and suggestions. **Never upload personal, medical, financial, or confidential documents.** Use a synthetic example. Follow the [security reporting instructions](SECURITY.md) for a vulnerability.
+
+[Contributing](CONTRIBUTING.md) · [Privacy](PRIVACY.md) · [Changelog](CHANGELOG.md)
+
+PDFix is licensed under the **GNU General Public License, version 3 or any later version** (`GPL-3.0-or-later`). See [LICENSE](LICENSE) and [Third-party notices](THIRD-PARTY-NOTICES.md).
 
 This project is not affiliated with PDFix, Inc. or its products.
-
-## Building from source
-
-The full source for this release is in this repository. See [docs/README-DEVELOPMENT.md](docs/README-DEVELOPMENT.md)
-for how the app is put together. In short: Node.js and npm, then `npm ci`, `npm run build`, and
-`node scripts/build-windows-package.mjs` for a Windows package.

@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {spawn} from 'node:child_process';
 import {createHash} from 'node:crypto';
-const SOURCE_SHA256='27fe1f3dde175edc87c8c7892d3b5aca84b00cbe0116e60019915100d62011d4';
+const SOURCE_SHA256='77bf19c281ecc17f93b5565684cac20c91fb410a7eff97b63ed41af4d5987fad';
 export async function buildNativeSandbox(){
   if(process.platform!=='win32'||process.arch!=='x64')throw new Error('The PDFix native sandbox build requires Windows x64.');
   const source=path.resolve('desktop/native/SandboxLauncher.cs'),directory=path.resolve('dist/native/sandbox');

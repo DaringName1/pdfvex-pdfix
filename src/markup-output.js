@@ -1,5 +1,8 @@
+import {assertEditablePdfIdentity} from './pdf-page-identity.js';
+import {withPdfStructureErrors} from './pdf-structure-errors.js';
 import {inkOutline} from './markup-pressure.js';
-import {PDFDocument,PDFName,PDFDict,PDFArray,PDFRef,PDFStream,PDFHexString,PDFNumber,StandardFonts,pushGraphicsState,popGraphicsState,setGraphicsState,setFillingRgbColor,setStrokingRgbColor,setLineWidth,setLineCap,moveTo,lineTo,appendBezierCurve,closePath,fill,stroke,rectangle,beginText,endText,setFontAndSize,setTextMatrix,showText,concatTransformationMatrix,translate,drawObject} from 'pdf-lib';
+import {removeReaderUsageRights,removedReaderUsageRights} from './pdf-reader-usage-rights.js';
+import {PDFDocument,PDFName,PDFDict,PDFArray,PDFRef,PDFStream,PDFHexString,PDFString,PDFNumber,StandardFonts,pushGraphicsState,popGraphicsState,setGraphicsState,setFillingRgbColor,setStrokingRgbColor,setLineWidth,setLineCap,moveTo,lineTo,appendBezierCurve,closePath,fill,stroke,rectangle,beginText,endText,setFontAndSize,setTextMatrix,showText,concatTransformationMatrix,translate,drawObject} from 'pdf-lib';
 import {validateMarks,inkStyle,highlightOpacity,MARKUP_COLORS,markupArrowHead,markupCloudPath} from './markup-model.js';
 const name=PDFName.of,MAX_BYTES=100*1024*1024;
 const subtypes={highlight:'Highlight',underline:'Underline',note:'Text',text:'FreeText',ink:'Ink',line:'Line',arrow:'Line',cloud:'Square',callout:'FreeText'};
@@ -11,7 +14,8 @@ async function load(bytes){
   let doc;try{doc=await PDFDocument.load(bytes,{updateMetadata:false,throwOnInvalidObject:true});}catch{throw new Error('Markup cannot open this PDF safely. Protected PDFs need an owner-authorized unrestricted copy; damaged PDFs need repair.');}
   if(doc.isEncrypted)throw new Error('Markup writing for encrypted PDFs is not supported yet.');
   if(doc.getPageCount()>500)throw new Error('Markup supports up to 500 PDF pages.');
-  if(doc.catalog.get(name('Perms')))throw new Error('This PDF has document certification or permission controls. Markup is disabled to avoid invalidating them.');
+  assertEditablePdfIdentity(doc);
+  removeReaderUsageRights(doc);
   const objects=doc.context.enumerateIndirectObjects();if(objects.length>100000)throw new Error('This PDF has too many objects for safe markup editing.');
   const seen=new WeakSet();let visited=0;
   function signatureSafety(value,depth=0){
@@ -32,6 +36,49 @@ function pageInfo(doc){return doc.getPages().map(page=>{
   if(!box.every(Number.isFinite)||box[2]<=box[0]||box[3]<=box[1])throw new Error('A visible page boundary is invalid.');return {box,rotation:((page.getRotation().angle%360)+360)%360};
 });}
 async function appearanceDigest(stream,record){const dictionary=stream.dict.clone(stream.dict.context);dictionary.delete(name('Length'));const prefix=new TextEncoder().encode(dictionary.toString()+'\n'+JSON.stringify(record)+'\n'),contents=stream.getContents(),input=new Uint8Array(prefix.length+contents.length);input.set(prefix);input.set(contents,prefix.length);return [...new Uint8Array(await crypto.subtle.digest('SHA-256',input))].map(value=>value.toString(16).padStart(2,'0')).join('');}
+// qpdf may renumber appearance resources during encryption. Number references
+// in traversal order so the digest still verifies their actual contents.
+async function protectedAppearanceDigest(stream,record){
+  const context=stream.dict.context,refs=new Map(),queue=[];
+  let nodes=0,resourceBytes=0;
+  const sha=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),byte=>byte.toString(16).padStart(2,'0')).join('');
+  const resourceDigest=bytes=>{
+    resourceBytes+=bytes.length;
+    if(resourceBytes>8*1024*1024)throw new Error('This annotation appearance exceeds the protected-copy limit.');
+    return sha(bytes);
+  };
+  const dictionary=async(value,depth,isStream)=>{
+    const result=[];
+    const keys=value.keys().map(key=>[key.decodeText(),key]).sort(([a],[b])=>a<b?-1:a>b?1:0);
+    for(const [key,name] of keys)if(!isStream||key!=='Length')result.push([key,await encode(value.get(name),depth+1)]);
+    return result;
+  };
+  const encode=async(value,depth=0)=>{
+    if(++nodes>4096||depth>32)throw new Error('This annotation appearance exceeds the protected-copy limit.');
+    if(value instanceof PDFRef){
+      const key=String(value);
+      if(!refs.has(key)){refs.set(key,queue.length);queue.push(value);}
+      return ['ref',refs.get(key)];
+    }
+    if(value instanceof PDFStream){
+      return ['stream',await dictionary(value.dict,depth,true),await resourceDigest(value.getContents())];
+    }
+    if(value instanceof PDFDict)return ['dict',await dictionary(value,depth,false)];
+    if(value instanceof PDFArray){
+      const values=[];
+      for(const item of value.asArray())values.push(await encode(item,depth+1));
+      return ['array',values];
+    }
+    if(value instanceof PDFHexString||value instanceof PDFString)return ['string',await resourceDigest(value.asBytes())];
+    if(value instanceof PDFName)return ['name',value.decodeText()];
+    if(value instanceof PDFNumber)return ['number',value.asNumber()];
+    if(!value)throw new Error('An annotation appearance resource is missing.');
+    return ['scalar',String(value)];
+  };
+  const graph=[record,await encode(stream)];
+  for(const ref of queue)graph.push(await encode(context.lookup(ref)));
+  return sha(new TextEncoder().encode(JSON.stringify(graph)));
+}
 async function entries(doc,pages){
   const managed=[],seen=new Set();let foreign=0;
   const allPages=doc.getPages();for(let index=0;index<allPages.length;index++){const page=allPages[index];
@@ -51,7 +98,14 @@ async function entries(doc,pages){
           }
           if(['highlight','underline'].includes(record.kind)&&!same(nums(dict,'QuadPoints'),record.quads))throw new Error('changed');if(['line','arrow'].includes(record.kind)&&(!same(nums(dict,'L'),record.path)||dict.lookup(name('LE'),PDFArray).asArray().map(String).join(',')!==(record.kind==='arrow'?'/None,/OpenArrow':'/None,/None')))throw new Error('changed endpoints');if(record.kind==='cloud'){const be=dict.lookup(name('BE'),PDFDict),inset=markupCloudPath(record.rect).inset;if(String(be.get(name('S')))!=='/C'||be.lookup(name('I'),PDFNumber).asNumber()!==1.5||!same(nums(dict,'RD'),[inset,inset,inset,inset]))throw new Error('changed cloud');}if(record.kind==='callout'&&(!same(nums(dict,'CL'),record.path)||String(dict.get(name('IT')))!=='/FreeTextCallout'||String(dict.get(name('LE')))!=='/OpenArrow'||!same(nums(dict,'RD'),calloutInsets(record))))throw new Error('changed callout');
           const flags=dict.lookupMaybe(name('F'),PDFNumber)?.asNumber()||0;if(flags&(64|128|512))throw new Error('locked');
-          const ap=dict.lookupMaybe(name('AP'),PDFDict);apRef=ap?.get(name('N'));const stream=doc.context.lookup(apRef,PDFStream);if(!(apRef instanceof PDFRef)||str(stream.dict,'PDFixOwner')!==record.id)throw new Error('appearance');const digest=str(dict,'PDFixAppearanceDigest');if(record.inkPressure&&!digest)throw new Error('pressure appearance provenance missing');if(digest&&(!/^[a-f0-9]{64}$/.test(digest)||await appearanceDigest(stream,record)!==digest))throw new Error('changed appearance');
+          const ap=dict.lookupMaybe(name('AP'),PDFDict);apRef=ap?.get(name('N'));const stream=doc.context.lookup(apRef,PDFStream);if(!(apRef instanceof PDFRef)||str(stream.dict,'PDFixOwner')!==record.id)throw new Error('appearance');
+          const digest=str(dict,'PDFixAppearanceDigest'),digestVersion=dict.lookupMaybe(name('PDFixAppearanceDigestVersion'),PDFNumber)?.asNumber()??1;
+          if((record.inkPressure||digestVersion!==1)&&!digest)throw new Error('appearance provenance missing');
+          if(digest){
+            if(!/^[a-f0-9]{64}$/.test(digest)||![1,2].includes(digestVersion))throw new Error('invalid appearance digest');
+            const actual=await (digestVersion===2?protectedAppearanceDigest(stream,record):appearanceDigest(stream,record));
+            if(actual!==digest)throw new Error('changed appearance');
+          }
         }
       }catch{record=null;}
       if(record){if(seen.has(record.id))throw new Error('Duplicate PDFix annotation identities need repair before editing.');seen.add(record.id);managed.push({record,ref,apRef,page:index});}else foreign++;
@@ -81,10 +135,10 @@ function stripManaged(doc,managed){
   for(const entry of managed)doc.context.delete(entry.ref);
   const remaining=referencedObjects(doc);for(const entry of managed)if(!remaining.has(entry.apRef.toString()))doc.context.delete(entry.apRef);
 }
-export async function inspectMarkupPdf(bytes){
+async function inspectMarkupPdfInternal(bytes){
   const doc=await load(bytes),pages=pageInfo(doc),info=await entries(doc,pages);stripManaged(doc,info.managed);
   const baseline=await doc.save({updateFieldAppearances:false});
-  return {bytes:baseline,pages,marks:info.managed.map(entry=>entry.record),foreign:info.foreign,pageCount:pages.length};
+  return {usageRightsRemoved:removedReaderUsageRights(doc),bytes:baseline,pages,marks:info.managed.map(entry=>entry.record),foreign:info.foreign,pageCount:pages.length};
 }
 function textLines(text,font,size,width,height){
   if(!text.trim())throw new Error('Add text to every text box before previewing.');
@@ -124,7 +178,7 @@ function appearance(doc,mark,font){
   operators.push(popGraphicsState());
   return ctx.register(ctx.formXObject(operators,{BBox:[0,0,w,h],Resources:resources,PDFixOwner:PDFHexString.fromText(mark.id)}));
 }
-export async function markedPdf(bytes,marks,flatten=false,progress=()=>{}){
+async function markedPdfInternal(bytes,marks,flatten=false,progress=()=>{},{preservePageContents=false}={}){
   if(typeof flatten!=='boolean')throw new Error('Choose an explicit annotation output mode.');
   const doc=await load(bytes),pages=pageInfo(doc),records=validateMarks(marks,pages),source=await entries(doc,pages);stripManaged(doc,source.managed);
   const font=records.some(mark=>['text','callout'].includes(mark.kind))?await doc.embedFont(StandardFonts.Helvetica):null,expected=[],appearances=[];
@@ -133,7 +187,10 @@ export async function markedPdf(bytes,marks,flatten=false,progress=()=>{}){
     if(flatten&&mark.kind!=='note'){const key=page.node.newXObject('PDFixMarkup',ap);page.pushOperators(pushGraphicsState(),translate(mark.rect[0],mark.rect[1]),drawObject(key),popGraphicsState());}
     else{
       const ctx=doc.context,dict=ctx.obj({Type:'Annot',Subtype:subtypes[mark.kind],Rect:mark.rect,P:page.ref,NM:PDFHexString.fromText(mark.id),Contents:PDFHexString.fromText(mark.text),T:PDFHexString.fromText('PDFix'),F:4,C:MARKUP_COLORS[mark.color],AP:{N:ap},PDFixVersion:1,PDFixData:PDFHexString.fromText(JSON.stringify(mark))});
-      dict.set(name('PDFixAppearanceDigest'),PDFHexString.fromText(await appearanceDigest(ctx.lookup(ap,PDFStream),mark)));
+      const appearanceStream=ctx.lookup(ap,PDFStream);
+      const digest=await (preservePageContents?protectedAppearanceDigest(appearanceStream,mark):appearanceDigest(appearanceStream,mark));
+      dict.set(name('PDFixAppearanceDigest'),PDFHexString.fromText(digest));
+      if(preservePageContents)dict.set(name('PDFixAppearanceDigestVersion'),PDFNumber.of(2));
       if(['highlight','underline'].includes(mark.kind)){dict.set(name('QuadPoints'),ctx.obj(mark.quads));dict.set(name('CA'),PDFNumber.of(mark.kind==='highlight'?highlightOpacity(mark):1));}
       if(mark.kind==='ink'){dict.set(name('InkList'),ctx.obj([mark.path]));dict.set(name('BS'),ctx.obj({W:inkStyle(mark).width}));dict.set(name('CA'),PDFNumber.of(inkStyle(mark).opacity));}
       if(mark.kind==='note'){dict.set(name('Name'),name('Note'));dict.set(name('Open'),ctx.obj(false));}
@@ -141,7 +198,14 @@ export async function markedPdf(bytes,marks,flatten=false,progress=()=>{}){
       if(mark.kind==='cloud'){const inset=markupCloudPath(mark.rect).inset;dict.set(name('BE'),ctx.obj({S:'C',I:1.5}));dict.set(name('BS'),ctx.obj({W:2,S:'S'}));dict.set(name('RD'),ctx.obj([inset,inset,inset,inset]));}
       if(mark.kind==='callout'){dict.set(name('IT'),name('FreeTextCallout'));dict.set(name('CL'),ctx.obj(mark.path));dict.set(name('LE'),name('OpenArrow'));dict.set(name('RD'),ctx.obj(calloutInsets(mark)));dict.set(name('BS'),ctx.obj({W:2,S:'S'}));}
       if(['text','callout'].includes(mark.kind)){dict.set(name('DA'),PDFHexString.fromText(`/F0 ${mark.fontSize} Tf ${MARKUP_COLORS[mark.color].join(' ')} rg`));dict.set(name('Q'),PDFNumber.of(0));dict.set(name('Rotate'),PDFNumber.of(mark.rotation));}
-      const annotationRef=ctx.register(dict);page.node.addAnnot(annotationRef);expected.push({id:`${annotationRef.objectNumber}R${annotationRef.generationNumber||''}`,page:mark.page,subtype:subtypes[mark.kind],text:mark.text,rect:mark.rect,kind:mark.kind,path:mark.path,...(mark.kind==='ink'?{inkWidth:inkStyle(mark).width,inkOpacity:inkStyle(mark).opacity}:mark.kind==='highlight'?{highlightOpacity:highlightOpacity(mark)}:{})});
+      const annotationRef=ctx.register(dict);
+      if(preservePageContents){
+        // addAnnot normalizes page artwork and may mutate a shared /Annots array.
+        // Annotation-only permission allows neither change.
+        const priorAnnots=page.node.lookupMaybe(name('Annots'),PDFArray);
+        page.node.set(name('Annots'),ctx.obj([...(priorAnnots?.asArray()||[]),annotationRef]));
+      }else page.node.addAnnot(annotationRef);
+      expected.push({id:`${annotationRef.objectNumber}R${annotationRef.generationNumber||''}`,page:mark.page,subtype:subtypes[mark.kind],text:mark.text,rect:mark.rect,kind:mark.kind,path:mark.path,...(mark.kind==='ink'?{inkWidth:inkStyle(mark).width,inkOpacity:inkStyle(mark).opacity}:mark.kind==='highlight'?{highlightOpacity:highlightOpacity(mark)}:{})});
     }
     progress({stage:'Building markup copy',current:i+1,total:records.length});
   }
@@ -150,3 +214,7 @@ export async function markedPdf(bytes,marks,flatten=false,progress=()=>{}){
   const actual=await entries(reopened,pages);if(actual.foreign!==source.foreign||actual.managed.length!==expected.length)throw new Error('The reopened annotation count or foreign-mark count changed.');for(const {ref,owner,bytes:before}of appearances){const stream=reopened.context.lookup(ref,PDFStream),after=stream.getContents();if(str(stream.dict,'PDFixOwner')!==owner||before.length!==after.length||before.some((value,index)=>value!==after[index]))throw new Error('A generated markup appearance changed on reopening.');}
   return {bytes:output,pageCount:pages.length,expected,foreign:source.foreign,flattened:flatten?records.filter(mark=>mark.kind!=='note').length:0};
 }
+
+export const inspectMarkupPdf=(...args)=>withPdfStructureErrors(()=>inspectMarkupPdfInternal(...args));
+
+export const markedPdf=(...args)=>withPdfStructureErrors(()=>markedPdfInternal(...args));

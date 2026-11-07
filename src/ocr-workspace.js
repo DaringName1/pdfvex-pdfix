@@ -1,3 +1,4 @@
+import {ReaderProofHost} from './reader-proof-host.js';
 import { OcrSession } from './ocr-session.js';
 
 import { pdfJob } from './pdf-jobs.js';
@@ -19,7 +20,7 @@ export class OcrWorkspace {
 
     if(!this.reader.copyAllowed){this.announce('This PDF restricts copying. Obtain an owner-authorized, unrestricted copy before OCR.',true);return;}
 
-    this.dialog=this.element('dialog',undefined,'ocr-workspace');
+    this.inline=!!this.reader?.hasToolStrip&&!!this.reader.paper?.isConnected;this.dialog=this.element(this.inline?'section':'dialog',undefined,'ocr-workspace'+(this.inline?' ocr-inline':''));
 
     this.dialog.innerHTML=`<div class="dialog-header"><div><h2>Make a scan searchable</h2><p class="subtitle">Turn the picture of the words into real text you can search and copy. Everything happens on this computer.</p></div><button class="icon-button" aria-label="Close OCR workspace">×</button></div>
 
@@ -33,37 +34,37 @@ export class OcrWorkspace {
 
       <div class="ocr-output" hidden><div class="ocr-actions"><b>Searchable copy reopened and text verified</b><button class="secondary" data-compare>Compare with original</button><button class="primary" data-save>Save searchable copy</button></div><div class="ocr-output-reader"></div></div>`;
 
-    document.body.append(this.dialog);this.dialog.showModal();
+    if(this.inline){const result=this.element('div',undefined,'ocr-inline-result');result.append(this.q('.ocr-review'),this.q('.ocr-output'));this.host=new ReaderProofHost(this.reader,{panel:this.dialog,proof:result,label:'Make a scan searchable',onEscape:()=>this.finish()});this.q('[data-cancel]').hidden=!this.busy;}else{document.body.append(this.dialog);this.dialog.showModal();}
 
-    this.status=this.dialog.querySelector('.ocr-progress');
+    this.status=this.q('.ocr-progress');
 
-    const languageSelect=this.dialog.querySelector('[data-ocr-language]');
+    const languageSelect=this.q('[data-ocr-language]');
     for(const language of OCR_LANGUAGES){const option=this.element('option',language.name);option.value=language.code;languageSelect.append(option);}
-    languageSelect.onchange=()=>{this.records=[];this.selectedLanguage=null;this.invalidate();this.dialog.querySelector('.ocr-review').hidden=true;this.status.textContent='Language changed. Start local OCR to recognize with the selected language.';};
+    languageSelect.onchange=()=>{this.records=[];this.selectedLanguage=null;this.invalidate();this.q('.ocr-review').hidden=true;this.status.textContent='Language changed. Start local OCR to recognize with the selected language.';};
 
-    this.dialog.querySelector('[aria-label="Close OCR workspace"]').onclick=()=>this.dialog.close();this.dialog.addEventListener('close',()=>this.dispose());
+    this.q('[aria-label="Close OCR workspace"]').onclick=()=>this.finish();this.dialog.addEventListener('close',()=>this.dispose());
 
-    this.dialog.querySelector('[data-start]').onclick=()=>this.run(()=>this.recognize());
+    this.q('[data-start]').onclick=()=>this.run(()=>this.recognize());
 
-    this.dialog.querySelector('[data-cancel]').onclick=()=>{if(!this.busy){this.dialog.close();return;}this.cancelled=true;this.session?.dispose();this.job?.cancel();this.renderTask?.cancel();this.status.textContent='Operation canceled. No copy was saved.';};
+    this.q('[data-cancel]').onclick=()=>{if(!this.busy){this.finish();return;}this.cancelled=true;this.session?.dispose();this.job?.cancel();this.renderTask?.cancel();this.status.textContent='Operation canceled. No copy was saved.';};
 
-    this.dialog.querySelector('[data-review-page]').onchange=()=>this.run(()=>this.showRecord());
+    this.q('[data-review-page]').onchange=()=>this.run(()=>this.showRecord());
 
 
 
-    this.dialog.querySelector('[data-next-uncertain]').onclick=()=>this.run(()=>this.nextUncertain());
+    this.q('[data-next-uncertain]').onclick=()=>this.run(()=>this.nextUncertain());
 
-    this.dialog.querySelector('[data-preview]').onclick=()=>this.run(()=>this.preview());
+    this.q('[data-preview]').onclick=()=>this.run(()=>this.preview());
 
-    this.dialog.querySelector('[data-edit]').onclick=()=>this.run(()=>this.edit());
+    this.q('[data-edit]').onclick=()=>this.run(()=>this.edit());
 
-    this.dialog.querySelector('[data-export-text]').onclick=()=>this.run(()=>this.exportReviewed('txt'));
+    this.q('[data-export-text]').onclick=()=>this.run(()=>this.exportReviewed('txt'));
 
-    this.dialog.querySelector('[data-export-lines]').onclick=()=>this.run(()=>this.exportReviewed('csv'));
+    this.q('[data-export-lines]').onclick=()=>this.run(()=>this.exportReviewed('csv'));
 
-    this.dialog.querySelector('[data-save]').onclick=()=>this.run(async()=>{const result=await window.pdfix.saveCopy(this.file.id,this.output.bytes);if(result)this.announce(`Saved ${result.name}. Reviewed OCR text is searchable; original unchanged.`);});
+    this.q('[data-save]').onclick=()=>this.run(async()=>{const result=await window.pdfix.saveCopy(this.file.id,this.output.bytes);if(result)this.announce(`Saved ${result.name}. Reviewed OCR text is searchable; original unchanged.`);});
 
-    this.dialog.querySelector('[data-compare]').onclick=()=>this.run(async()=>{if(!this.output)return;this.comparison?.dispose();this.comparison=new PdfComparison([{name:this.file.name,doc:this.reader.doc,copyAllowed:this.reader.copyAllowed}],{name:'Searchable copy',doc:this.previewReader.doc,copyAllowed:this.previewReader.copyAllowed},{element:this.element,announce:this.announce});await this.comparison.open();});
+    this.q('[data-compare]').onclick=()=>this.run(async()=>{if(!this.output)return;this.comparison?.dispose();this.comparison=new PdfComparison([{name:this.file.name,doc:this.reader.doc,copyAllowed:this.reader.copyAllowed}],{name:'Searchable copy',doc:this.previewReader.doc,copyAllowed:this.previewReader.copyAllowed},{element:this.element,announce:this.announce});await this.comparison.open();});
 
     this.controls(false);
 
@@ -71,23 +72,23 @@ export class OcrWorkspace {
 
   controls(busy){
 
-    this.dialog.querySelectorAll('button,input,select,textarea').forEach(control=>{if(control.hasAttribute('data-cancel')||control.hasAttribute('aria-label')&&control.tagName==='BUTTON')return;control.disabled=busy;});
+    [...this.dialog.querySelectorAll('button,input,select,textarea'),...(this.host?.frame?.querySelectorAll('button,input,select,textarea')||[])].forEach(control=>{if(control.hasAttribute('data-cancel')||control.hasAttribute('aria-label')&&control.tagName==='BUTTON')return;control.disabled=busy;});
 
 
 
-    this.dialog.querySelector('[data-preview]').disabled=busy||!this.records.length;
+    this.q('[data-preview]').disabled=busy||!this.records.length;
 
-    this.dialog.querySelector('[data-edit]').disabled=busy||!this.records.length;
+    this.q('[data-edit]').disabled=busy||!this.records.length;
 
-    this.dialog.querySelector('[data-export-text]').disabled=busy||!this.records.length;
+    this.q('[data-export-text]').disabled=busy||!this.records.length;
 
-    this.dialog.querySelector('[data-export-lines]').disabled=busy||!this.records.length;
+    this.q('[data-export-lines]').disabled=busy||!this.records.length;
 
-    this.dialog.querySelector('[data-save]').disabled=busy||!this.output;
+    this.q('[data-save]').disabled=busy||!this.output;
 
-    this.dialog.querySelector('[data-compare]').disabled=busy||!this.output;
+    this.q('[data-compare]').disabled=busy||!this.output;
 
-    this.dialog.querySelector('[data-cancel]').disabled=false;this.dialog.querySelector('[data-cancel]').textContent=busy?'Stop':'Cancel';
+    this.q('[data-cancel]').disabled=false;this.q('[data-cancel]').textContent=busy?'Stop':'Cancel';this.q('[data-cancel]').hidden=this.inline&&!busy;
 
   }
 
@@ -95,7 +96,7 @@ export class OcrWorkspace {
 
   check(){if(this.closed||this.cancelled||this.reader.disposed)throw new Error('OCR was canceled. No copy was saved.');}
 
-  invalidate(){this.comparison?.dispose();this.output=null;this.previewReader?.dispose();this.previewReader=null;this.dialog.querySelector('.ocr-output').hidden=true;this.dialog.querySelector('.ocr-output-reader').replaceChildren();this.controls(this.busy);}
+  invalidate(){this.comparison?.dispose();this.output=null;this.previewReader?.dispose();this.previewReader=null;this.q('.ocr-output').hidden=true;this.q('.ocr-output-reader').replaceChildren();this.controls(this.busy);}
 
   async renderScan(number){
 
@@ -115,7 +116,7 @@ export class OcrWorkspace {
 
   async recognize(){
 
-    this.cancelled=false;this.records=[];this.uncertainCursor=null;this.invalidate();this.dialog.querySelector('.ocr-review').hidden=true;
+    this.cancelled=false;this.records=[];this.uncertainCursor=null;this.invalidate();this.q('.ocr-review').hidden=true;
 
     if(this.reader.doc.numPages>20)throw new Error('Local OCR supports up to 20 pages. Use Organize pages to extract a smaller PDF first.');
 
@@ -127,7 +128,7 @@ export class OcrWorkspace {
 
     if(!scans.length)throw new Error('Every page already has selectable text. Use PDF search or Edit a document copy.');
 
-    this.session?.dispose();this.selectedLanguage=requireOcrLanguage(this.dialog.querySelector('[data-ocr-language]').value);this.session=new OcrSession(this.selectedLanguage.code,progress=>{if(!this.closed&&!this.cancelled)this.status.textContent=`${this.currentPage?`Page ${this.currentPage}: `:''}${progress.status} · ${Math.round((progress.progress||0)*100)}%`;});
+    this.session?.dispose();this.selectedLanguage=requireOcrLanguage(this.q('[data-ocr-language]').value);this.session=new OcrSession(this.selectedLanguage.code,progress=>{if(!this.closed&&!this.cancelled)this.status.textContent=`${this.currentPage?`Page ${this.currentPage}: `:''}${progress.status} · ${Math.round((progress.progress||0)*100)}%`;});
 
     const initialized=await this.session.initialize();this.check();if(initialized.language!==this.selectedLanguage.code)throw new Error('The local OCR engine loaded a different language. Start again.');
 
@@ -137,23 +138,23 @@ export class OcrWorkspace {
 
     if(!this.records.length)throw new Error(`No ${this.selectedLanguage.name} text was recognized. Try a clearer scan. Handwriting recognition is not claimed.`);
 
-    const select=this.dialog.querySelector('[data-review-page]');select.replaceChildren();for(const record of this.records){const option=this.element('option',`Page ${record.index+1}`);option.value=record.index;select.append(option);}
+    const select=this.q('[data-review-page]');select.replaceChildren();for(const record of this.records){const option=this.element('option',`Page ${record.index+1}`);option.value=record.index;select.append(option);}
 
-    this.dialog.querySelector('.ocr-review').hidden=false;await this.showRecord();this.status.textContent=`Recognized ${this.records.length} scanned ${this.records.length===1?'page':'pages'} using ${this.selectedLanguage.name}, selected by you. ${this.uncertainLines().length} lines flagged for extra review. Review every page before creating a copy.`;
+    this.q('.ocr-review').hidden=false;this.host?.showProof(true);await this.showRecord();this.status.textContent=`Recognized ${this.records.length} scanned ${this.records.length===1?'page':'pages'} using ${this.selectedLanguage.name}, selected by you. ${this.uncertainLines().length} lines flagged for extra review. Review every page before creating a copy.`;
 
   }
 
   async showRecord(){
 
-    const record=this.records.find(r=>r.index===Number(this.dialog.querySelector('[data-review-page]').value));if(!record)return;
+    const record=this.records.find(r=>r.index===Number(this.q('[data-review-page]').value));if(!record)return;
 
-    const raster=await this.renderScan(record.index+1);this.check();if(this.imageUrl)URL.revokeObjectURL(this.imageUrl);this.imageUrl=URL.createObjectURL(raster.blob);this.dialog.querySelector('.ocr-scan img').src=this.imageUrl;
+    const raster=await this.renderScan(record.index+1);this.check();if(this.imageUrl)URL.revokeObjectURL(this.imageUrl);this.imageUrl=URL.createObjectURL(raster.blob);this.q('.ocr-scan img').src=this.imageUrl;
 
-    this.dialog.querySelector('.ocr-confidence').textContent=`Engine confidence ${Math.round(record.confidence)}% · Check against the scan`;
+    this.q('.ocr-confidence').textContent=`Engine confidence ${Math.round(record.confidence)}% · Check against the scan`;
 
-    const position=this.dialog.querySelector('.ocr-position');position.hidden=true;this.dialog.querySelector('.ocr-scan-frame').scrollTop=0;const container=this.dialog.querySelector('.ocr-lines');container.replaceChildren();
+    const position=this.q('.ocr-position');position.hidden=true;this.q('.ocr-scan-frame').scrollTop=0;const container=this.q('.ocr-lines');container.replaceChildren();
 
-    record.lines.forEach((line,index)=>{const uncertain=!Number.isFinite(line.confidence)||line.confidence<80,label=this.element('label',`Line ${index+1} · ${Number.isFinite(line.confidence)?Math.round(line.confidence)+'% recognition confidence':'confidence unavailable'}${uncertain?' · review carefully':''}`);label.classList.toggle('ocr-uncertain',uncertain);const input=this.element('input');input.dataset.ocrLine=String(index);input.type='text';input.maxLength=2000;input.value=line.text;input.setAttribute('aria-label',`OCR page ${record.index+1} line ${index+1}`);input.onfocus=()=>{const b=line.bbox;Object.assign(position.style,{left:b.x0/record.width*100+'%',top:b.y0/record.height*100+'%',width:(b.x1-b.x0)/record.width*100+'%',height:(b.y1-b.y0)/record.height*100+'%'});position.hidden=false;requestAnimationFrame(()=>{if(this.closed||!position.isConnected||position.hidden)return;const frame=this.dialog.querySelector('.ocr-scan-frame'),top=position.offsetTop,bottom=top+position.offsetHeight;if(top<frame.scrollTop)frame.scrollTop=Math.max(0,top-12);else if(bottom>frame.scrollTop+frame.clientHeight)frame.scrollTop=bottom-frame.clientHeight+12;});};input.oninput=()=>{line.text=input.value;this.invalidate();};label.append(input);container.append(label);});
+    record.lines.forEach((line,index)=>{const uncertain=!Number.isFinite(line.confidence)||line.confidence<80,label=this.element('label',`Line ${index+1} · ${Number.isFinite(line.confidence)?Math.round(line.confidence)+'% recognition confidence':'confidence unavailable'}${uncertain?' · review carefully':''}`);label.classList.toggle('ocr-uncertain',uncertain);const input=this.element('input');input.dataset.ocrLine=String(index);input.type='text';input.maxLength=2000;input.value=line.text;input.setAttribute('aria-label',`OCR page ${record.index+1} line ${index+1}`);input.onfocus=()=>{const b=line.bbox;Object.assign(position.style,{left:b.x0/record.width*100+'%',top:b.y0/record.height*100+'%',width:(b.x1-b.x0)/record.width*100+'%',height:(b.y1-b.y0)/record.height*100+'%'});position.hidden=false;requestAnimationFrame(()=>{if(this.closed||!position.isConnected||position.hidden)return;const frame=this.q('.ocr-scan-frame'),top=position.offsetTop,bottom=top+position.offsetHeight;if(top<frame.scrollTop)frame.scrollTop=Math.max(0,top-12);else if(bottom>frame.scrollTop+frame.clientHeight)frame.scrollTop=bottom-frame.clientHeight+12;});};input.oninput=()=>{line.text=input.value;this.invalidate();};label.append(input);container.append(label);});
 
   }
 
@@ -163,9 +164,9 @@ export class OcrWorkspace {
 
     const items=this.uncertainLines();if(!items.length){this.status.textContent='No lines were flagged by the confidence estimate. Review all text against the scan anyway.';return;}
 
-    const active=document.activeElement,currentPage=Number(this.dialog.querySelector('[data-review-page]').value),last=this.uncertainCursor,current=active?.dataset.ocrLine!==undefined?items.findIndex(item=>item.record.index===currentPage&&item.index===Number(active.dataset.ocrLine)):last?items.findIndex(item=>item.record.index===last.page&&item.index===last.line):-1,item=items[(current+1)%items.length];
+    const active=document.activeElement,currentPage=Number(this.q('[data-review-page]').value),last=this.uncertainCursor,current=active?.dataset.ocrLine!==undefined?items.findIndex(item=>item.record.index===currentPage&&item.index===Number(active.dataset.ocrLine)):last?items.findIndex(item=>item.record.index===last.page&&item.index===last.line):-1,item=items[(current+1)%items.length];
 
-    this.dialog.querySelector('[data-review-page]').value=String(item.record.index);await this.showRecord();this.check();this.uncertainCursor={page:item.record.index,line:item.index};this.dialog.querySelector(`[data-ocr-line="${item.index}"]`)?.focus();this.status.textContent=`Flagged line ${(current+1)%items.length+1} of ${items.length} · page ${item.record.index+1}, line ${item.index+1}. Confidence is an estimate; compare with the highlighted scan location.`;
+    this.q('[data-review-page]').value=String(item.record.index);await this.showRecord();this.check();this.uncertainCursor={page:item.record.index,line:item.index};this.q(`[data-ocr-line="${item.index}"]`)?.focus();this.status.textContent=`Flagged line ${(current+1)%items.length+1} of ${items.length} · page ${item.record.index+1}, line ${item.index+1}. Confidence is an estimate; compare with the highlighted scan location.`;
 
   }
 
@@ -173,7 +174,7 @@ export class OcrWorkspace {
 
     this.cancelled=false;this.invalidate();this.job=pdfJob({action:'ocr',bytes:this.file.bytes,recognized:this.records},p=>{this.status.textContent=`${p.stage}: ${p.current} of ${p.total}…`;});const output=await this.job.promise;this.check();
 
-    const panel=this.dialog.querySelector('.ocr-output');panel.querySelector('b').textContent='Checking the searchable copy…';panel.hidden=false;this.previewReader=new PdfReader(this.dialog.querySelector('.ocr-output-reader'),{...this.file,id:null,bytes:output.bytes},{announce:this.announce,element:this.element,icon:this.icon});await this.previewReader.open();this.check();
+    const panel=this.q('.ocr-output');panel.querySelector('b').textContent='Checking the searchable copy…';panel.hidden=false;this.host?.showProof(true);this.previewReader=new PdfReader(this.q('.ocr-output-reader'),{...this.file,id:null,bytes:output.bytes},{announce:this.announce,element:this.element,icon:this.icon});await this.previewReader.open();this.check();
 
     if(!this.previewReader.doc||this.previewReader.doc.numPages!==this.reader.doc.numPages)throw new Error('The output could not be reopened. Nothing was saved.');
 
@@ -219,11 +220,13 @@ export class OcrWorkspace {
 
     for(let index=0;index<this.reader.doc.numPages;index++){const record=this.records.find(r=>r.index===index);let lines;if(record)lines=record.lines.map(l=>l.text).filter(Boolean);else {const page=await this.reader.doc.getPage(index+1);lines=this.reader.visualLines(await page.getTextContent(),page.getViewport({scale:1}));}content.push({type:'heading',attrs:{level:2},content:[{type:'text',text:`Source page ${index+1}`}]});for(const line of lines){chars+=line.length;if(chars>2*1024*1024)throw new Error('Recognized document text exceeds the 2 MB editor limit.');content.push({type:'paragraph',content:[{type:'text',text:line}]});}}
 
-    if(!chars)throw new Error('No reviewed text remains.');this.dialog.close();await this.onEdit({type:'doc',content});
+    if(!chars)throw new Error('No reviewed text remains.');this.finish();await this.onEdit({type:'doc',content});
 
   }
 
-  dispose(){if(this.closed)return;this.closed=true;this.session?.dispose();this.job?.cancel();this.renderTask?.cancel();this.comparison?.dispose();this.previewReader?.dispose();if(this.imageUrl)URL.revokeObjectURL(this.imageUrl);this.dialog.remove();this.records=[];this.output=null;}
+  finish(){if(this.inline)this.dispose();else this.dialog.close();}
+ q(selector){return this.dialog?.querySelector(selector)||this.host?.frame?.querySelector(selector)||null;}
+ dispose(){if(this.closed)return;this.host?.dispose();this.closed=true;this.session?.dispose();this.job?.cancel();this.renderTask?.cancel();this.comparison?.dispose();this.previewReader?.dispose();if(this.imageUrl)URL.revokeObjectURL(this.imageUrl);this.dialog.remove();this.records=[];this.output=null;}
 
 }
 

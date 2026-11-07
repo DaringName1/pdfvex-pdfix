@@ -1,21 +1,21 @@
-# Changelog
+# Changelog — PDFVEX / PDFix
 
-All notable changes to PDFix are listed here. Versions follow [Semantic Versioning](https://semver.org/); beta
-releases are numbered `0.1.0-beta.N`.
+PDFVEX is the new name for PDFix. Beta 3 still shows PDFix inside the app; the name changes there in Update 3.
 
-## 0.1.0-beta.1 — planned for October 31, 2026 (not released yet)
+## 0.1.0-beta.3
 
-First public beta, **Windows 10 and 11 (64-bit) only**. A test version: keep a copy of important files.
+Beta 3 combines Updates 1 and 2 for 64-bit Windows 10 and 11. Beta 2 was skipped.
 
-### What PDFix does
-- Read, search and mark up PDFs and large drawings; fill and sign forms; edit PDF text; organize, split and combine
-  pages; redact; protect with passwords; make scans searchable (local OCR); compress; compare drawing revisions;
-  measure on drawings; convert to and from Word, Excel, pictures and text.
-- A Word-style document editor that opens and saves Word documents and exports PDF.
-- Works offline. No account, no ads, no tracking. All core PDF features are free.
+- Open files whose names or folders contain accents, including año, número and José.
+- Print, Combine PDFs, Bookmarks and Review blank pages work beside the open document.
+- Home’s **Fill and sign** returns to the current page when the file is already open, keeps the draft, and saves a filled copy in one step. Form fields follow their character limits.
+- Supported Adobe Reader-extended forms, including English and Spanish IRS examples, can be filled and commented on in a new copy.
+- On protected PDFs that open without a password, permitted Fill and Comment edits save copies with the original encryption and permissions.
+- Supported PDF editing tools accept English and Spanish text and explain when entered characters are unsupported. Spanish scan recognition was verified.
+- Some PDFs that previously stalled now open. Damaged or unsupported pages give clearer messages.
 
-### Known limitations
-- No macOS or Linux version yet.
-- The installer is not code-signed: Windows may show "Windows protected your PC" (choose More info → Run anyway).
-- No automatic updates: download new versions from GitHub Releases.
-- See the release notes for the full list of known issues.
+See the [Beta 3 release notes](docs/release/RELEASE-NOTES-0.1.0-beta.3.md) and [known issues](KNOWN-ISSUES.md).
+
+## 0.1.0-beta.1
+
+First Windows beta. See the [Beta 1 release notes](docs/release/RELEASE-NOTES-0.1.0-beta.1.md) for the original scope and limitations.

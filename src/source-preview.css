@@ -22,3 +22,11 @@
 .source-editor-mode .source-editor{padding:0}
 .source-preview-nav[hidden]{display:none}
 .source-preview-panel>.source-preview-nav[hidden]+*{margin-top:0}
+
+@media(min-width:700px) and (max-width:1000px) and (max-height:650px){
+ .source-editor-mode[data-source-view=split] .editor-canvas{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:minmax(0,1fr);
+  gap:12px;
+ }
+}

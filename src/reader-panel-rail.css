@@ -7,4 +7,7 @@
 
 @media(max-height:650px){.reader-panel-rail{gap:0;padding-top:2px;padding-bottom:2px}.reader-panel-rail>button{min-height:28px;height:28px;padding:4px}.reader-panel-rail>button svg{width:18px;height:18px}}
 
-@media(max-height:650px){body:not([data-ui-scale="1"]) #app .reader-panel-rail>button{min-height:28px}}
+@media(max-height:650px){
+ .reader-panel-rail{scrollbar-width:thin}
+ body:not([data-ui-scale="1"]) #app .reader-panel-rail>button{min-height:24px;padding-block:2px}
+}

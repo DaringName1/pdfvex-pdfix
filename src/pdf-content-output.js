@@ -1,4 +1,7 @@
+import {assertEditablePdfIdentity} from './pdf-page-identity.js';
+import {withPdfStructureErrors} from './pdf-structure-errors.js';
 import {layoutRichText,richFontName} from './pdf-content-rich-layout.js';
+import {removeReaderUsageRights,removedReaderUsageRights} from './pdf-reader-usage-rights.js';
 import {inspectPdfMetadata,writePdfMetadata} from './pdf-metadata.js';
 import {PDFDocument,PDFName,PDFDict,PDFArray,PDFNumber,PDFRawStream,StandardFonts,rgb,pushGraphicsState,popGraphicsState,concatTransformationMatrix} from 'pdf-lib';
 import {validateContent,contentPng,wrapContentText,CONTENT_FONTS} from './pdf-content-model.js';
@@ -9,7 +12,9 @@ import {imageDigest,verifyImagesOnPaths,createFormEditSession,sealFormEditSessio
 const n=PDFName.of,MAX=100*1024*1024;
 async function load(bytes){
   if(!bytes?.length||bytes.length>MAX)throw new Error('Choose a PDF under 100 MB.');let doc;try{doc=await PDFDocument.load(bytes,{updateMetadata:false,throwOnInvalidObject:true});}catch{throw new Error('This PDF cannot be edited here. Open an authorized unprotected copy, or obtain a fresh file.');}
-  if(doc.isEncrypted||doc.getPageCount()>500||doc.catalog.get(n('Perms')))throw new Error('Protected/certified PDFs and more than 500 pages cannot be edited here.');
+  if(doc.isEncrypted||doc.getPageCount()>500)throw new Error('Protected/certified PDFs and more than 500 pages cannot be edited here.');
+  assertEditablePdfIdentity(doc);
+  removeReaderUsageRights(doc);
   const objects=doc.context.enumerateIndirectObjects();if(objects.length>100000)throw new Error('This PDF exceeds the supported object count.');
   for(const [,object]of objects)if(object instanceof PDFDict&&(object.get(n('ByteRange'))||String(doc.context.lookup(object.get(n('Type'))))==='/Sig'||String(doc.context.lookup(object.get(n('FT'))))==='/Sig'&&object.get(n('V'))))throw new Error('A digitally signed PDF needs an unsigned original for editing.');
   if(doc.catalog.lookupMaybe(n('AcroForm'),PDFDict)?.get(n('XFA')))throw new Error('Dynamic XFA forms need a regular PDF copy.');return doc;
@@ -24,9 +29,9 @@ const transform=p=>{const [l,b,r,t]=p.box;return p.rotation===90?[0,1,-1,0,r,b]:
 function isolateAdditionPages(doc,objects){
   for(const index of new Set(objects.map(item=>item.page))){const page=doc.getPage(index),source=page.node.Resources(),resources=source?source.clone(doc.context):doc.context.obj({});for(const key of ['Font','XObject','ExtGState']){const dictionary=resources.lookupMaybe(n(key),PDFDict);if(dictionary)resources.set(n(key),dictionary.clone(doc.context));}page.node.set(n('Resources'),resources);const contents=page.node.Contents();if(contents instanceof PDFArray)page.node.set(n('Contents'),contents.clone(doc.context));const annotations=page.node.Annots();if(annotations instanceof PDFArray)page.node.set(n('Annots'),annotations.clone(doc.context));}
 }
-export async function inspectContentPdf(bytes){const doc=await load(bytes),sourceSha256=await imageDigest(bytes),text=await originalText(doc,sourceSha256),images=await originalImages(doc,sourceSha256);return {sourceSha256,metadata:inspectPdfMetadata(doc),pages:pagesOf(doc),pageCount:doc.getPageCount(),originalText:text.candidates.map(({id,page,text,font,size,encoding,sourceFont,formPath})=>({id,page,text,font,size,encoding,formPath,...(encoding==='source-unicode'?{glyphCount:sourceFont.observed.size,provenGlyphCount:sourceFont.expansion?.characters??0,additionalGlyphCount:[...(sourceFont.expansion?.proven?.keys?.()??[])].filter(character=>!sourceFont.observed.has(character)).length,glyphExpansionScope:sourceFont.expansion?.scope??null}:{})})),originalImages:images.images.map(({id,page,name,width,height,path,nested})=>({id,page,name,width,height,path,nested})),imageLimited:images.limited,textLimited:text.limited};}
-export async function previewOriginalImage(bytes,id){return originalImagePreview(await load(bytes),id,await imageDigest(bytes));}
-export async function contentPdf(bytes,draft,progress=()=>{}){
+async function inspectContentPdfInternal(bytes){const doc=await load(bytes),sourceSha256=await imageDigest(bytes),text=await originalText(doc,sourceSha256),images=await originalImages(doc,sourceSha256);return {usageRightsRemoved:removedReaderUsageRights(doc),sourceSha256,metadata:inspectPdfMetadata(doc),pages:pagesOf(doc),pageCount:doc.getPageCount(),originalText:text.candidates.map(({id,page,text,font,size,encoding,sourceFont,formPath})=>({id,page,text,font,size,encoding,formPath,...(encoding==='source-unicode'?{glyphCount:sourceFont.observed.size,provenGlyphCount:sourceFont.expansion?.characters??0,additionalGlyphCount:[...(sourceFont.expansion?.proven?.keys?.()??[])].filter(character=>!sourceFont.observed.has(character)).length,glyphExpansionScope:sourceFont.expansion?.scope??null}:{})})),originalImages:images.images.map(({id,page,name,width,height,path,nested})=>({id,page,name,width,height,path,nested})),imageLimited:images.limited,textLimited:text.limited};}
+async function previewOriginalImageInternal(bytes,id){return originalImagePreview(await load(bytes),id,await imageDigest(bytes));}
+async function contentPdfInternal(bytes,draft,progress=()=>{}){
   const doc=await load(bytes),pages=pagesOf(doc);validateContent(draft,pages);const sourceSha256=draft.imageReplacements?.length||draft.replacements?.length?await imageDigest(bytes):null,originals=draft.imageReplacements?.length?(await originalImages(doc,sourceSha256)).images:[],fonts=new Map(),images=new Map(),inspection=draft.replacements?.length?await originalText(doc,sourceSha256):null,fontProofs=[],proved=new Set(),proofCache=new WeakMap();isolateAdditionPages(doc,draft.objects);let needsForms=!!draft.imageReplacements?.length;
   if(inspection){const candidates=new Map(inspection.candidates.map(item=>[item.id,item]));for(const edit of draft.replacements){const candidate=candidates.get(edit.id);if(!candidate)throw new Error('A source text run is no longer available.');if(candidate.formPath.length)needsForms=true;const key=JSON.stringify([candidate.page,candidate.formPath,candidate.fontResource]);if(proved.has(key))continue;proved.add(key);const font=originalTextResources(doc,candidate.page,candidate.formPath)?.lookupMaybe(n('Font'),PDFDict)?.lookupMaybe(n(candidate.fontResource),PDFDict);if(!font)throw new Error('A source text font is unavailable.');if(!proofCache.has(font))proofCache.set(font,await originalFontProof(doc,font));fontProofs.push({page:candidate.page,formPath:[...candidate.formPath],resource:candidate.fontResource,sha256:proofCache.get(font)});}}
   const formSession=needsForms?await createFormEditSession(doc):null,expected=inspection?await replaceOriginalText(doc,draft.replacements,inspection,formSession):[];
@@ -59,3 +64,9 @@ export async function contentPdf(bytes,draft,progress=()=>{}){
   for(const item of expected){if(!item.image||item.resourcePath)continue;const page=reopened.getPage(item.page),resources=page.node.Resources(),objects=resources.lookupMaybe(n('XObject'),PDFDict);const found=objects?.entries().some(([,ref])=>{if(ref.toString()!==item.image.ref)return false;const stream=reopened.context.lookup(ref,PDFRawStream);return stream.dict.lookup(n('Width'),PDFNumber).asNumber()===item.image.width&&stream.dict.lookup(n('Height'),PDFNumber).asNumber()===item.image.height;});if(!found)throw new Error('An added image could not be reopened in the copy.');}
   return {bytes:output,pageCount:pages.length,pages,expected,metadata:draft.metadata??{}};
 }
+
+export const inspectContentPdf=(...args)=>withPdfStructureErrors(()=>inspectContentPdfInternal(...args));
+
+export const previewOriginalImage=(...args)=>withPdfStructureErrors(()=>previewOriginalImageInternal(...args));
+
+export const contentPdf=(...args)=>withPdfStructureErrors(()=>contentPdfInternal(...args));

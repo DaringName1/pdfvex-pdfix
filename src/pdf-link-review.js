@@ -1,3 +1,4 @@
+import {ReaderPageToolHost} from './pdf-reader-page-tool-host.js';
 import './pdf-link-review.css';
 import {navigatePdfDestination,resolvePdfDestination} from './pdf-destination.js';
 const MAX_ANNOTATIONS=5000,MAX_LINKS=100,MAX_URL=4096,MAX_BYTES=100*1024*1024;
@@ -20,12 +21,12 @@ function cancellable(promise,signal){return new Promise((resolve,reject)=>{
 });}
 export class PdfLinkReview{
   constructor(reader,{reviewExternal,cancelExternal}={}){this.reader=reader;this.reviewExternal=reviewExternal;this.cancelExternal=cancelExternal;this.disposed=false;this.generation=0;}
-  current(generation){return !this.disposed&&!this.reader.disposed&&this.dialog?.open&&this.generation===generation&&this.reader.doc===this.document&&this.reader.file===this.source&&this.reader.pageNumber===this.page;}
+  current(generation){return !this.disposed&&!this.reader.disposed&&(this.inline?!!this.dialog?.isConnected:this.dialog?.open)&&this.generation===generation&&this.reader.doc===this.document&&this.reader.file===this.source&&this.reader.pageNumber===this.page;}
   async show(){
     if(this.disposed||this.reader.disposed||!this.reader.doc)return;
     this.close();this.document=this.reader.doc;this.source=this.reader.file;this.page=this.reader.pageNumber;const generation=++this.generation;
     this.controller=new AbortController();this.trigger=document.activeElement;
-    const dialog=node('dialog',undefined,'pdf-link-review');this.dialog=dialog;
+    this.inline=!!this.reader?.hasToolStrip&&!!this.reader.paper?.isConnected;const dialog=node(this.inline?'section':'dialog',undefined,'pdf-link-review'+(this.inline?' link-review-inline':''));this.dialog=dialog;
     const heading=node('h2',`Links on page ${this.page}`);heading.id='pdf-links-'+crypto.randomUUID();dialog.setAttribute('aria-labelledby',heading.id);
     const title=node('p',readable(this.source.name).slice(0,220),'pdf-link-source');
     const policy=node('p','Destinations are supplied by the PDF. Reading this list does not open websites, run actions or export attachments. Browser opening requires a separate Windows review of the original annotation.','pdf-link-policy');
@@ -34,7 +35,7 @@ export class PdfLinkReview{
     this.list=node('ol',undefined,'pdf-link-list');this.list.setAttribute('aria-label','Link destinations');
     const actions=node('div',undefined,'pdf-link-actions'),close=node('button','Close','primary');close.type='button';close.onclick=()=>this.close();actions.append(close);
     dialog.append(heading,title,policy,filterLabel,this.status,this.list,actions);document.body.append(dialog);
-    dialog.addEventListener('close',()=>{if(this.dialog===dialog)this.close();},{once:true});this.filter.oninput=()=>this.filterList();dialog.showModal();close.focus();
+    this.filter.oninput=()=>this.filterList();if(this.inline){dialog.remove();this.host=new ReaderPageToolHost(this.reader,{panel:dialog,label:'Links in this PDF',allowQuick:true,onEscape:()=>this.close()});}else{dialog.addEventListener('close',()=>{if(this.dialog===dialog)this.close();},{once:true});dialog.showModal();}close.focus();
     try{
       const signal=this.controller.signal,page=await cancellable(this.document.getPage(this.page),signal);
       const annotations=await cancellable(page.getAnnotations({intent:'display'}),signal);if(!this.current(generation))return;
@@ -107,7 +108,7 @@ export class PdfLinkReview{
     this.generation++;this.controller?.abort();this.controller=null;
     if(this.pendingRequest&&this.cancelExternal){const request=this.pendingRequest;Promise.resolve().then(()=>this.cancelExternal(request)).catch(()=>{});}
     this.pendingRequest=null;this.busy=false;const dialog=this.dialog;this.dialog=null;
-    if(dialog){if(dialog.open)dialog.close();dialog.remove();if(this.trigger?.isConnected&&!this.reader.disposed)this.trigger.focus();}
+    if(dialog){if(dialog.open)if(this.inline){this.host?.dispose();this.host=null;}else dialog.close();dialog.remove();if(this.trigger?.isConnected&&!this.reader.disposed)this.trigger.focus();}
     this.rows=null;
   }
   dispose(){this.disposed=true;this.close();this.reader=null;}
